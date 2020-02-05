@@ -69,3 +69,5 @@ gem 'html2slim' #コマンドを使用して、htmlをslimに変換できる
 
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
+
+gem 'font-awesome-sass', '~> 5.12.0'
