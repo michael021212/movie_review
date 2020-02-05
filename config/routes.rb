@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  get 'home/top'
+  get 'home/about'
   root 'movies#index'
-  get 'movies/show'
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :movies, only: [:index, :show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
