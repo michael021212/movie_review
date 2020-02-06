@@ -2,15 +2,16 @@ header.navbar.navbar-fixed-top.navbar-inverse
   div.container
     = link_to "Movie Review", root_path
     nav
-      ul
-        li= link_to "映画を探す", movies_path
-        li= link_to "レビューを探す"
-        li= link_to "ユーザーを探す", users_path
-      - if user_signed_in?
+      .row
         ul
-          li= current_user.name
-          li= link_to "マイページ", user_path(current_user)
-          li= link_to "プロフィール編集", edit_user_path(current_user)
-          li= link_to "ログアウト", destroy_user_session_path, method: :delete
-      - else
-        = link_to "ログイン", user_session_path
+          li= link_to "映画を探す", movies_path
+          li= link_to "レビューを探す"
+          li= link_to "ユーザーを探す", users_path
+        - if user_signed_in?
+          ul
+            li= current_user.name
+            li= link_to "マイページ", user_path(current_user)
+            li= link_to "プロフィール編集", edit_user_path(current_user)
+            li= link_to "ログアウト", destroy_user_session_path, method: :delete
+        - else
+          = link_to "ログイン", user_session_path
