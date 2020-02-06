@@ -1,7 +1,23 @@
-h1 Movies#index
-p Find me in app/views/movies/index.html.slim
-= link_to 'ログアウト', destroy_user_session_path, method: :delete
+h1 映画を探す
+p ジャンルで探す
+ul
+  li.genre-item アクション
+  li.genre-item サスペンス
+  li.genre-item ホラー
 
-h1.jquery Hello jQuery!
+p タグで探す
+ul
+  li.genre-item 泣ける
+  li.genre-item 気分悪くなる
 
-div#app
+/ <% @genres.each do |genre| %>
+/     <tr>
+/       <td scope="row" class="borderless"><%= link_to "#{genre.name}", controller: "items", action: "index", genre_id: genre.id %></td>
+/     </tr>
+/ <% end %>
+
+
+
+
+
+div.flex#app
