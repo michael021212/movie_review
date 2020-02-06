@@ -16,7 +16,7 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+
 //= require_tree .
 
 API_KEY = "3a2bad199fe90fb84b52bdca279bf1bb";
