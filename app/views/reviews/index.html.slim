@@ -1,2 +1,12 @@
-h1 Reviews#index
-p Find me in app/views/reviews/index.html.slim
+h1 レビューを探す
+- @reviews.each do |review|
+  = link_to review_path(review)
+    p= review.movie_id
+    p= review.user_id
+    p= review.total_score
+    p= review.story_score
+    p= review.direction_score
+    p= review.acting_score
+    p= review.visual_score
+    p= review.music_score
+    p= review.body

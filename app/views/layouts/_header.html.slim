@@ -5,7 +5,7 @@ header.navbar.navbar-fixed-top.navbar-inverse
       .row
         ul
           li= link_to "映画を探す", movies_path
-          li= link_to "レビューを探す"
+          li= link_to "レビューを探す", reviews_path
           li= link_to "ユーザーを探す", users_path
         - if user_signed_in?
           ul
