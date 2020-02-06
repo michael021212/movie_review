@@ -1,2 +1,4 @@
-h1 Users#index
-p Find me in app/views/users/index.html.slim
+h1 ユーザーを探す
+- @users.each do |user|
+  = link_to user_path(user)
+    p= user.name

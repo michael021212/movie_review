@@ -1,2 +1,12 @@
 h1 Reviews#show
-p Find me in app/views/reviews/show.html.slim
+p= @review.movie_id
+p= @review.user_id
+p= @review.total_score
+p= @review.story_score
+p= @review.direction_score
+p= @review.acting_score
+p= @review.visual_score
+p= @review.music_score
+p= @review.body
+- if @review.user_id == current_user.id
+  = link_to '編集', edit_review_path(@review)

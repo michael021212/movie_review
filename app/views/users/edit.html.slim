@@ -1,6 +1,5 @@
 h1 Users#edit
-p Find me in app/views/users/edit.html.slim
-= form_with model: @user, locale: :true do |f|
+= form_with model: @user, local: true do |f|
   .field
     = f.label :name, "名前"
     br

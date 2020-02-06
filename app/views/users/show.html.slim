@@ -1,2 +1,5 @@
 h1 Users#show
-p Find me in app/views/users/show.html.slim
+p= @user.name
+p= @user.intro
+- if @user == current_user
+  =link_to '編集', edit_user_path(@user)
