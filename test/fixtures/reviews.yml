@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie_id: 1
+  user_id: 1
+  total_score: 1
+  story_score: 1
+  direction_score: 1
+  acting_score: 1
+  visual_score: 1
+  music_score: 1
+  body: MyText
+
+two:
+  movie_id: 1
+  user_id: 1
+  total_score: 1
+  story_score: 1
+  direction_score: 1
+  acting_score: 1
+  visual_score: 1
+  music_score: 1
+  body: MyText
