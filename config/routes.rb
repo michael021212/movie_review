@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'reviews/index'
+  get 'reviews/show'
+  get 'reviews/new'
+  get 'reviews/create'
+  get 'reviews/update'
+  get 'reviews/destroy'
   get 'home/top'
   get 'home/about'
   root 'movies#index'
