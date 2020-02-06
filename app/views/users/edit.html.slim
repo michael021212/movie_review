@@ -1,0 +1,30 @@
+h1 Users#edit
+p Find me in app/views/users/edit.html.slim
+= form_with model: @user, locale: :true do |f|
+  .field
+    = f.label :name, "名前"
+    br
+    = f.text_field :name
+
+  .field
+    = f.label :email, "メールアドレス"
+    br
+    = f.email_field :email
+
+  .field
+    = f.label :birthday, "生まれ年(任意)"
+    br
+    = f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10 }
+
+  .field
+    = f.label :sex, "性別(任意)"
+    br
+    = f.select :sex, User.sexes.keys, :selected=>@user.sex
+
+  .field
+    = f.label :intro, "自己紹介"
+    br
+    = f.text_area :intro
+
+  .actions
+    = f.submit "更新"
