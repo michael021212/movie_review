@@ -69,7 +69,7 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&
 
       const total_score = document.createElement('p');
       total_score.setAttribute('class', 'total_score');
-      total_score.textContent = `総合スコア ${gon.total_score}`;
+      total_score.textContent = `平均スコア ${gon.total_score}`;
 
       container.appendChild(div);
       div.appendChild(row);
@@ -90,6 +90,7 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&
 // console.log(param);
 
 movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
+total_score_avg = gon.total_score_avg //moviesコントローラーで定義した変数を代入
 fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${KEY}&language=en-US`)
   .then(response => {
     return response.json();
@@ -125,11 +126,16 @@ fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${KEY}&language=en
     post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
     post.textContent = 'レビュー';
 
+    const total_score = document.createElement('p');
+    total_score.setAttribute('class', 'total_score');
+    total_score.textContent = `平均スコア ${total_score_avg}`;
+
     container.appendChild(row);
     row.appendChild(poster);
     row.appendChild(title);
     row.appendChild(genres);
     row.appendChild(post);
+    row.appendChild(total_score);
   })
   .catch(error => {
     //エラー発生時の処理
