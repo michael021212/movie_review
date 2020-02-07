@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = Review.new
+    @review = Review.new(movie_id: params[:movie_id], user_id: current_user.id)
   end
 
   def create

@@ -78,3 +78,5 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
+
+gem 'gon' # コントローラーで定義した変数をJSで使えるようにする
