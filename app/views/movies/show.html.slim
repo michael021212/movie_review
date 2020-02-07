@@ -2,3 +2,11 @@ h1 Movies#show
 p Find me in app/views/movies/show.html.slim
 
 div id="#{@movie_id}"
+
+/search.html.slimと同じ
+- @reviews.each do |review|
+  = link_to review_path(review)
+    p= "movie_id #{review.movie_id}"
+    p= "ユーザーid #{review.user_id}"
+    p= "総合スコア #{review.total_score}"
+    p= review.body

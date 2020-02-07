@@ -11,6 +11,8 @@ class MoviesController < ApplicationController
 
     total_scores = Review.where(movie_id: params[:id]).pluck(:total_score) # movie_idが同一のreviewを探してtotal_scoreのみの配列を作る
     gon.total_score_avg = total_scores.sum.fdiv(total_scores.length) # 合計を個数で割って平均を出す
+
+    @reviews = Review.where(movie_id: params[:id])
   end
 
   # ajaxで送られたdataの処理
