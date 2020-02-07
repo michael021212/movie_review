@@ -19,19 +19,19 @@
 
 //= require_tree .
 
-API_KEY = "3a2bad199fe90fb84b52bdca279bf1bb";
 
 //jQuery動くか実験 html => h1.jquery Hello jQuery!
 // $(document).ready(function () {
-//   $('.jquery').mouseover(function(){
-//     $(this).css('color','red');
-//   });
-//   $('.jquery').mouseout(function(){
-//     $(this).css('color','black');
-//   });
-// });
+  //   $('.jquery').mouseover(function(){
+    //     $(this).css('color','red');
+    //   });
+    //   $('.jquery').mouseout(function(){
+      //     $(this).css('color','black');
+      //   });
+      // });
 
-fetch('https://api.themoviedb.org/3/movie/popular?api_key=3a2bad199fe90fb84b52bdca279bf1bb&language=en-US&page=1')
+KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
+fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&page=1`)
   .then(response => {
     return response.json();
   })
@@ -41,9 +41,18 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=3a2bad199fe90fb84b52bd
 
     data.results.map(movie => {
       container = document.getElementById('app');
+
+      const div = document.createElement('div');
+      div.setAttribute('class', 'item');
+
       const row = document.createElement('a');
-      row.setAttribute('class', 'item');
+      row.setAttribute('class', 'set');
       row.setAttribute('href', `/movies/${movie.id}`);
+
+      const poster = document.createElement('img');
+      poster.setAttribute('width', '100%');
+      poster.setAttribute('alt', 'サンプル');
+      poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`;
 
       const title = document.createElement('p');
       title.setAttribute('class', 'title');
@@ -53,15 +62,22 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=3a2bad199fe90fb84b52bd
       genre_ids.setAttribute('class', 'genre_ids');
       genre_ids.textContent = movie.genre_ids;
 
-      const poster = document.createElement('img');
-      poster.setAttribute('width', '100%');
-      poster.setAttribute('alt', 'サンプル');
-      poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`;
+      const post = document.createElement('a');
+      post.setAttribute('class', 'post');
+      post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+      post.textContent = 'レビュー';
 
-      container.appendChild(row);
+      const total_score = document.createElement('p');
+      total_score.setAttribute('class', 'total_score');
+      total_score.textContent = `総合スコア ${gon.total_score}`;
+
+      container.appendChild(div);
+      div.appendChild(row);
       row.appendChild(poster);
       row.appendChild(title);
       row.appendChild(genre_ids);
+      div.appendChild(post);
+      div.appendChild(total_score);
     })
   })
   .catch(error => {
@@ -73,16 +89,8 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=3a2bad199fe90fb84b52bd
 // var param = location.search
 // console.log(param);
 
-
-// function getId(ele){
-//   var id_value = ele.id; // eleのプロパティとしてidを取得
-//   console.log(id_value); //「id01」
-// }
-
-// movie_id = document.getElementById('767');
-// movie_id = 767
 movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
-fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=3a2bad199fe90fb84b52bdca279bf1bb&language=en-US`)
+fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${KEY}&language=en-US`)
   .then(response => {
     return response.json();
   })
@@ -101,6 +109,9 @@ fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=3a2bad199fe90fb84b
     const row = document.createElement('div');
     row.setAttribute('class', 'item');
 
+    const poster = document.createElement('img');
+    poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
+
     const title = document.createElement('p');
     title.setAttribute('class', 'title');
     title.textContent = data.title;
@@ -109,13 +120,16 @@ fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=3a2bad199fe90fb84b
     genres.setAttribute('class', 'genres');
     genres.textContent = data.genres;
 
-    const poster = document.createElement('img');
-    poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
+    const post = document.createElement('a');
+    post.setAttribute('class', 'post');
+    post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
+    post.textContent = 'レビュー';
 
     container.appendChild(row);
     row.appendChild(poster);
     row.appendChild(title);
     row.appendChild(genres);
+    row.appendChild(post);
   })
   .catch(error => {
     //エラー発生時の処理
