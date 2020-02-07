@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search', to: 'search#search'
   get 'home/top'
   get 'home/about'
   # get '/movies/movie_data', to: 'movies#movie_data' ajax送信先のルーティング
