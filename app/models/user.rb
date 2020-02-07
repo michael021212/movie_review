@@ -26,4 +26,19 @@ class User < ApplicationRecord
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
   end
+
+  # name検索機能
+  def self.search(search, search_type)
+    case search_type
+    when '1' # 完全一致
+      User.where(['name LIKE ?', "#{search}"])
+    when '2' # 前方一致
+      User.where(['name LIKE ?', "#{search}%"])
+    when '3' # 後方一致
+      User.where(['name LIKE ?', "%#{search}"])
+    else # 部分一致
+      User.where(['name LIKE ?', "%#{search}%"])
+    end
+  end
+
 end

@@ -1,5 +1,5 @@
 h1 Users#show
-p= @user.name
-p= @user.intro
+p= "名前 #{@user.name}"
+p= "プロフィール #{@user.intro}"
 - if @user == current_user
   =link_to '編集', edit_user_path(@user)
