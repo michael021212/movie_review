@@ -10,3 +10,57 @@ div id="#{@movie_id}"
     p= "ユーザーid #{review.user_id}"
     p= "総合スコア #{review.total_score}"
     p= review.body
+
+javascript:
+  movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
+  total_score_avg = gon.total_score_avg //moviesコントローラーで定義した変数を代入
+  fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${gon.TMDb_KEY}&language=ja-JP`)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+
+    // ルーティングで定義したmoviesコントローラにapiのdataを:contentとして送る
+    // $.ajax({
+    //   url: "/movies/movie_data",
+    //   type: "GET",
+    //   data: {content : data},
+    //   datatype: "html",
+    // });
+
+    container = document.getElementById(movie_id);
+    const row = document.createElement('div');
+    row.setAttribute('class', 'item');
+
+    const poster = document.createElement('img');
+    poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
+
+    const title = document.createElement('p');
+    title.setAttribute('class', 'title');
+    title.textContent = data.title;
+
+    const genres = document.createElement('p');
+    genres.setAttribute('class', 'genres');
+    genres.textContent = data.genres.map(genre => { return genre.name });
+
+    const post = document.createElement('a');
+    post.setAttribute('class', 'post');
+    post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
+    post.textContent = 'レビュー';
+
+    const total_score = document.createElement('p');
+    total_score.setAttribute('class', 'total_score');
+    total_score.textContent = `平均スコア ${total_score_avg}`;
+
+    container.appendChild(row);
+    row.appendChild(poster);
+    row.appendChild(title);
+    row.appendChild(genres);
+    row.appendChild(post);
+    row.appendChild(total_score);
+  })
+  .catch(error => {
+    //エラー発生時の処理
+    console.log('error');
+  })
