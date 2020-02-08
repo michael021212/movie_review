@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    gon.total_score = Review.last.total_score # 現状どの映画も同じスコア。indexで映画毎にtotal_scoreの平均を表示する方法分からない
+    gon.total_scores = Review.select(:movie_id, :total_score)
   end
 
   def show
@@ -11,6 +11,8 @@ class MoviesController < ApplicationController
 
     total_scores = Review.where(movie_id: params[:id]).pluck(:total_score) # movie_idが同一のreviewを探してtotal_scoreのみの配列を作る
     gon.total_score_avg = total_scores.sum.fdiv(total_scores.length) # 合計を個数で割って平均を出す
+
+    @reviews = Review.where(movie_id: params[:id])
   end
 
   # ajaxで送られたdataの処理

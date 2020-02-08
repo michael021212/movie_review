@@ -1,12 +1,40 @@
 h1 レビューを探す
-- @reviews.each do |review|
-  = link_to review_path(review)
-    p= review.movie_id
-    p= review.user_id
-    p= review.total_score
-    p= review.story_score
-    p= review.direction_score
-    p= review.acting_score
-    p= review.visual_score
-    p= review.music_score
-    p= review.body
+div.flex
+  - @reviews.each do |review|
+    div
+      = link_to review_path(review)
+        div.m[id="review-#{review.id}"]
+        = review.user.name
+        = review.movie_id
+        br
+        = review.total_score
+        = review.story_score
+        = review.direction_score
+        = review.acting_score
+        = review.visual_score
+        = review.music_score
+        br
+        = review.body
+
+javascript:
+  let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
+  let review_id = gon.review_id // reviewのidの配列
+  for (let i = 0; i < review_id.length; i++) {
+    fetch(`https://api.themoviedb.org/3/movie/${movie_id[i]}?api_key=${gon.TMDb_KEY}&language=ja-JP`) //movie_idを使ってdetailをリクエスト
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      let poster_path = data.poster_path; //data内のポスター画像pathを代入
+      let item = document.getElementById(`review-${review_id[i]}`)
+      //const row = document.createElement('div');
+      //row.setAttribute('class', 'item');
+
+      const poster = document.createElement('img');
+      poster.src = `https://image.tmdb.org/t/p/w200${poster_path}`; //ポスター画像のソース
+
+      item.appendChild(poster);
+      //row.appendChild(poster);
+    })
+
+  }
