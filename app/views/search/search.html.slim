@@ -1,9 +1,8 @@
-h1 Search#search
-p Find me in app/views/search/search.html.slim
+h1 検索結果
 
 - case params[:select]
   - when '1' # 映画 現状検索不可
-
+    div.flex#search_items
   - when '2' # レビューのbody検索結果
     - @reviews.each do |review|
       = link_to review_path(review)
@@ -15,3 +14,54 @@ p Find me in app/views/search/search.html.slim
     - @users.each do |user|
       = link_to user_path(user)
         p= "名前 #{user.name}"
+
+javascript:
+  // titleで検索して表示する
+  KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=${KEY}&query=${gon.search_word}`)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    //取得したJSONデータの処理
+    console.log(data); //cosoleに表示(なくてもok)
+
+    data.results.map(movie => {
+      container = document.getElementById('search_items');
+
+      const div = document.createElement('div');
+      div.setAttribute('class', 'item');
+
+      const row = document.createElement('a');
+      row.setAttribute('class', 'set');
+      row.setAttribute('href', `/movies/${movie.id}`);
+
+      const poster = document.createElement('img');
+      poster.setAttribute('alt', 'サンプル');
+      poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
+
+      const genre_ids = document.createElement('p');
+      genre_ids.setAttribute('class', 'genre_ids');
+      genre_ids.textContent = movie.genre_ids;
+
+      const post = document.createElement('a');
+      post.setAttribute('class', 'post');
+      post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+      post.textContent = 'レビュー';
+
+      const total_score = document.createElement('p');
+      total_score.setAttribute('class', 'total_score');
+      total_score.textContent = `平均スコア ${gon.total_score}`;
+
+      container.appendChild(div);
+      div.appendChild(row);
+      row.appendChild(poster);
+      row.appendChild(genre_ids);
+      div.appendChild(post);
+      div.appendChild(total_score);
+    })
+  })
+  .catch(error => {
+    //エラー発生時の処理
+    console.log('error');
+  });
