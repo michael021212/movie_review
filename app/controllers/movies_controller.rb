@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    gon.total_score = Review.last.total_score # 現状どの映画も同じスコア。indexで映画毎にtotal_scoreの平均を表示する方法分からない
+    gon.total_scores = Review.select(:movie_id, :total_score)
   end
 
   def show

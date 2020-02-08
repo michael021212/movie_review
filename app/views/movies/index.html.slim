@@ -22,7 +22,7 @@ javascript:
     //取得したJSONデータの処理
     console.log(data); //cosoleに表示(なくてもok)
 
-    data.results.map(movie => {
+    data.results.forEach(movie => {
       container = document.getElementById('app');
 
       const div = document.createElement('div');
@@ -47,16 +47,23 @@ javascript:
       const post = document.createElement('a');
       post.setAttribute('class', 'post');
       post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
-      post.textContent = 'レビュー';
+      post.textContent = 'レビューする';
 
       const total_score = document.createElement('p');
       total_score.setAttribute('class', 'total_score');
-      total_score.textContent = `平均スコア ${gon.total_score}`;
+      var initialValue = 0; //reduceのcallbackのaccに、初回は0が入るようにする。書かないと初回には配列の最初の値が入る
+      total_scores = gon.total_scores.filter(total_score => { return total_score["movie_id"] == movie.id }); //movie_idが一致するハッシュを抽出。gon.total_scoreにはmovie_idとtotal_scoreのみの全reviewが入っている
+      total_scores_sum = total_scores.reduce((acc, value) => acc + value["total_score"], initialValue); //抽出したハッシュのtotal_scoreの合計を出す
+      total_scores_avg = total_scores_sum / total_scores.length; //total_scoreの合計を抽出したハッシュの個数で割る
+      if ( Number.isNaN(total_scores_avg)) {
+      total_score.textContent = `レビュー無し`;
+      } else {
+      total_score.textContent = `平均スコア ${total_scores_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
+      }
 
       container.appendChild(div);
       div.appendChild(row);
       row.appendChild(poster);
-      // row.appendChild(title);
       row.appendChild(genre_ids);
       div.appendChild(post);
       div.appendChild(total_score);
@@ -66,7 +73,3 @@ javascript:
     //エラー発生時の処理
     console.log('error');
   });
-
-// URLパラメータ文字列を取得する
-// var param = location.search
-// console.log(param);
