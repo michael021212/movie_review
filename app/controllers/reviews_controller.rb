@@ -2,7 +2,8 @@ class ReviewsController < ApplicationController
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
     @reviews = Review.all
-    gon.b = Review.all.pluck(:movie_id)
+    gon.movie_id = Review.all.pluck(:movie_id)
+    gon.review_id = Review.all.pluck(:id)
   end
 
   def show
