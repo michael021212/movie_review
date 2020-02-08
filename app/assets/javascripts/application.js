@@ -31,7 +31,7 @@
       // });
 
 KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
-fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&page=1`)
+fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP&page=1`)
   .then(response => {
     return response.json();
   })
@@ -50,11 +50,11 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&
       row.setAttribute('href', `/movies/${movie.id}`);
 
       const poster = document.createElement('img');
-      poster.setAttribute('width', '100%');
+      // poster.setAttribute('width', '100%');
       poster.setAttribute('alt', 'サンプル');
-      poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`;
+      poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
 
-      const title = document.createElement('p');
+      const title = document.createElement('h4');
       title.setAttribute('class', 'title');
       title.textContent = movie.title;
 
@@ -74,7 +74,7 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&
       container.appendChild(div);
       div.appendChild(row);
       row.appendChild(poster);
-      row.appendChild(title);
+      // row.appendChild(title);
       row.appendChild(genre_ids);
       div.appendChild(post);
       div.appendChild(total_score);
@@ -91,7 +91,7 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=en-US&
 
 movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
 total_score_avg = gon.total_score_avg //moviesコントローラーで定義した変数を代入
-fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${KEY}&language=en-US`)
+fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${KEY}&language=ja-JP`)
   .then(response => {
     return response.json();
   })

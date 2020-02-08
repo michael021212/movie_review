@@ -10,26 +10,28 @@ h1 レビューを探す
     p= review.visual_score
     p= review.music_score
     p= review.body
-    div.m id = review.movie_id
+    div.m[id="review-#{review.id}"]
 
 javascript:
-  a = document.getElementsByClassName('m') // aには.mのdivのHTML情報が配列-ハッシュで入っており、それぞれのidはmovie_idになっているのでそれを使って繰り返し処理でdetailリクエスト以降をする？
-  movie_id = a.id;
-  fetch(`https://api.themoviedb.org/3/movie/${gon.movie_id}?api_key=${gon.TMDb_KEY}&language=en-US`) //movie_idを使ってdetailをリクエスト
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    p = data.poster_path; //data内のポスター画像pathを代入
 
-    container = document.getElementById('poster')
-    const row = document.createElement('div');
-    row.setAttribute('class', 'item');
+  b = gon.b // reviewが持っているmovie_idの配列
 
-    const poster = document.createElement('img');
-    poster.src = `https://image.tmdb.org/t/p/w200${p}`; //ポスター画像のソース
+  for (let i = 0; i < b.length; i++) {
+    fetch(`https://api.themoviedb.org/3/movie/${b[i]}?api_key=${gon.TMDb_KEY}&language=en-US`) //movie_idを使ってdetailをリクエスト
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      p = data.poster_path; //data内のポスター画像pathを代入
+      d = document.getElementById(`review-${i+1}`)
+      //const row = document.createElement('div');
+      //row.setAttribute('class', 'item');
 
-    container.appendChild(row);
-    row.appendChild(poster);
-  })
+      const poster = document.createElement('img');
+      poster.src = `https://image.tmdb.org/t/p/w200/${p}`; //ポスター画像のソース
+
+      d.appendChild(poster);
+      //row.appendChild(poster);
+    })
+
+  }

@@ -4,9 +4,14 @@ header.navbar.navbar-fixed-top.navbar-inverse
     nav
       .row
         = form_tag(search_path, :method => 'get') do
-          = text_field_tag (:search)
-          = select_tag :select, options_for_select([['映画', '1'], ['レビュー', '2'], ['ユーザー', '3']])
-          = select_tag :search_type, options_for_select([['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'], ['部分一致', '4']])
+          = text_field_tag (:search_word)
+          = radio_button_tag :select, "1"
+          = label_tag :registered_address, "映画"
+          = radio_button_tag :select, "2"
+          = label_tag :registered_address, "レビュー"
+          = radio_button_tag :select, "3"
+          = label_tag :registered_address, "ユーザー"
+          = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ])
           = submit_tag ('検索')
         ul
           li= link_to "映画を探す", movies_path
@@ -20,3 +25,17 @@ header.navbar.navbar-fixed-top.navbar-inverse
             li= link_to "ログアウト", destroy_user_session_path, method: :delete
         - else
           = link_to "ログイン", user_session_path
+
+javascript:
+  // ラジオボタンのvalueによって、検索オプション(完全一致や前方一致など)の選択をできたりできなかったりする
+  $(function() {
+    $("input[value=1]").on('change', function() {
+        $("select[name=search_type]").prop('disabled', true);
+    });
+    $("input[value=2]").on('change', function() {
+        $("select[name=search_type]").prop('disabled', false);
+    });
+    $("input[value=3]").on('change', function() {
+        $("select[name=search_type]").prop('disabled', false);
+    });
+  });
