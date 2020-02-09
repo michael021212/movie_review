@@ -14,3 +14,19 @@ h2= "==#{@user.name}さんのレビュー=="
   p= review.music_score
   p= "レビュー: #{review.body}"
   p---------------------
+h2= "==#{@user.name}さんがGOODしたレビュー=="
+- @good_reviews.each do |good_review|
+  p= good_review.user.name
+  p= good_review.movie_id
+  p= good_review.body
+  //// GOODボタン
+  - if good_review.good_by?(current_user)
+    = link_to review_good_path(good_review), method: :delete do
+      i.fas.fa-heart
+    = good_review.goods.count
+  - else
+    = link_to review_good_path(good_review), method: :post do
+      i.far.fa-heart
+    = good_review.goods.count
+
+  p---------------------

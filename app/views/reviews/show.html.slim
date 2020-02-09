@@ -16,6 +16,16 @@ p= "レビュー: #{@review.body}"
 
 .movie_image
 
+//// GOODボタン
+- if @review.good_by?(current_user)
+  = link_to review_good_path(@review), method: :delete do
+    i.fas.fa-heart
+  = @review.goods.count
+- else
+  = link_to review_good_path(@review), method: :post do
+    i.far.fa-heart
+  = @review.goods.count
+
 javascript:
   fetch(`https://api.themoviedb.org/3/movie/${gon.movie_id}?api_key=${gon.TMDb_KEY}&language=en-US`) //movie_idを使ってdetailをリクエスト
   .then(response => {

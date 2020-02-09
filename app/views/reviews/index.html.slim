@@ -20,6 +20,15 @@ div.flex
         br
         = review.body
         div.m[id="review-#{review.id}"]
+        //// GOODボタン
+        - if review.good_by?(current_user)
+          = link_to review_good_path(review), method: :delete do
+            i.fas.fa-heart
+          = review.goods.count
+        - else
+          = link_to review_good_path(review), method: :post do
+            i.far.fa-heart
+          = review.goods.count
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
