@@ -4,6 +4,7 @@ div id="#{@movie_id}"
 /search.html.slimと同じ
 - @reviews.each do |review|
   = link_to review_path(review)
+    = attachment_image_tag review.user, :image, size: "80x80", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
     p= "名前 #{review.user.name}"
     p= "総合スコア #{review.total_score}"
     p= review.body
