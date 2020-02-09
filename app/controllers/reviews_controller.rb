@@ -13,11 +13,14 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = Review.new(movie_id: params[:movie_id], user_id: current_user.id)
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+    gon.movie_id = params[:movie_id]
+    @review = Review.new(movie_id: params[:movie_id])
   end
 
   def create
     review = Review.new(review_params)
+    review.user_id = current_user.id
     review.save
     redirect_to review_path(review)
   end
