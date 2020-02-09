@@ -1,13 +1,14 @@
 h1 Reviews#show
-p= "movie_id #{@review.movie_id}"
-p= "ユーザーid #{@review.user_id}"
-p= "総合スコア #{@review.total_score}"
+p= "movie_id: #{@review.movie_id}"
+= link_to user_path(id: @review.user_id)
+  p= "名前: #{@review.user.name}"
+p= "総合スコア: #{@review.total_score}"
 p= @review.story_score
 p= @review.direction_score
 p= @review.acting_score
 p= @review.visual_score
 p= @review.music_score
-p= "レビュー #{@review.body}"
+p= "レビュー: #{@review.body}"
 - if @review.user_id == current_user.id
   = link_to '編集', edit_review_path(@review)
 
@@ -26,9 +27,14 @@ javascript:
     const row = document.createElement('div');
     row.setAttribute('class', 'item');
 
+    const link = document.createElement('a');
+    link.setAttribute('class', 'link');
+    link.setAttribute('href', `/movies/${data.id}`);
+
     const poster = document.createElement('img');
     poster.src = `https://image.tmdb.org/t/p/w200${p}`; //ポスター画像のソース
 
     container.appendChild(row);
-    row.appendChild(poster);
+    row.appendChild(link);
+    link.appendChild(poster);
   })

@@ -1,8 +1,6 @@
 h1 Movies#show
-p Find me in app/views/movies/show.html.slim
 
 div id="#{@movie_id}"
-
 /search.html.slimと同じ
 - @reviews.each do |review|
   = link_to review_path(review)
@@ -31,10 +29,31 @@ javascript:
 
     container = document.getElementById(movie_id);
     const row = document.createElement('div');
-    row.setAttribute('class', 'item');
+    row.classList.add('item', 'row');
+
+    const poster_section = document.createElement('div');
+    poster_section.classList.add('poster_section', 'col-md-4', 'col-sm-12');
 
     const poster = document.createElement('img');
+    poster.classList.add('poster');
     poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
+
+    const score = document.createElement('p');
+    score.classList.add('score');
+
+    if(total_score_avg === null) {
+    score.textContent = `レビュー無し`;
+    } else {
+    score.textContent = `平均スコア ${total_score_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
+    }
+
+    const post = document.createElement('a');
+    post.setAttribute('class', 'post');
+    post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
+    post.textContent = 'レビューする';
+
+    const info_section = document.createElement('div');
+    info_section.classList.add('info_section', 'col-md-8', 'col-sm-12');
 
     const title = document.createElement('h4');
     title.setAttribute('class', 'title');
@@ -44,23 +63,22 @@ javascript:
     genres.setAttribute('class', 'genres');
     genres.textContent = data.genres.map(genre => { return genre.name });
 
-    const total_score = document.createElement('p');
-    total_score.setAttribute('class', 'total_score');
-    total_score.textContent = `平均スコア ${total_score_avg.toFixed(1)}`;
+    const release_date = document.createElement('p');
+    release_date.setAttribute('class', 'release_date');
+    release_date.textContent = data.release_date;
 
-    const post = document.createElement('a');
-    post.setAttribute('class', 'post');
-    post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
-    post.textContent = 'レビューする';
+    const overview = document.createElement('p');
+    overview.setAttribute('class', 'overview');
+    overview.textContent = data.overview;
 
     container.appendChild(row);
-    row.appendChild(poster);
-    row.appendChild(title);
-    row.appendChild(genres);
-    row.appendChild(post);
-    row.appendChild(total_score);
-  })
-  .catch(error => {
-    //エラー発生時の処理
-    console.log('error');
+      row.appendChild(poster_section);
+        poster_section.appendChild(poster);
+        poster_section.appendChild(score);
+        poster_section.appendChild(post);
+      row.appendChild(info_section);
+        info_section.appendChild(title);
+        info_section.appendChild(genres);
+        info_section.appendChild(release_date);
+        info_section.appendChild(overview);
   })

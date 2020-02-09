@@ -2,12 +2,13 @@ h1 レビューを探す
 div.flex
   - @reviews.each do |review|
     div
+      = link_to user_path(review.id)
+        = "名前:  #{review.user.name}"
+      br
       = link_to review_path(review)
-        div.m[id="review-#{review.id}"]
-        = review.user.name
-        = review.movie_id
+        = "movie_id:  #{review.movie_id}"
         br
-        = review.total_score
+        = "総合スコア:  #{review.total_score}"
         br
         = review.story_score
         = review.direction_score
@@ -16,6 +17,7 @@ div.flex
         = review.music_score
         br
         = review.body
+        div.m[id="review-#{review.id}"]
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
