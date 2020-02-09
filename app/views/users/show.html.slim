@@ -3,4 +3,14 @@ h1 Users#show
 p= "名前 #{@user.name}"
 p= "プロフィール #{@user.intro}"
 - if @user == current_user
-  =link_to '編集', edit_user_path(@user)
+  = link_to '編集', edit_user_path(@user), class:"btn btn-primary btn-block"
+h2= "==#{@user.name}さんのレビュー=="
+- @reviews.each do |review|
+  p= "総合スコア: #{review.total_score}"
+  p= review.story_score
+  p= review.direction_score
+  p= review.acting_score
+  p= review.visual_score
+  p= review.music_score
+  p= "レビュー: #{review.body}"
+  p---------------------
