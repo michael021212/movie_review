@@ -2,6 +2,8 @@ h1 レビューを探す
 div.flex
   - @reviews.each do |review|
     div
+      div
+        = attachment_image_tag review.user, :image, size: "80x80", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
       = link_to user_path(review.id)
         = "名前:  #{review.user.name}"
       br

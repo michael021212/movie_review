@@ -24,7 +24,32 @@ h1 Users#edit
     = f.label :intro, "自己紹介"
     br
     = f.text_area :intro
+  .form-group.has-icon
+      .user-edit-image
+        = attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb", id: "img_prev", fallback: "no_profile_image.jpg"
+      label.control-label.sr-only for="inputEmail"  ProfileImage
+      = f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form", onchange: "previewFile()"
+
+      /! jsのpreviewFile()を呼ぶ
+      //= attachment_image_tag @user, :image, src: "", size: "300x250", alt:"Image preview...", id: "img_prev", fallback: "no_profile_image.jpg"
+      /! プレビューの表示枠を用意
 
   .actions
-    = f.submit "更新"
+    = f.submit "更新", class:"btn btn-lg btn-block btn-primary"
 = link_to '退会', user_registration_path(@review), method: :delete
+
+javascript:
+  function previewFile() {
+    var preview = document.querySelector('#img_prev');
+    //どこでプレビューするか指定。'img[name="preview"]'などにすればimg複数あっても指定できます。
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+
+    if (file) {
+      reader.readAsDataURL(file);
+    };
+
+    reader.addEventListener("load", function () {
+      preview.src = reader.result;
+    }, false);
+  }

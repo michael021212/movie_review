@@ -4,6 +4,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   enum sex: { '--': 0, 男: 1, 女: 2, その他: 9 }
   has_many :reviews, dependent: :destroy
+  attachment :image
 
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable,

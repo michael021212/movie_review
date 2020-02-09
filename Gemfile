@@ -80,3 +80,6 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 
 gem 'gon' # コントローラーで定義した変数をJSで使えるようにする
+
+gem "refile", require: "refile/rails", github: 'manfe/refile'
+gem "refile-mini_magick"
