@@ -1,4 +1,4 @@
-h1 Reviews#new
+h1 Reviews#edit
 = form_with model: @review, local: true do |f|
   .field
   = f.label :movie_id
@@ -47,3 +47,4 @@ h1 Reviews#new
 
   .actions
   = f.submit '投稿'
+= link_to '削除', review_path(@review), method: :delete
