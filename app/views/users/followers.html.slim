@@ -8,4 +8,6 @@ h1 フォロワー
         p= link_to 'フォロー済み', user_relationships_path(user), method: :delete
       - else
         p= link_to 'フォローする', user_relationships_path(user), method: :post
+    p= link_to "フォロワー数: #{user.followers.count}", followers_user_path(user)
+    p= link_to "フォロー数: #{user.followings.count}", followings_user_path(user)
 

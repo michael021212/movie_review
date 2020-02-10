@@ -20,7 +20,7 @@ javascript:
   })
   .then(data => {
     //取得したJSONデータの処理
-    console.log(data); //cosoleに表示(なくてもok)
+    console.log(data);
 
     data.results.forEach(movie => {
       container = document.getElementById('app');
@@ -62,14 +62,13 @@ javascript:
       }
 
       container.appendChild(div);
-      div.appendChild(row);
-      row.appendChild(poster);
-      row.appendChild(genre_ids);
-      div.appendChild(post);
-      div.appendChild(total_score);
+        div.appendChild(row);
+          row.appendChild(poster);
+          row.appendChild(genre_ids);
+        div.appendChild(post);
+        div.appendChild(total_score);
     })
   })
   .catch(error => {
-    //エラー発生時の処理
     console.log('error');
   });
