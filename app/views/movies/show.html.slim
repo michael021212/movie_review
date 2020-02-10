@@ -11,12 +11,21 @@ div id="#{@movie_id}"
     //// GOODボタン
     - if review.good_by?(current_user)
       = link_to review_good_path(review), method: :delete do
-        i.fas.fa-heart
+        i.fas.fa-thumbs-up
       = review.goods.count
     - else
       = link_to review_good_path(review), method: :post do
-        i.far.fa-heart
+        i.far.fa-thumbs-up
       = review.goods.count
+    //// BADボタン
+    - if review.bad_by?(current_user)
+      = link_to review_bad_path(review), method: :delete do
+        i.fas.fa-thumbs-down
+      = review.bads.count
+    - else
+      = link_to review_bad_path(review), method: :post do
+        i.far.fa-thumbs-down
+      = review.bads.count
   p------------------
 
 javascript:

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'bads/create'
+  get 'bads/destroy'
   get 'search', to: 'search#search'
   get 'home/top'
   get 'home/about'
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :show]
   resources :reviews do
     resource :good, only: [:create, :destroy] # /reviews/:review_id/good ①review_idをURLに持たせることでgoodのsave時などでreview_idを取得しやすいのでネストにしている。②goodにshowページ不要なのでresource。
+    resource :bad, only: [:create, :destroy] # /reviews/:review_id/bad ①review_idをURLに持たせることでbadのsave時などでreview_idを取得しやすいのでネストにしている。②badにshowページ不要なのでresource。
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

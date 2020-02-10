@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @reviews = @user.reviews
     @good_reviews = @user.good_reviews
+    @bad_reviews = @user.bad_reviews
   end
 
   def edit

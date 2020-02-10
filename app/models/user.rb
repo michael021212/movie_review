@@ -4,8 +4,10 @@ class User < ApplicationRecord
   validates :name, presence: true
   enum sex: { '--': 0, 男: 1, 女: 2, その他: 9 }
   has_many :goods
+  has_many :bads
   has_many :reviews, dependent: :destroy
   has_many :good_reviews, through: :goods, source: :review # has_many a, through: :b で、bを通したuser.aが使える。aをreviewsにするとhas_many :reviewsと被ってしまう為、sourceにモデル名を書いた上でaの名前を変えている
+  has_many :bad_reviews, through: :bads, source: :review # has_many a, through: :b で、bを通したuser.aが使える。aをreviewsにするとhas_many :reviewsと被ってしまう為、sourceにモデル名を書いた上でaの名前を変えている
   attachment :image
 
   devise :database_authenticatable, :registerable,
