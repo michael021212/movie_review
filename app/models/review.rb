@@ -1,5 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
+  has_many :goods
+  has_many :bads
 
   # body検索機能
   def self.search(search_word, search_type)
@@ -15,4 +17,13 @@ class Review < ApplicationRecord
     end
   end
 
+  # goodsの中に、引数で渡されたuserのidを持つレコードがあるかの判定をする
+  def good_by?(user)
+    goods.where(user_id: user.id).exists?
+  end
+
+  # badsの中に、引数で渡されたuserのidを持つレコードがあるかの判定をする
+  def bad_by?(user)
+    bads.where(user_id: user.id).exists?
+  end
 end

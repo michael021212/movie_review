@@ -20,6 +20,12 @@ div.flex
         br
         = review.body
         div.m[id="review-#{review.id}"]
+        //// 各レビューのGOOD数
+        i.far.fa-thumbs-up
+        = review.goods.count
+        //// 各レビューのBAD数
+        i.far.fa-thumbs-down
+        = review.bads.count
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列

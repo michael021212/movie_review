@@ -3,4 +3,67 @@ h1 Users#show
 p= "名前 #{@user.name}"
 p= "プロフィール #{@user.intro}"
 - if @user == current_user
-  =link_to '編集', edit_user_path(@user)
+  = link_to '編集', edit_user_path(@user), class:"btn btn-primary btn-block"
+h2= "==#{@user.name}さんのレビュー=="
+- @reviews.each do |review|
+  = link_to review_path(review)
+    p= "総合スコア: #{review.total_score}"
+    p= review.story_score
+    p= review.direction_score
+    p= review.acting_score
+    p= review.visual_score
+    p= review.music_score
+    p= "レビュー: #{review.body}"
+  p---------------------
+
+h2= "==#{@user.name}さんがGOODしたレビュー=="
+- @good_reviews.each do |good_review|
+  = link_to review_path(good_review)
+    p= good_review.user.name
+    p= good_review.movie_id
+    p= good_review.body
+  //// GOODしたレビューに表示するGOODボタンとGOODの個数
+  - if good_review.good_by?(current_user)
+    = link_to review_good_path(good_review), method: :delete do
+      i.fas.fa-thumbs-up
+    = good_review.goods.count
+  - else
+    = link_to review_good_path(good_review), method: :post do
+      i.far.fa-thumbs-up
+    = good_review.goods.count
+  //// GOODしたレビューに表示するBADボタンとBADの個数
+  - if good_review.bad_by?(current_user)
+    = link_to review_bad_path(good_review), method: :delete do
+      i.fas.fa-thumbs-down
+    = good_review.bads.count
+  - else
+    = link_to review_bad_path(good_review), method: :post do
+      i.far.fa-thumbs-down
+    = good_review.bads.count
+  p---------------------
+
+h2= "==#{@user.name}さんがBADしたレビュー=="
+- @bad_reviews.each do |bad_review|
+  = link_to review_path(bad_review)
+    p= bad_review.user.name
+    p= bad_review.movie_id
+    p= bad_review.body
+  //// BADしたレビューに表示するGOODボタンとGOODの個数
+  - if bad_review.good_by?(current_user)
+    = link_to review_good_path(bad_review), method: :delete do
+      i.fas.fa-thumbs-up
+    = bad_review.goods.count
+  - else
+    = link_to review_good_path(bad_review), method: :post do
+      i.far.fa-thumbs-up
+    = bad_review.goods.count
+  //// BADしたレビューに表示するBADボタンとBADの個数
+  - if bad_review.bad_by?(current_user)
+    = link_to review_bad_path(bad_review), method: :delete do
+      i.fas.fa-thumbs-down
+    = bad_review.bads.count
+  - else
+    = link_to review_bad_path(bad_review), method: :post do
+      i.far.fa-thumbs-down
+    = bad_review.bads.count
+  p---------------------

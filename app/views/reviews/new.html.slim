@@ -1,14 +1,7 @@
-h1 Reviews#new
+.movie_image
 = form_with model: @review, local: true do |f|
   .field
-  = f.label :movie_id
-  br
-  = f.number_field :movie_id
-
-  .field
-  = f.label :user_id
-  br
-  = f.number_field :user_id
+  = f.hidden_field :movie_id
 
   .field
   = f.label :total_score
@@ -47,3 +40,21 @@ h1 Reviews#new
 
   .actions
   = f.submit '投稿'
+
+javascript:
+  movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
+  fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${gon.TMDb_KEY}&language=ja-JP`)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+
+    container = document.querySelector('.movie_image');
+
+    const poster = document.createElement('img');
+    poster.classList.add('poster');
+    poster.src = `https://image.tmdb.org/t/p/w200${data.poster_path}`;
+
+    container.appendChild(poster);
+  })

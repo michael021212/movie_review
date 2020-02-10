@@ -14,7 +14,26 @@ p= "レビュー: #{@review.body}"
 - if @review.user_id == current_user.id
   = link_to '編集', edit_review_path(@review)
 
-#poster
+.movie_image
+
+//// GOODボタン
+- if @review.good_by?(current_user)
+  = link_to review_good_path(@review), method: :delete do
+    i.fas.fa-thumbs-up
+  = @review.goods.count
+- else
+  = link_to review_good_path(@review), method: :post do
+    i.far.fa-thumbs-up
+  = @review.goods.count
+//// BADボタン
+- if @review.bad_by?(current_user)
+  = link_to review_bad_path(@review), method: :delete do
+    i.fas.fa-thumbs-down
+  = @review.bads.count
+- else
+  = link_to review_bad_path(@review), method: :post do
+    i.far.fa-thumbs-down
+  = @review.bads.count
 
 javascript:
   fetch(`https://api.themoviedb.org/3/movie/${gon.movie_id}?api_key=${gon.TMDb_KEY}&language=en-US`) //movie_idを使ってdetailをリクエスト
@@ -25,7 +44,7 @@ javascript:
     console.log(data);
     p = data.poster_path; //data内のポスター画像pathを代入
 
-    container = document.getElementById('poster')
+    container = document.querySelector('.movie_image');
     const row = document.createElement('div');
     row.setAttribute('class', 'item');
 

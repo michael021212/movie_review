@@ -8,6 +8,24 @@ div id="#{@movie_id}"
     p= "名前 #{review.user.name}"
     p= "総合スコア #{review.total_score}"
     p= review.body
+    //// GOODボタン
+    - if review.good_by?(current_user)
+      = link_to review_good_path(review), method: :delete do
+        i.fas.fa-thumbs-up
+      = review.goods.count
+    - else
+      = link_to review_good_path(review), method: :post do
+        i.far.fa-thumbs-up
+      = review.goods.count
+    //// BADボタン
+    - if review.bad_by?(current_user)
+      = link_to review_bad_path(review), method: :delete do
+        i.fas.fa-thumbs-down
+      = review.bads.count
+    - else
+      = link_to review_bad_path(review), method: :post do
+        i.far.fa-thumbs-down
+      = review.bads.count
   p------------------
 
 javascript:
@@ -36,7 +54,7 @@ javascript:
     poster_section.classList.add('poster_section', 'col-md-4', 'col-sm-12');
 
     const poster = document.createElement('img');
-    poster.classList.add('poster');
+    poster.classList.add('movie_show_poster');
     poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
 
     const score = document.createElement('p');
