@@ -1,4 +1,4 @@
-h1 ユーザーを探す
+h1 フォロワー
 - @users.each do |user|
   = link_to user_path(user)
     = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
@@ -8,3 +8,4 @@ h1 ユーザーを探す
         p= link_to 'フォロー済み', user_relationships_path(user), method: :delete
       - else
         p= link_to 'フォローする', user_relationships_path(user), method: :post
+
