@@ -47,7 +47,7 @@ class User < ApplicationRecord
   end
 
   def followed_by?(user)
-    passive_relationships.where(following_id: user.id).present?
+    passive_relationships.where(following_id: user.id).present? #exists?の方がいいかも
   end
 
   private

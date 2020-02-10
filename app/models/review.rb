@@ -19,11 +19,11 @@ class Review < ApplicationRecord
 
   # goodsの中に、引数で渡されたuserのidを持つレコードがあるかの判定をする
   def good_by?(user)
-    goods.where(user_id: user.id).exists?
+    goods.where(user_id: user.id).present? # exists?の方がいいかも
   end
 
   # badsの中に、引数で渡されたuserのidを持つレコードがあるかの判定をする
   def bad_by?(user)
-    bads.where(user_id: user.id).exists?
+    bads.where(user_id: user.id).present? # exists?の方がいいかも
   end
 end
