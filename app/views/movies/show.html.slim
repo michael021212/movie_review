@@ -161,7 +161,7 @@ javascript:
           labels: ['脚本', '演出', '演技', '映像', '音楽'],
           datasets: [{
               label: '',
-              data: #{@detail_scores},
+              data: #{@avg_scores}, // 各項目ごとの全ユーザーのスコアの平均
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)' // ライン範囲内の色
               ],
