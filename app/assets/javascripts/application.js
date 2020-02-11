@@ -13,19 +13,10 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-//
+//= require Chart.min
 //= require rails-ujs
 //= require activestorage
 
 //= require_tree .
 
 
-//jQuery動くか実験 html => h1.jquery Hello jQuery!
-// $(document).ready(function () {
-  //   $('.jquery').mouseover(function(){
-    //     $(this).css('color','red');
-    //   });
-    //   $('.jquery').mouseout(function(){
-      //     $(this).css('color','black');
-      //   });
-      // });
