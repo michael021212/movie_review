@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get :followings, on: :member # /users/:id/followings 自分がフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
     get :followers, on: :member # /users/:id/followers 自分をフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
   end
-  resources :movies, only: %i[index show]
+  resources :movies, only: %i[index show] do
+    resource :interest, only: %i[create destroy] # /movies/:movie_id/interest ①movie_idをURLに持たせることでinterestのsave時などでmovie_idを取得しやすいのでネストにしている。②/:interest_idは不要(showページ不要)なのでresource。
+  end
   resources :reviews do
     resource :good, only: %i[create destroy] # /reviews/:review_id/good ①review_idをURLに持たせることでgoodのsave時などでreview_idを取得しやすいのでネストにしている。②/:good_idは不要(showページ不要)なのでresource。
     resource :bad, only: %i[create destroy] # /reviews/:review_id/bad ①review_idをURLに持たせることでbadのsave時などでreview_idを取得しやすいのでネストにしている。②/:bad_idは不要(showページ不要)なのでresource。

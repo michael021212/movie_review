@@ -13,6 +13,7 @@ ul
 div.flex#app
 
 javascript:
+  current_user_id = #{current_user.id}
   KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP&page=1`)
   .then(response => {
@@ -46,8 +47,28 @@ javascript:
 
       const post = document.createElement('a');
       post.setAttribute('class', 'post');
-      post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
-      post.textContent = 'レビューする';
+      review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
+      if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
+        console.log(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }))
+        review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
+        post.setAttribute('href', `/reviews/${review_id}`);
+        post.textContent = `レビュー済み(${review_count}人)`;
+      } else {
+        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+        post.textContent = `レビューする(${review_count}人)`;
+      }
+
+      const interest = document.createElement('a');
+      interest.setAttribute('class', 'interest');
+      interest.setAttribute('href', `/movies/${movie.id}/interest`);
+      interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
+      if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
+        interest.setAttribute('data-method', 'post');
+        interest.textContent = `観たい(${interest_users_count}人)`;
+      } else {
+        interest.setAttribute('data-method', 'delete');
+        interest.textContent = `追加済み(${interest_users_count}人)`;
+      }
 
       const total_score = document.createElement('p');
       total_score.setAttribute('class', 'total_score');
@@ -56,9 +77,9 @@ javascript:
       total_scores_sum = total_scores.reduce((acc, value) => acc + value["total_score"], initialValue); //抽出したハッシュのtotal_scoreの合計を出す
       total_scores_avg = total_scores_sum / total_scores.length; //total_scoreの合計を抽出したハッシュの個数で割る
       if ( Number.isNaN(total_scores_avg)) {
-      total_score.textContent = `レビュー無し`;
+        total_score.textContent = `レビュー無し`;
       } else {
-      total_score.textContent = `平均スコア ${total_scores_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
+        total_score.textContent = `平均スコア ${total_scores_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
       }
 
       container.appendChild(div);
@@ -66,9 +87,7 @@ javascript:
           row.appendChild(poster);
           row.appendChild(genre_ids);
         div.appendChild(post);
+        div.appendChild(interest);
         div.appendChild(total_score);
     })
   })
-  .catch(error => {
-    console.log('error');
-  });
