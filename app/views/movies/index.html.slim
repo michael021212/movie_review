@@ -49,7 +49,6 @@ javascript:
       post.setAttribute('class', 'post');
       review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
       if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
-        console.log(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }))
         review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
         post.setAttribute('href', `/reviews/${review_id}`);
         post.textContent = `レビュー済み(${review_count}人)`;

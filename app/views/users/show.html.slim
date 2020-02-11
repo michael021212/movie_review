@@ -11,6 +11,7 @@ p= "プロフィール #{@user.intro}"
     p= link_to 'フォローする', user_relationships_path(@user), method: :post
 p= link_to "フォロワー数: #{@user.followers.count}", followers_user_path(@user)
 p= link_to "フォロー数: #{@user.followings.count}", followings_user_path(@user)
+p= link_to "気になるリスト: #{@user.interests.count}", user_interest_path(@user)
 
 h2= "==#{@user.name}さんのレビュー=="
 p= "全#{@reviews.count}件"
