@@ -20,6 +20,16 @@ p= "レビュー: #{@review.body}"
   = link_to '編集', edit_review_path(@review)
 
 .movie_image
+//@current_user_review = current_user.reviews.find_by(movie_id: @review.movie_id)
+- if @current_user_reviews_movie_id.present? # current_userのinterestの中に該当のmovie_idがあればtrue
+  = link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id)
+- else
+  = link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id)
+
+- if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
+  = link_to "追加済み(#{@interests.length}人)", movie_interest_path(@review.movie_id), method: :delete
+- else
+  = link_to "観たい(#{@interests.length}人)", movie_interest_path(@review.movie_id), method: :post
 
 //// GOODボタン
 - if @review.good_by?(current_user)

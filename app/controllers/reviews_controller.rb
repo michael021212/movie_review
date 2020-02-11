@@ -9,7 +9,13 @@ class ReviewsController < ApplicationController
   def show
     gon.TMDb_KEY = ENV['TMDb_KEY']
     @review = Review.find(params[:id])
+
     gon.movie_id = Review.find(params[:id]).movie_id
+    @current_user_interests_movie_id = current_user.interests.pluck(:movie_id)
+
+    @reviews = Review.where(movie_id: @review.movie_id)
+    @interests = Interest.all.where(movie_id: @review.movie_id)
+    @current_user_reviews_movie_id = current_user.reviews.find_by(movie_id: @review.movie_id)
   end
 
   def new

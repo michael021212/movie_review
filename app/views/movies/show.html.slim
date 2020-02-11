@@ -1,6 +1,7 @@
 h1 Movies#show
 
 div id="#{@movie_id}"
+
 /search.html.slimと同じ
 - @reviews.each do |review|
   = link_to review_path(review)
@@ -29,6 +30,7 @@ div id="#{@movie_id}"
   p------------------
 
 javascript:
+  current_user_id = #{current_user.id}
   movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
   total_score_avg = gon.total_score_avg //moviesコントローラーで定義した変数を代入
   fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${gon.TMDb_KEY}&language=ja-JP`)
@@ -57,19 +59,35 @@ javascript:
     poster.classList.add('movie_show_poster');
     poster.src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`;
 
+    const post = document.createElement('a');
+    post.setAttribute('class', 'post');
+    current_user_review = gon.reviews.find(review => { return review["user_id"] == current_user_id }) // このmovieに対するcurrent_userのレビュー
+    if( current_user_review != undefined ) {
+        post.setAttribute('href', `/reviews/${current_user_review.id}`);
+        post.textContent = `レビュー済み(${gon.reviews.length}人)`;
+    } else {
+      post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
+      post.textContent = `レビューする(${gon.reviews.length}人)`;
+    }
+
+    const interest = document.createElement('a');
+    interest.setAttribute('class', 'interest');
+    interest.setAttribute('href', `/movies/${movie_id}/interest`);
+    if(gon.interests == null) {
+      interest.setAttribute('data-method', 'post');
+      interest.textContent = `観たい(${gon.interest_users}人)`;
+    } else {
+      interest.setAttribute('data-method', 'delete');
+      interest.textContent = `追加済み(${gon.interest_users}人)`;
+    }
+
     const score = document.createElement('p');
     score.classList.add('score');
-
     if(total_score_avg === null) {
     score.textContent = `レビュー無し`;
     } else {
     score.textContent = `平均スコア ${total_score_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
     }
-
-    const post = document.createElement('a');
-    post.setAttribute('class', 'post');
-    post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
-    post.textContent = 'レビューする';
 
     const info_section = document.createElement('div');
     info_section.classList.add('info_section', 'col-md-8', 'col-sm-12');
@@ -93,8 +111,9 @@ javascript:
     container.appendChild(row);
       row.appendChild(poster_section);
         poster_section.appendChild(poster);
-        poster_section.appendChild(score);
         poster_section.appendChild(post);
+        poster_section.appendChild(interest);
+        poster_section.appendChild(score);
       row.appendChild(info_section);
         info_section.appendChild(title);
         info_section.appendChild(genres);

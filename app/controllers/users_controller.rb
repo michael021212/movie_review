@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @reviews = @user.reviews
     @good_reviews = @user.good_reviews
     @bad_reviews = @user.bad_reviews
+    @user_interests = Interest.where(user_id: current_user.id)
   end
 
   def edit
@@ -28,6 +29,18 @@ class UsersController < ApplicationController
   def followers
     user = User.find(params[:id])
     @users = user.followers
+  end
+
+  def interest
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+    @interests = Interest.where(user_id: params[:user_id])
+    gon.interests_movie_id = @interests.pluck(:movie_id)
+    gon.reviews = Review.all
+    gon.current_user_reviews = current_user.reviews
+    gon.interests = Interest.where(user_id: current_user.id)
+    gon.all_interests = Interest.all
+    gon.user_id = params[:user_id]
+    gon.total_scores = Review.select(:movie_id, :total_score)
   end
 
 private
