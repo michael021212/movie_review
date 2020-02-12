@@ -16,6 +16,15 @@ class MoviesController < ApplicationController
     total_scores = Review.where(movie_id: params[:id]).pluck(:total_score) # movie_idが同一のreviewを探してtotal_scoreのみの配列を作る
     gon.total_score_avg = total_scores.sum.fdiv(total_scores.length) # 合計を個数で割って平均を出す
 
+    elements = %i[story_score direction_score acting_score visual_score music_score] # 各スコアを配列にする
+    reviews = Review.where(movie_id: params[:id])
+    # 各スコアごとに、宣言したreview一つ一つの該当スコアの値を配列にして、スコアごとの配列を作る
+    element_scores =
+      elements.map do |element|
+        reviews.map { |review| review[element] }
+      end
+    @avg_scores = element_scores.map { |e_score| e_score.sum.fdiv(e_score.length) } # スコアごとの配列を繰り返し処理し、それぞれの配列の合計を個数で割り平均を出す
+
     @reviews = Review.where(movie_id: params[:id])
     gon.reviews = Review.where(movie_id: params[:id])
 

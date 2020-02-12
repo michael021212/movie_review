@@ -1,6 +1,7 @@
 h1 Movies#show
-
 div id="#{@movie_id}"
+div style="position:relative; top:0px; left:0px; width:500px; height:250px;"
+  canvas#radarChart_lg
 
 /search.html.slimと同じ
 - @reviews.each do |review|
@@ -120,3 +121,54 @@ javascript:
         info_section.appendChild(release_date);
         info_section.appendChild(overview);
   })
+
+
+  //////////////////////////
+  /////////チャート/////////
+  //////////////////////////
+  var ctx = document.getElementById('radarChart_lg');
+  options = {
+    scale: {
+        angleLines: { // 要素ごとのライン
+            display: true,
+            color: 'rgba(180, 180, 180, 1.0)',
+            lineWidth: 1
+        },
+        ticks: { // 目盛り
+            backdropColor: "white", // 目盛りの背景色
+            suggestedMin: 0,
+            suggestedMax: 5,
+            fontSize: 18 // 目盛りの文字サイズ
+        },
+        pointLabels: { // 要素ごとのラベル
+            fontSize: 20 // 文字サイズ
+        },
+        gridLines: { // グリッドライン
+          color: 'rgba(180, 180, 180, 1.0)',
+          lineWidth: 1
+        }
+    },
+    legend: {
+      display: true // ラベルの表示
+    }
+  };
+
+  var radarChart_lg = new Chart(ctx, {
+      type: 'radar',
+      data: {
+          labels: ['脚本', '演出', '演技', '映像', '音楽'],
+          datasets: [{
+              label: '全ユーザーの平均',
+              data: #{@avg_scores}, // 各項目ごとの全ユーザーのスコアの平均
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)' // ライン範囲内の色
+              ],
+              borderColor: [
+                  'rgba(255, 159, 64, 1)' // 点を繋ぐラインの色
+              ],
+              borderWidth: 1,
+              pointBackgroundColor: "black" // ポインタの色
+          }]
+      },
+      options: options
+  });
