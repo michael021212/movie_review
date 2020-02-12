@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#search'
   get 'users/:user_id/interest', to: 'users#interest', as: 'user_interest'
-  get 'home/top'
+  root 'home#top'
   get 'home/about'
-  # get '/movies/movie_data', to: 'movies#movie_data' ajax送信先のルーティング
-  root 'movies#index'
+
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :users, only: %i[index show edit update] do
     resource :relationships, only: %i[create destroy] # /users/:user_id/relationships :relationships_idは不要なのでresource
