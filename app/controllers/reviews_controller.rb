@@ -16,6 +16,9 @@ class ReviewsController < ApplicationController
     @reviews = Review.where(movie_id: @review.movie_id)
     @interests = Interest.all.where(movie_id: @review.movie_id)
     @current_user_reviews_movie_id = current_user.reviews.find_by(movie_id: @review.movie_id)
+
+    elements = %i[story_score direction_score acting_score visual_score music_score] # 各スコアを配列にする
+    @avg_score = elements.map{|element| @review[element]}
   end
 
   def new
