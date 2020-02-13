@@ -3,9 +3,12 @@ class MoviesController < ApplicationController
     gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.total_scores = Review.select(:movie_id, :total_score)
     gon.reviews = Review.all
-    gon.current_user_reviews = current_user.reviews
-    gon.interests = Interest.where(user_id: current_user.id)
-    gon.all_interests = Interest.all
+    if user_signed_in?
+      gon.current_user_reviews = current_user.reviews
+      gon.interests = Interest.where(user_id: current_user.id)
+    end
+      gon.interests = Interest.where(user_id: 0)
+      gon.all_interests = Interest.all
   end
 
   def show
