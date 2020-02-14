@@ -1,50 +1,69 @@
-h1 Reviews#edit
+.movie_image
 = form_with model: @review, local: true do |f|
   .field
-  = f.label :movie_id
-  br
-  = f.number_field :movie_id
+  = f.hidden_field :movie_id
 
-  .field
-  = f.label :user_id
-  br
-  = f.number_field :user_id
+  p 総合スコア
+  div.star id="total"
+    = f.hidden_field :total_score
+  p 脚本
+  div.star id="story"
+    = f.hidden_field :story_score
+  p 演出
+  div.star id="direction"
+    = f.hidden_field :direction_score
+  p 演技
+  div.star id="acting"
+    = f.hidden_field :acting_score
+  p 映像
+  div.star id="visual"
+    = f.hidden_field :visual_score
+  p 音楽
+  div.star id="music"
+    = f.hidden_field :music_score
 
-  .field
-  = f.label :total_score
-  br
-  = f.number_field :total_score
+  javascript:
+    src="/js/jquery.raty.js"
+    $('#total').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[total_score]', half: true, score: #{@review.total_score}
+    });
+    $('#story').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[story_score]', half: true, score: #{@review.story_score}
+    });
+    $('#direction').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[direction_score]', half: true, score: #{@review.direction_score}
+    });
+    $('#acting').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[acting_score]', half: true, score: #{@review.acting_score}
+    });
+    $('#visual').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[visual_score]', half: true, score: #{@review.visual_score}
+    });
+    $('#music').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[music_score]', half: true, score: #{@review.music_score}
+    });
 
-  .field
-  = f.label :story_score
-  br
-  = f.number_field :story_score
-
-  .field
-  = f.label :direction_score
-  br
-  = f.number_field :direction_score
-
-  .field
-  = f.label :acting_score
-  br
-  = f.number_field :acting_score
-
-  .field
-  = f.label :visual_score
-  br
-  = f.number_field :visual_score
-
-  .field
-  = f.label :music_score
-  br
-  = f.number_field :music_score
-
-  .field
-  = f.label :body
-  br
-  = f.text_field :body
+  p 本文
+  = f.text_area :body
 
   .actions
   = f.submit '投稿'
 = link_to '削除', review_path(@review), method: :delete
+
+javascript:
+  movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
+  fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${gon.TMDb_KEY}&language=ja-JP`)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+
+    container = document.querySelector('.movie_image');
+
+    const poster = document.createElement('img');
+    poster.classList.add('poster');
+    poster.src = `https://image.tmdb.org/t/p/w200${data.poster_path}`;
+
+    container.appendChild(poster);
+  })

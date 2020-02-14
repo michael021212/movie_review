@@ -35,7 +35,9 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    gon.TMDb_KEY = ENV['TMDb_KEY']
     @review = Review.find(params[:id])
+    gon.movie_id = @review.movie_id
   end
 
   def update

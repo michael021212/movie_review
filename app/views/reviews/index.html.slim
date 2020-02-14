@@ -8,9 +8,14 @@ div.flex
         = "名前:  #{review.user.name}"
       br
       = link_to review_path(review)
-        = "movie_id:  #{review.movie_id}"
-        br
-        = "総合スコア:  #{review.total_score}"
+        p 総合スコア: #{review.total_score}点
+        div id="review-#{review.id}"
+        javascript:
+          src="/js/jquery.raty.js"
+          $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+            scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
+          });
+
         br
         = review.body
         div.m[id="review-#{review.id}"]

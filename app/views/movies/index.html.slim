@@ -12,8 +12,15 @@ ul
 
 div.flex#app
 
+-if user_signed_in?
+  javascript:
+    var current_user_id = #{current_user.id};
+-else
+  javascript:
+    var current_user_id = 0;
+
+
 javascript:
-  current_user_id = #{current_user.id}
   KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP&page=1`)
   .then(response => {

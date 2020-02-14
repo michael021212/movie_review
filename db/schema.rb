@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_154509) do
+ActiveRecord::Schema.define(version: 2020_02_13_142729) do
 
   create_table "bads", force: :cascade do |t|
     t.integer "user_id"
@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(version: 2020_02_10_154509) do
   create_table "reviews", force: :cascade do |t|
     t.integer "movie_id"
     t.integer "user_id"
-    t.integer "total_score"
-    t.integer "story_score"
-    t.integer "direction_score"
-    t.integer "acting_score"
-    t.integer "visual_score"
-    t.integer "music_score"
+    t.float "total_score"
+    t.float "story_score"
+    t.float "direction_score"
+    t.float "acting_score"
+    t.float "visual_score"
+    t.float "music_score"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

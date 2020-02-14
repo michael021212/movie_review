@@ -3,40 +3,48 @@
   .field
   = f.hidden_field :movie_id
 
-  .field
-  = f.label :total_score
-  br
-  = f.number_field :total_score
+  p 総合スコア
+  div.star id="total"
+    = f.hidden_field :total_score
+  p 脚本
+  div.star id="story"
+    = f.hidden_field :story_score
+  p 演出
+  div.star id="direction"
+    = f.hidden_field :direction_score
+  p 演技
+  div.star id="acting"
+    = f.hidden_field :acting_score
+  p 映像
+  div.star id="visual"
+    = f.hidden_field :visual_score
+  p 音楽
+  div.star id="music"
+    = f.hidden_field :music_score
 
-  .field
-  = f.label :story_score
-  br
-  = f.number_field :story_score
+  javascript:
+    src="/js/jquery.raty.js"
+    $('#total').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[total_score]', half: true,
+    });
+    $('#story').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[story_score]', half: true,
+    });
+    $('#direction').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[direction_score]', half: true,
+    });
+    $('#acting').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[acting_score]', half: true,
+    });
+    $('#visual').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[visual_score]', half: true,
+    });
+    $('#music').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[music_score]', half: true,
+    });
 
-  .field
-  = f.label :direction_score
-  br
-  = f.number_field :direction_score
-
-  .field
-  = f.label :acting_score
-  br
-  = f.number_field :acting_score
-
-  .field
-  = f.label :visual_score
-  br
-  = f.number_field :visual_score
-
-  .field
-  = f.label :music_score
-  br
-  = f.number_field :music_score
-
-  .field
-  = f.label :body
-  br
-  = f.text_field :body
+  p 本文
+  = f.text_area :body
 
   .actions
   = f.submit '投稿'
