@@ -9,6 +9,12 @@ div style="position:relative; top:0px; left:0px; width:500px; height:250px;"
     = attachment_image_tag review.user, :image, size: "80x80", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
     p= "名前 #{review.user.name}"
     p= "総合スコア #{review.total_score}"
+    div id="review-#{review.id}"
+    javascript:
+      src="/js/jquery.raty.js"
+      $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
+      });
     p= review.body
     //// GOODボタン
     - if review.good_by?(current_user)
@@ -87,8 +93,9 @@ javascript:
     if(total_score_avg === null) {
     score.textContent = `レビュー無し`;
     } else {
-    score.textContent = `平均スコア ${total_score_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
+    score.textContent = `平均スコア: ${total_score_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
     }
+
 
     const info_section = document.createElement('div');
     info_section.classList.add('info_section', 'col-md-8', 'col-sm-12');
@@ -120,6 +127,10 @@ javascript:
         info_section.appendChild(genres);
         info_section.appendChild(release_date);
         info_section.appendChild(overview);
+    $('.score').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      scoreName: 'review[total_score_avg]', half: true, score: total_score_avg, readOnly: true
+    });
+
   })
 
 

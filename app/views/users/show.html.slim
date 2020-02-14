@@ -17,12 +17,14 @@ h2= "==#{@user.name}さんのレビュー=="
 p= "全#{@reviews.count}件"
 - @reviews.each do |review|
   = link_to review_path(review)
+    p= review.movie_id
     p= "総合スコア: #{review.total_score}"
-    p= review.story_score
-    p= review.direction_score
-    p= review.acting_score
-    p= review.visual_score
-    p= review.music_score
+    div id="review-#{review.id}"
+    javascript:
+      src="/js/jquery.raty.js"
+      $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
+      });
     p= "レビュー: #{review.body}"
   p---------------------
 
@@ -31,6 +33,13 @@ h2= "==#{@user.name}さんがGOODしたレビュー=="
   = link_to review_path(good_review)
     p= good_review.user.name
     p= good_review.movie_id
+    p= "総合スコア: #{good_review.total_score}"
+    div id="good_review-#{good_review.id}"
+    javascript:
+      src="/js/jquery.raty.js"
+      $('#good_review-#{good_review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_score]', half: true, score: #{good_review.total_score}, readOnly: true
+      });
     p= good_review.body
   //// GOODしたレビューに表示するGOODボタンとGOODの個数
   - if good_review.good_by?(current_user)
@@ -57,6 +66,13 @@ h2= "==#{@user.name}さんがBADしたレビュー=="
   = link_to review_path(bad_review)
     p= bad_review.user.name
     p= bad_review.movie_id
+    p= "総合スコア: #{bad_review.total_score}"
+    div id="bad_review-#{bad_review.id}"
+    javascript:
+      src="/js/jquery.raty.js"
+      $('#bad_review-#{bad_review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_score]', half: true, score: #{bad_review.total_score}, readOnly: true
+      });
     p= bad_review.body
   //// BADしたレビューに表示するGOODボタンとGOODの個数
   - if bad_review.good_by?(current_user)
