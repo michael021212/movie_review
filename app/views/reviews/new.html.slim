@@ -1,29 +1,20 @@
 .movie_image
 = form_with model: @review, local: true do |f|
-  .field
   = f.hidden_field :movie_id
-
   p 総合スコア
   div.star id="total"
-    = f.hidden_field :total_score
   p 脚本
   div.star id="story"
-    = f.hidden_field :story_score
   p 演出
   div.star id="direction"
-    = f.hidden_field :direction_score
   p 演技
   div.star id="acting"
-    = f.hidden_field :acting_score
   p 映像
   div.star id="visual"
-    = f.hidden_field :visual_score
   p 音楽
   div.star id="music"
-    = f.hidden_field :music_score
 
   javascript:
-    src="/js/jquery.raty.js"
     $('#total').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
       scoreName: 'review[total_score]', half: true,
     });
@@ -42,6 +33,9 @@
     $('#music').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
       scoreName: 'review[music_score]', half: true,
     });
+  .tags
+    = f.label :tag_list, 'タグ(5つまで入力可)'
+    = text_field_tag 'review[tag_list]', @review.tag_list.join(','), data: {role: 'tagsinput'}
 
   p 本文
   = f.text_area :body

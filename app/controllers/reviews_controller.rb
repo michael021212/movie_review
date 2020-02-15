@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   def index
+    tag_cloud
     gon.TMDb_KEY = ENV['TMDb_KEY']
     @reviews = Review.all
     gon.movie_id = Review.all.pluck(:movie_id)
@@ -52,10 +53,14 @@ class ReviewsController < ApplicationController
     redirect_to reviews_path
   end
 
+  def tag_cloud
+    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
+  end
+
   private
 
   def review_params
     params.require(:review).permit(:movie_id, :user_id, :total_score, :story_score, :direction_score,
-      :acting_score, :visual_score, :music_score, :body)
+      :acting_score, :visual_score, :music_score, :body, :tag_list)
   end
 end

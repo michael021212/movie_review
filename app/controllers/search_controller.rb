@@ -9,5 +9,14 @@ class SearchController < ApplicationController
     when '3' # ユーザー
       @users = User.search(params[:search_word], params[:search_type])
     end
+
+    if params[:tag_search]
+      tag_cloud
+      @reviews = Review.tagged_with(params[:tag_search])
+    end
+  end
+
+  def tag_cloud
+    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
   end
 end

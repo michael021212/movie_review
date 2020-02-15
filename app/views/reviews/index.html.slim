@@ -1,4 +1,7 @@
 h1 レビューを探す
+= render 'reviews/tag_cloud', tags: @tags
+
+
 div.flex
   - @reviews.each do |review|
     div
@@ -11,11 +14,10 @@ div.flex
         p 総合スコア: #{review.total_score}点
         div id="review-#{review.id}"
         javascript:
-          src="/js/jquery.raty.js"
           $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
-
+        = render 'reviews/tag_list', tag_list: review.tag_list
         br
         = review.body
         div.m[id="review-#{review.id}"]
