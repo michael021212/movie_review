@@ -1,0 +1,4 @@
+.tag_cloud
+  p タグでレビュー検索
+  - tag_cloud(tags, %w(css1 css2 css3 css4 css5 css6 css7 css8 css9 css10)) do |tag, css_class|
+    = link_to "#{tag.name}(#{tag.count}) ", search_path(tag_search: tag.name), class: css_class

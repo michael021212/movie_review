@@ -3,6 +3,9 @@ class Review < ApplicationRecord
   has_many :goods
   has_many :bads
 
+  # タグ機能
+  acts_as_taggable # acts_as_taggable_on :tagsのエイリアス
+
   # body検索機能
   def self.search(search_word, search_type)
     case search_type

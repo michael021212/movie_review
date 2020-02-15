@@ -12,12 +12,12 @@ p= "movie_id: #{@review.movie_id}"
 p= "総合スコア: #{@review.total_score}"
 div.total_score
 javascript:
-  src="/js/jquery.raty.js"
   $('.total_score').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
     scoreName: 'review[total_score]', half: true, score: #{@review.total_score}, readOnly: true
   });
 div style="position:relative; top:0px; left:0px; width:500px; height:250px;"
   canvas#radarChart_lg
+= render 'reviews/tag_list', tag_list: @review.tag_list
 p= "本文: #{@review.body}"
 - if @review.user == current_user
   = link_to '編集', edit_review_path(@review)

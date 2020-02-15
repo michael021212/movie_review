@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   def index
+    tag_cloud
     gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.total_scores = Review.select(:movie_id, :total_score)
     gon.reviews = Review.all
@@ -33,6 +34,10 @@ class MoviesController < ApplicationController
 
     gon.interests = Interest.find_by(user_id: current_user.id, movie_id: params[:id]) # current_userが該当のmovieをお気に入り登録済みか確認するための検索
     gon.interest_users = Interest.where(movie_id: params[:id]).count # 該当のmovieをお気に入りしているuserの数を調べる
+  end
+
+  def tag_cloud
+    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
   end
 
   # ajaxで送られたdataの処理

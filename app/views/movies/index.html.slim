@@ -5,10 +5,7 @@ ul
   li.genre-item サスペンス
   li.genre-item ホラー
 
-p タグで探す
-ul
-  li.genre-item 泣ける
-  li.genre-item 気分悪くなる
+= render 'reviews/tag_cloud', tags: @tags
 
 div.flex#app
 
