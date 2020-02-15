@@ -17,9 +17,8 @@
         = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
         p= "名前 #{user.name}"
 
-- if params[:tag_search]
+- if params[:tag_search] # タグ検索結果
   = render 'reviews/tag_cloud', tags: @tags
-
   h1= "「#{params[:tag_search]}」タグ検索結果"
   - @reviews.each do |review|
       = link_to review_path(review)
