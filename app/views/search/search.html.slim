@@ -14,7 +14,7 @@
     h1 ユーザー名検索結果
     - @users.each do |user|
       = link_to user_path(user)
-        = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
+        = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
         p= "名前 #{user.name}"
 
 - if params[:tag_search]

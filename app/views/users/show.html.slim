@@ -1,5 +1,5 @@
 h1 Users#show
-= attachment_image_tag @user, :image, size: "150x150", class: "img-circle pull-left profile-thumb", fallback: "no_profile_image.jpg"
+= attachment_image_tag @user, :image, size: "150x150", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
 p= "名前 #{@user.name}"
 p= "プロフィール #{@user.intro}"
 - if @user == current_user

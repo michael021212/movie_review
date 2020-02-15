@@ -26,7 +26,7 @@ h1 Users#edit
     = f.text_area :intro
   .form-group.has-icon
       .user-edit-image
-        = attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb", id: "img_prev", fallback: "no_profile_image.jpg"
+        = attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb rounded-circle", id: "img_prev", fallback: "no_profile_image.jpg"
       label.control-label.sr-only for="inputEmail"  ProfileImage
       = f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form", onchange: "previewFile()"
 
