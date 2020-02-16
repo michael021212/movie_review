@@ -8,8 +8,9 @@ class MoviesController < ApplicationController
       gon.current_user_reviews = current_user.reviews
       gon.interests = Interest.where(user_id: current_user.id)
     end
-      gon.interests = Interest.where(user_id: 0)
-      gon.all_interests = Interest.all
+    gon.interests = Interest.where(user_id: 0)
+    gon.all_interests = Interest.all
+    @genres = GENRES
   end
 
   def show

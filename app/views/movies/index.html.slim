@@ -1,10 +1,5 @@
 h1 映画を探す
-p ジャンルで探す
-ul
-  li.genre-item アクション
-  li.genre-item サスペンス
-  li.genre-item ホラー
-
+= render 'movies/genre_search', genres: @genres
 = render 'reviews/tag_cloud', tags: @tags
 
 div.flex#app

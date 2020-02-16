@@ -1,5 +1,8 @@
 class SearchController < ApplicationController
+  before_action :tag_cloud
+
   def search
+    @genres = GENRES
     case params[:select]
     when '1' # 映画 Movieモデルはないのでjsに変数を渡してapiの検索機能を使う
       gon.TMDb_KEY = ENV['TMDb_KEY']
@@ -11,8 +14,11 @@ class SearchController < ApplicationController
     end
 
     if params[:tag_search]
-      tag_cloud
       @reviews = Review.tagged_with(params[:tag_search])
+    end
+
+    if params[:genre_id]
+      @genre = @genres.find{|genre| genre[:id] == params[:genre_id].to_i}
     end
   end
 
