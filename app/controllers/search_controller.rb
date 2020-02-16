@@ -13,12 +13,21 @@ class SearchController < ApplicationController
       @users = User.search(params[:search_word], params[:search_type])
     end
 
-    if params[:tag_search]
-      @reviews = Review.tagged_with(params[:tag_search])
-    end
-
     if params[:genre_id]
       @genre = @genres.find{|genre| genre[:id] == params[:genre_id].to_i}
+      gon.TMDb_KEY = ENV['TMDb_KEY']
+      gon.total_scores = Review.select(:movie_id, :total_score)
+      gon.reviews = Review.all
+      if user_signed_in?
+        gon.current_user_reviews = current_user.reviews
+        gon.interests = Interest.where(user_id: current_user.id)
+      end
+      gon.interests = Interest.where(user_id: 0)
+      gon.all_interests = Interest.all
+    end
+
+    if params[:tag_search]
+      @reviews = Review.tagged_with(params[:tag_search])
     end
   end
 

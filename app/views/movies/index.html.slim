@@ -19,7 +19,6 @@ javascript:
 
   // asyncとawaitで同期にして描画と処理を分けた。こうしないとfetchで取得しきる前に描画の処理が行われ、何も表示されなくなる為。
   async function getMovies() {
-    console.log("start")
     for(let i=1; i < 3; i++) {
       popularList = await fetch(URL + '&page=' + i ) // 1ページにつき20件取得なので20xi件取得できる
       .then(response => response.clone().json())
