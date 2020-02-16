@@ -1,10 +1,5 @@
 h1 映画を探す
-p ジャンルで探す
-ul
-  li.genre-item アクション
-  li.genre-item サスペンス
-  li.genre-item ホラー
-
+= render 'movies/genre_search', genres: @genres
 = render 'reviews/tag_cloud', tags: @tags
 
 div.flex#app
@@ -19,15 +14,24 @@ div.flex#app
 
 javascript:
   KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
-  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP&page=1`)
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    //取得したJSONデータの処理
-    console.log(data);
+  const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP`;
+  const movies = []
 
-    data.results.forEach(movie => {
+  // asyncとawaitで同期にして描画と処理を分けた。こうしないとfetchで取得しきる前に描画の処理が行われ、何も表示されなくなる為。
+  async function getMovies() {
+    for(let i=1; i < 3; i++) {
+      await fetch(URL + '&page=' + i ) // 1ページにつき20件取得なので20xi件取得できる
+      .then(response => response.clone().json())
+      .then(function(json){
+        Array.prototype.push.apply(movies, json.results)
+      })
+    }
+    return movies;
+  };
+
+  getMovies().then(movies => {
+    console.log(movies)
+    movies.forEach(movie => {
       container = document.getElementById('app');
 
       const div = document.createElement('div');
@@ -94,3 +98,4 @@ javascript:
         div.appendChild(total_score);
     })
   })
+

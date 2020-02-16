@@ -1,8 +1,12 @@
 - case params[:select]
-  - when '1' # 映画 現状検索不可
+  - when '1' # 映画タイトル検索結果
+    = render 'movies/genre_search', genres: @genres
+    = render 'reviews/tag_cloud', tags: @tags
     h1 映画タイトル検索結果
-    div.flex#search_items
+    div.flex#title_search
   - when '2' # レビューのbody検索結果
+    = render 'movies/genre_search', genres: @genres
+    = render 'reviews/tag_cloud', tags: @tags
     h1 レビュー本文検索結果
     - @reviews.each do |review|
       = link_to review_path(review)
@@ -11,15 +15,17 @@
         p= "総合スコア #{review.total_score}"
         p= review.body
   - when '3' # ユーザーのname検索結果
+    = render 'movies/genre_search', genres: @genres
+    = render 'reviews/tag_cloud', tags: @tags
     h1 ユーザー名検索結果
     - @users.each do |user|
       = link_to user_path(user)
         = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
         p= "名前 #{user.name}"
 
-- if params[:tag_search]
+- if params[:tag_search] # タグ検索結果
+  = render 'movies/genre_search', genres: @genres
   = render 'reviews/tag_cloud', tags: @tags
-
   h1= "「#{params[:tag_search]}」タグ検索結果"
   - @reviews.each do |review|
       = link_to review_path(review)
@@ -28,19 +34,127 @@
         p= "総合スコア #{review.total_score}"
         p= review.body
 
-javascript:
-  // titleで検索して表示する
-  KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
-  fetch(`https://api.themoviedb.org/3/search/movie?api_key=${KEY}&query=${gon.search_word}`)
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    //取得したJSONデータの処理
-    console.log(data); //cosoleに表示(なくてもok)
+- if params[:genre_id] # ジャンル検索結果
+  = render 'movies/genre_search', genres: @genres
+  = render 'reviews/tag_cloud', tags: @tags
+  h1= "「#{@genre[:name]}」ジャンル検索結果"
+  div.flex id="genre_search"
 
-    data.results.map(movie => {
-      container = document.getElementById('search_items');
+  -if user_signed_in?
+    javascript:
+      var current_user_id = #{current_user.id};
+  -else
+    javascript:
+      var current_user_id = 0;
+
+  javascript:
+    KEY = gon.TMDb_KEY;
+    const URL = `https://api.themoviedb.org/3/discover/movie?api_key=${KEY}&language=ja-JP&sort_by=popularity.desc&include_adult=false&include_video=false`;
+    const movies = []
+
+    // asyncとawaitで同期にして描画と処理を分けた。こうしないとfetchで取得しきる前に描画の処理が行われ、何も表示されなくなる為。
+    async function getMovies() {
+      for(let i=1; i < 3; i++) {
+        await fetch(URL + '&page=' + i + '&with_genres=' + #{@genre[:id]}) // 1ページにつき20件取得なので20xi件取得できる
+        .then(response => response.clone().json())
+        .then(function(json){
+          Array.prototype.push.apply(movies, json.results)
+        })
+      }
+      return movies;
+    };
+
+    getMovies().then(movies => {
+      console.log(movies)
+      movies.forEach(movie => {
+        container = document.getElementById('genre_search');
+
+      const div = document.createElement('div');
+      div.setAttribute('class', 'item');
+
+      const row = document.createElement('a');
+      row.setAttribute('class', 'set');
+      row.setAttribute('href', `/movies/${movie.id}`);
+
+      const poster = document.createElement('img');
+      poster.setAttribute('alt', 'サンプル');
+      poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
+
+      const title = document.createElement('h4');
+      title.setAttribute('class', 'title');
+      title.textContent = movie.title;
+
+      const genre_ids = document.createElement('p');
+      genre_ids.setAttribute('class', 'genre_ids');
+      genre_ids.textContent = movie.genre_ids;
+
+      const post = document.createElement('a');
+      post.setAttribute('class', 'post');
+      review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
+      if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
+        review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
+        post.setAttribute('href', `/reviews/${review_id}`);
+        post.textContent = `レビュー済み(${review_count}人)`;
+      } else {
+        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+        post.textContent = `レビューする(${review_count}人)`;
+      }
+
+      const interest = document.createElement('a');
+      interest.setAttribute('class', 'interest');
+      interest.setAttribute('href', `/movies/${movie.id}/interest`);
+      interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
+      if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
+        interest.setAttribute('data-method', 'post');
+        interest.textContent = `観たい(${interest_users_count}人)`;
+      } else {
+        interest.setAttribute('data-method', 'delete');
+        interest.textContent = `追加済み(${interest_users_count}人)`;
+      }
+
+      const total_score = document.createElement('p');
+      total_score.setAttribute('class', 'total_score');
+      var initialValue = 0; //reduceのcallbackのaccに、初回は0が入るようにする。書かないと初回には配列の最初の値が入る
+      total_scores = gon.total_scores.filter(total_score => { return total_score["movie_id"] == movie.id }); //movie_idが一致するハッシュを抽出。gon.total_scoreにはmovie_idとtotal_scoreのみの全reviewが入っている
+      total_scores_sum = total_scores.reduce((acc, value) => acc + value["total_score"], initialValue); //抽出したハッシュのtotal_scoreの合計を出す
+      total_scores_avg = total_scores_sum / total_scores.length; //total_scoreの合計を抽出したハッシュの個数で割る
+      if ( Number.isNaN(total_scores_avg)) {
+        total_score.textContent = `レビュー無し`;
+      } else {
+        total_score.textContent = `平均スコア ${total_scores_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
+      }
+
+      container.appendChild(div);
+        div.appendChild(row);
+          row.appendChild(poster);
+          row.appendChild(genre_ids);
+        div.appendChild(post);
+        div.appendChild(interest);
+        div.appendChild(total_score);
+      })
+    })
+
+
+// titleで検索して表示する
+javascript:
+  KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
+    const URL_title = `https://api.themoviedb.org/3/search/movie?api_key=${KEY}`;
+    const movies_title = []
+
+    async function getMovies() {
+      for(let i=1; i < 3; i++) {
+        await fetch(URL_title + '&page=' + i + '&query=' + gon.search_word) // 1ページにつき20件取得なので20xi件取得できる
+        .then(response => response.clone().json())
+        .then(function(json){
+          Array.prototype.push.apply(movies_title, json.results)
+        })
+      }
+      return movies_title;
+    };
+    getMovies().then(movies => {
+      console.log(movies)
+      movies.forEach(movie => {
+      container = document.getElementById('title_search');
 
       const div = document.createElement('div');
       div.setAttribute('class', 'item');
@@ -74,7 +188,3 @@ javascript:
       div.appendChild(total_score);
     })
   })
-  .catch(error => {
-    //エラー発生時の処理
-    console.log('error');
-  });

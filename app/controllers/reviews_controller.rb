@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
+    @genres = GENRES
   end
 
   def show
