@@ -21,4 +21,15 @@
 
 //= require_tree .
 
+$(function () {
+  $('#nav_user-menu').on('mouseover',function(){
+      $(this).css('background-color','grey');
+  });
+  $('#nav_user-menu').on('mouseout',function(){
+      $(this).css('background-color','white');
+  });
+  $('#nav_user-menu').click(function () {
+      $('.nav_user-menu').slideToggle('fast');
+  });
+});
 

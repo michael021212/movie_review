@@ -1,32 +1,34 @@
-header.navbar.navbar-fixed-top.navbar-inverse
-  div.container
-    = link_to "Movie Review", root_path
-    nav
-      .row
-        = form_tag(search_path, :method => 'get') do
-          = text_field_tag (:search_word)
-          = radio_button_tag :select, "1"
-          = label_tag :registered_address, "映画"
-          = radio_button_tag :select, "2"
-          = label_tag :registered_address, "レビュー"
-          = radio_button_tag :select, "3"
-          = label_tag :registered_address, "ユーザー"
-          = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ])
-          = submit_tag ('検索')
-        ul
-          li= link_to "映画を探す", movies_path
-          li= link_to "レビューを探す", reviews_path
-          li= link_to "ユーザーを探す", users_path
-        - if user_signed_in?
-          ul
-            li= current_user.name
-            li= link_to "マイページ", user_path(current_user)
-            li= link_to "プロフィール編集", edit_user_path(current_user)
-            li= link_to "ログアウト", destroy_user_session_path, method: :delete
-        - else
-          = link_to "ログイン", user_session_path
+header.navbar
+  nav.row
+    .logo.col-md-1 = link_to "Movie Review", root_path
+    .nav_form.col-md-5
+      = form_tag(search_path, :method => 'get') do
+        = text_field_tag (:search_word)
+        = radio_button_tag :select, "1"
+        = label_tag :registered_address, "映画"
+        = radio_button_tag :select, "2"
+        = label_tag :registered_address, "レビュー"
+        = radio_button_tag :select, "3"
+        = label_tag :registered_address, "ユーザー"
+        = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ])
+        = submit_tag ('検索')
+    ul.nav_link.col-md-4
+      li= link_to "映画を探す", movies_path
+      li= link_to "レビューを探す", reviews_path
+      li= link_to "ユーザーを探す", users_path
+    - if user_signed_in?
+      div class="dropdown col-md-2"
+        a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #{current_user.name}
+        div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
+          .dropdown-item= link_to "マイページ", user_path(current_user)
+          .dropdown-item= link_to "プロフィール編集", edit_user_path(current_user)
+          .dropdown-item= link_to "ログアウト", destroy_user_session_path, method: :delete
+    - else
+      .login
+        = link_to "ログイン", user_session_path
 
 javascript:
+
   // ラジオボタンのvalueによって、検索オプション(完全一致や前方一致など)の選択をできたりできなかったりする
   $(function() {
     $("input[value=1]").on('change', function() {
