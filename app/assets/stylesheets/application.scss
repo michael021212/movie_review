@@ -6,6 +6,9 @@
 @import "./movies";
 @import "./reviews";
 
+$background-color: rgb(223, 223, 223);
+$line-color: rgb(223, 223, 223);
+
 body {
   font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
   color: #383838;
@@ -87,4 +90,26 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 15px;
+}
+
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.genre_search, .tag_cloud {
+  border: solid $line-color 1px;
+  margin-bottom: 1rem;
+}
+
+.search_heading {
+  text-align: center;
+  padding: 0.5rem;
+  background-color: $background-color;
+}
+
+.search_items {
+  padding: 0.5rem;
 }

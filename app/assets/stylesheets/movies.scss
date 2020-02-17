@@ -8,10 +8,17 @@
 }
 .flex > div {
   width: 23%;
-  height: 550px;
+  // height: 550px;
   margin: 10px;
   background-color: rgb(255, 255, 255);
 }
 .movie_show_poster {
   width: 100%;
+}
+.poster {
+  width: 100%;
+}
+
+.card-body a {
+  margin-bottom: 0.5rem;
 }
