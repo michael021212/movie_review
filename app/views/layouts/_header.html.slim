@@ -14,7 +14,7 @@ header.navbar
         = submit_tag "検索", class:"btn btn-dark btn-sm rounded-pill"
     ul.nav_link.col-md-4
       li= link_to "映画を探す", movies_path
-      li= link_to "レビューを探す", reviews_path
+      li= link_to "レビューを見る", reviews_path
       li= link_to "ユーザーを探す", users_path
     - if user_signed_in?
       div class="dropdown col-md-2"

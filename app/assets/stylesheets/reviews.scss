@@ -17,6 +17,21 @@
 .css9 { font-size: 1.4em; }
 .css10 { font-size: 1.6em; }
 
+.review_show_heading {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}
+
+.w-75 {
+  background-color: whitesmoke;
+  margin-bottom: 1rem;
+}
+
+.review_index_title {
+  font-size: 1.5rem;
+}
+
 #review_index_card-title {
   display: flex;
   .row {
@@ -24,7 +39,7 @@
     // margin-right: 2rem;
   }
   p {
-    margin: auto;
+    margin: auto 5px;
     font-size: smaller;
   }
   div {
@@ -35,16 +50,31 @@
   }
 
 }
-#review_index_card-title > div {
+#review_index_card-title > div, #review_index_card-title > strong {
   margin: auto;
 }
 
-.good_bad {
+#review_index_card-title > strong {
+  font-size: 1.2rem;
+}
+
+.review_index_card_footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 0.5rem 0 0 0;
+  padding-top: 0.5rem;
   p {
-    margin-right: 0.5rem;
+    margin: auto 0.5rem auto 0;
   }
+}
+
+#review_index_good-bad {
+  margin: auto 0.5rem auto 0;
 }
 
 .review_index_poster img {
   width: 100%;
+}
+
+.review_show_score > h5 {
+  text-align: center;
 }
