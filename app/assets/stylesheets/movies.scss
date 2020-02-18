@@ -2,15 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.flex {
+#app {
   display: flex;
   flex-wrap: wrap;
 }
-.flex > div {
-  width: 23%;
-  // height: 550px;
-  margin: 10px;
-  background-color: rgb(255, 255, 255);
+#app > div {
+  // width: 23%;
+  margin: 0.3rem;
+  background-color: whitesmoke;
 }
 .movie_show_poster {
   width: 100%;

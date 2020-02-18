@@ -1,5 +1,5 @@
 .genre_search
-  .search_heading ジャンルで探す
+  .search_heading ジャンルで映画検索
   div.search_items
     -genres.each do |genre|
       = link_to search_path(genre_id: genre[:id])

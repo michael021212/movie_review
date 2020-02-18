@@ -16,3 +16,35 @@
 .css8 { font-size: 1.2em; }
 .css9 { font-size: 1.4em; }
 .css10 { font-size: 1.6em; }
+
+#review_index_card-title {
+  display: flex;
+  .row {
+    margin: 0;
+    // margin-right: 2rem;
+  }
+  p {
+    margin: auto;
+    font-size: smaller;
+  }
+  div {
+    margin: auto 0;
+  }
+  #review_link {
+    margin-right: 0;
+  }
+
+}
+#review_index_card-title > div {
+  margin: auto;
+}
+
+.good_bad {
+  p {
+    margin-right: 0.5rem;
+  }
+}
+
+.review_index_poster img {
+  width: 100%;
+}
