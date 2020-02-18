@@ -21,7 +21,6 @@ div.card.w-75
     div
       div.review_index_card_footer.row
         div.row id="review_index_good-bad"
-          p このレビューに対する評価
           //// GOODボタン
           - if @review.good_by?(current_user)
             = link_to review_good_path(@review), class:"btn btn-warning btn-sm", method: :delete do
@@ -54,9 +53,9 @@ div.card.w-75
         ////フォロー済み/する
         - if @review.user != current_user
           - if @review.user.followed_by?(current_user)
-            p= link_to 'フォロー済み', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :delete
+            p= link_to 'このユーザーをフォロー済み', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :delete
           - else
-            p= link_to 'フォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
+            p= link_to 'このユーザーをフォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
 
 javascript:
   $('#score-#{@review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',

@@ -1,40 +1,61 @@
-h1 Movies#show
-div id="#{@movie_id}"
-div style="position:relative; top:0px; left:0px; width:500px; height:250px;"
+div.movie_show_info id="#{@movie_id}"
+div#movie_show_score_section style="width:400px;"
+  div#score_section style="text-align: center;"
   canvas#radarChart_lg
 
-/search.html.slimと同じ
-- @reviews.each do |review|
-  = link_to review_path(review)
-    = attachment_image_tag review.user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
-    p= "名前 #{review.user.name}"
-    p= "総合スコア #{review.total_score}"
-    div id="review-#{review.id}"
+h3
+  span#movie_show_review_heading
+  span に投稿されたレビュー
+div.flex
+  - @reviews.each do |review|
+    div.card.w-100 id="movie_show_review_card"
+      div.card-body
+        div
+          div
+            div.card-title.row#review_index_card-title
+                div.col-md-6= link_to review_path(review), id:"review_link", class:"row"
+                  = attachment_image_tag review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+                  p= "#{review.user.name}さんのレビュー #{review.created_at.strftime('%Y/%m/%d')}"
+                strong.col-md-6 id="review_title-#{review.id}"
+            div
+              h5 id="score-#{review.id}" 総合スコア #{review.total_score}
+            = render 'reviews/tag_list', tag_list: review.tag_list
+            div.review_index_body
+              p.card-text #{review.body}
+
+        div
+          div.review_index_card_footer.row
+            div.row id="review_index_good-bad"
+              p このレビューに対する評価
+              //// GOODボタン
+              - if review.good_by?(current_user)
+                = link_to review_good_path(review), class:"btn btn-warning btn-sm", method: :delete do
+                  i.fas.fa-thumbs-up
+                  = review.goods.count
+              - else
+                = link_to review_good_path(review), class:"btn btn-warning btn-sm", method: :post do
+                  i.far.fa-thumbs-up
+                  = review.goods.count
+              //// BADボタン
+              - if review.bad_by?(current_user)
+                = link_to review_bad_path(review), class:"btn btn-warning btn-sm", method: :delete do
+                  i.fas.fa-thumbs-down
+                  = review.bads.count
+              - else
+                = link_to review_bad_path(review), class:"btn btn-warning btn-sm", method: :post do
+                  i.far.fa-thumbs-down
+                  = review.bads.count
+              ////フォロー済み/する
+              - if review.user != current_user
+                - if review.user.followed_by?(current_user)
+                  p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm movie_show_review_follow", method: :delete
+                - else
+                  p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm movie_show_review_follow", method: :post
+
     javascript:
-      $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
         scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
       });
-    = render 'reviews/tag_list', tag_list: review.tag_list
-    p= review.body
-    //// GOODボタン
-    - if review.good_by?(current_user)
-      = link_to review_good_path(review), method: :delete do
-        i.fas.fa-thumbs-up
-      = review.goods.count
-    - else
-      = link_to review_good_path(review), method: :post do
-        i.far.fa-thumbs-up
-      = review.goods.count
-    //// BADボタン
-    - if review.bad_by?(current_user)
-      = link_to review_bad_path(review), method: :delete do
-        i.fas.fa-thumbs-down
-      = review.bads.count
-    - else
-      = link_to review_bad_path(review), method: :post do
-        i.far.fa-thumbs-down
-      = review.bads.count
-  p------------------
 
 javascript:
   current_user_id = #{current_user.id}
@@ -47,20 +68,14 @@ javascript:
   .then(data => {
     console.log(data);
 
-    // ルーティングで定義したmoviesコントローラにapiのdataを:contentとして送る
-    // $.ajax({
-    //   url: "/movies/movie_data",
-    //   type: "GET",
-    //   data: {content : data},
-    //   datatype: "html",
-    // });
-
     container = document.getElementById(movie_id);
     const row = document.createElement('div');
     row.classList.add('item', 'row');
 
     const poster_section = document.createElement('div');
     poster_section.classList.add('poster_section', 'col-md-4', 'col-sm-12');
+    poster_section.style.cssText = "padding: 0 3rem 0 0.5rem;";
+    poster_section.style.cssText = "text-align: center;";
 
     const poster = document.createElement('img');
     poster.classList.add('movie_show_poster');
@@ -72,9 +87,13 @@ javascript:
     if( current_user_review != undefined ) {
         post.setAttribute('href', `/reviews/${current_user_review.id}`);
         post.textContent = `レビュー済み(${gon.reviews.length}人)`;
+        post.classList.add('btn', 'btn-warning', 'btn-sm');
+        post.style.cssText = "margin: 0.5rem 0.5rem";
     } else {
       post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
       post.textContent = `レビューする(${gon.reviews.length}人)`;
+      post.classList.add('btn', 'btn-warning', 'btn-sm');
+      post.style.cssText = "margin: 0.5rem 0.5rem";
     }
 
     const interest = document.createElement('a');
@@ -83,11 +102,16 @@ javascript:
     if(gon.interests == null) {
       interest.setAttribute('data-method', 'post');
       interest.textContent = `観たい(${gon.interest_users}人)`;
+      interest.classList.add('btn', 'btn-warning', 'btn-sm');
+      interest.style.cssText = "margin: 0.5rem 0.5rem";
     } else {
       interest.setAttribute('data-method', 'delete');
       interest.textContent = `追加済み(${gon.interest_users}人)`;
+      interest.classList.add('btn', 'btn-warning', 'btn-sm');
+      interest.style.cssText = "margin: 0.5rem 0.5rem";
     }
 
+    const score_section = document.getElementById('score_section');
     const score = document.createElement('p');
     score.classList.add('score');
     if(total_score_avg === null) {
@@ -100,33 +124,40 @@ javascript:
     const info_section = document.createElement('div');
     info_section.classList.add('info_section', 'col-md-8', 'col-sm-12');
 
-    const title = document.createElement('h4');
+    const title = document.createElement('strong');
     title.setAttribute('class', 'title');
+    title.style.cssText = "font-size: 1.5rem";
     title.textContent = data.title;
 
     const genres = document.createElement('p');
     genres.setAttribute('class', 'genres');
-    genres.textContent = data.genres.map(genre => { return genre.name });
+    genres.style.cssText = "margin-top: 1rem;";
+    genres.textContent = `ジャンル: ${data.genres.map(genre => { return genre.name })}`;
 
     const release_date = document.createElement('p');
     release_date.setAttribute('class', 'release_date');
-    release_date.textContent = data.release_date;
+    release_date.textContent = `上映日: ${data.release_date}`;
 
     const overview = document.createElement('p');
     overview.setAttribute('class', 'overview');
     overview.textContent = data.overview;
+
+    const movie_show_score_section = document.getElementById('movie_show_score_section')
+    const movie_show_review_heading = document.getElementById('movie_show_review_heading')
+    movie_show_review_heading.textContent = `「${data.title}」`
 
     container.appendChild(row);
       row.appendChild(poster_section);
         poster_section.appendChild(poster);
         poster_section.appendChild(post);
         poster_section.appendChild(interest);
-        poster_section.appendChild(score);
+        score_section.appendChild(score);
       row.appendChild(info_section);
         info_section.appendChild(title);
         info_section.appendChild(genres);
         info_section.appendChild(release_date);
         info_section.appendChild(overview);
+        info_section.appendChild(movie_show_score_section);
     $('.score').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
       scoreName: 'review[total_score_avg]', half: true, score: total_score_avg, readOnly: true
     });
@@ -146,13 +177,13 @@ javascript:
             lineWidth: 1
         },
         ticks: { // 目盛り
-            backdropColor: "white", // 目盛りの背景色
+            backdropColor: "whitesmoke", // 目盛りの背景色
             suggestedMin: 0,
             suggestedMax: 5,
-            fontSize: 18 // 目盛りの文字サイズ
+            fontSize: 10 // 目盛りの文字サイズ
         },
         pointLabels: { // 要素ごとのラベル
-            fontSize: 20 // 文字サイズ
+            fontSize: 18 // 文字サイズ
         },
         gridLines: { // グリッドライン
           color: 'rgba(180, 180, 180, 1.0)',
