@@ -115,7 +115,7 @@
           post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
           post.textContent = `レビュー済み(${review_count}人)`;
         } else {
-          post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+          post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
           post.classList.add('btn', 'btn-warning', 'btn-sm')
           post.textContent = `レビューする(${review_count}人)`;
         }
@@ -211,7 +211,7 @@ javascript:
         post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
         post.textContent = `レビュー済み(${review_count}人)`;
       } else {
-        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
         post.classList.add('btn', 'btn-warning', 'btn-sm')
         post.textContent = `レビューする(${review_count}人)`;
       }

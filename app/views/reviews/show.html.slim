@@ -43,7 +43,7 @@ div.card.w-75
         - if @current_user_reviews_movie_id.present?
           p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-warning btn-sm"
         - else
-          p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id), class:"btn btn-warning btn-sm"
+          p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm"
 
         ////観たいリストに追加済み/する
         - if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
