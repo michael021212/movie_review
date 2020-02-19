@@ -1,6 +1,5 @@
 .heading= "#{@user.name}さんのページ"
 
-
 = render 'users/user_show', user: @user
 
 .wrap
@@ -40,23 +39,6 @@
       = render 'reviews/good_bad_reviews', reviews: @good_reviews
     #tab4.tab
       = render 'reviews/good_bad_reviews', reviews: @bad_reviews
-
-
-
-h2= "==#{@user.name}さんのレビュー=="
-p= "全#{@reviews.count}件"
-- @reviews.each do |review|
-  = link_to review_path(review)
-    p= review.movie_id
-    p= "総合スコア: #{review.total_score}"
-    div id="review-#{review.id}"
-    javascript:
-      $('#review-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-        scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
-      });
-    = render 'reviews/tag_list', tag_list: review.tag_list
-    p= "レビュー: #{review.body}"
-  p---------------------
 
 javascript:
   $('#tab-contents .tab[id != "tab1"]').hide();

@@ -52,11 +52,11 @@ class UsersController < ApplicationController
 
   def reviews
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     @reviews = @user.reviews
 
-    gon.movie_id = Review.all.pluck(:movie_id)
-    gon.review_id = Review.all.pluck(:id)
+    gon.movie_id = @user.reviews.pluck(:movie_id)
+    gon.review_id = @user.reviews.pluck(:id)
 
   end
 
