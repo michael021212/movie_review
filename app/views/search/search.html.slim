@@ -122,7 +122,7 @@
 
         const interest = document.createElement('a');
         interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
-        interest.setAttribute('href', `/movies/${movie.id}/interest`);
+        interest.setAttribute('href', `/movies/${movie.id}/interest?title=${movie.title}&poster_path=${movie.poster_path}`);
         interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
         if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
           interest.setAttribute('data-method', 'post');
@@ -218,7 +218,7 @@ javascript:
 
       const interest = document.createElement('a');
       interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
-      interest.setAttribute('href', `/movies/${movie.id}/interest`);
+      interest.setAttribute('href', `/movies/${movie.id}/interest?title=${movie.title}&poster_path=${movie.poster_path}`);
       interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
       if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
         interest.setAttribute('data-method', 'post');

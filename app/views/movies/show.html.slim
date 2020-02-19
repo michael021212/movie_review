@@ -98,7 +98,7 @@ javascript:
 
     const interest = document.createElement('a');
     interest.setAttribute('class', 'interest');
-    interest.setAttribute('href', `/movies/${movie_id}/interest`);
+    interest.setAttribute('href', `/movies/${movie_id}/interest?title=${data.title}&poster_path=${data.poster_path}`);
     if(gon.interests == null) {
       interest.setAttribute('data-method', 'post');
       interest.textContent = `観たい(${gon.interest_users}人)`;
