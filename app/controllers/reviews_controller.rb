@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
   def new
     gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.movie_id = params[:movie_id]
-    @review = Review.new(movie_id: params[:movie_id])
+    @review = Review.new(movie_id: params[:movie_id], title: params[:title], poster_path: params[:poster_path])
   end
 
   def create
@@ -61,7 +61,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:movie_id, :user_id, :total_score, :story_score, :direction_score,
+    params.require(:review).permit(:movie_id, :title, :poster_path, :user_id, :total_score, :story_score, :direction_score,
       :acting_score, :visual_score, :music_score, :body, :tag_list)
   end
 end
