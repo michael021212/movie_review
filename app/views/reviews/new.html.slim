@@ -1,6 +1,8 @@
 .movie_image
 = form_with model: @review, local: true do |f|
   = f.hidden_field :movie_id
+  = f.hidden_field :title
+  = f.hidden_field :poster_path
   p 総合スコア
   div.star id="total"
   p 脚本
