@@ -39,8 +39,13 @@ class UsersController < ApplicationController
   end
 
   def interest
+    @user = User.find(params[:user_id])
+    @interests = @user.interests
+    @reviews = current_user.reviews
+    @score_reviews = Review.select(:movie_id, :total_score)
+
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    @interests = Interest.where(user_id: params[:user_id])
+    # @interests = Interest.where(user_id: params[:user_id])
     gon.interests_movie_id = @interests.pluck(:movie_id)
     gon.reviews = Review.all
     gon.current_user_reviews = current_user.reviews
