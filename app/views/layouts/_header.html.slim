@@ -1,6 +1,6 @@
 header.navbar
   nav.row
-    .logo.col-md-1 = link_to "Movie Review", root_path
+    = link_to "Movie Review", root_path, class:"logo col-md-1 "
     .nav_form.col-md-5
       = form_tag(search_path, :method => 'get') do
         = text_field_tag (:search_word)
@@ -20,9 +20,9 @@ header.navbar
       div class="dropdown col-md-2"
         a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #{current_user.name}
         div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-          .dropdown-item= link_to "マイページ", user_path(current_user)
-          .dropdown-item= link_to "プロフィール編集", edit_user_path(current_user)
-          .dropdown-item= link_to "ログアウト", destroy_user_session_path, method: :delete
+          = link_to  "マイページ", user_path(current_user), class:"dropdown-item"
+          = link_to  "プロフィール編集", edit_user_path(current_user), class:"dropdown-item"
+          = link_to  "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item"
     - else
       .login
         = link_to "ログイン", user_session_path
