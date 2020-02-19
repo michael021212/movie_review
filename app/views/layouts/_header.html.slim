@@ -5,12 +5,12 @@ header.navbar
       = form_tag(search_path, :method => 'get') do
         = text_field_tag (:search_word)
         = radio_button_tag :select, "1", checked: true
-        = label_tag :registered_address, "映画"
+        = label_tag :registered_address, "映画", class:"mr-1"
         = radio_button_tag :select, "2"
-        = label_tag :registered_address, "レビュー"
+        = label_tag :registered_address, "レビュー", class:"mr-1"
         = radio_button_tag :select, "3"
-        = label_tag :registered_address, "ユーザー"
-        = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ]), disabled: true
+        = label_tag :registered_address, "ユーザー", class:"mr-1"
+        = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ]), disabled: true, class:"mr-1"
         = submit_tag "検索", class:"btn btn-dark btn-sm rounded-pill"
     ul.nav_link.col-md-4
       li= link_to "映画を探す", movies_path
