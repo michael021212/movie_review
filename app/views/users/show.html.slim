@@ -34,6 +34,12 @@
           strong= "#{@user.name}さんのレビュー"
         div
           strong= @reviews.count
+    li
+      a href="#tab6"
+        div
+          strong= "#{@user.name}さんの観たいリスト"
+        div
+          strong= "#{@user.interests.count}"
   #tab-contents.clearfix
     #tab1.tab
       .flex.user_show_container
@@ -47,6 +53,8 @@
       = render 'reviews/good_bad_reviews', reviews: @bad_reviews
     #tab5.tab
       = render 'reviews/reviews', reviews: @reviews
+    #tab6.tab
+      = render 'users/interests', {interests: @interests, movie_total_score_avg: @movie_total_score_avg, score_reviews: @score_reviews, current_user_reviews: @current_user_reviews}
 
 javascript:
   $('#tab-contents .tab[id != "tab1"]').hide();

@@ -1,27 +1,26 @@
-h1 観たいリスト
-.flex#app
-  - @interests.each do |interest|
-    .item.card.img-thumbnail
+.flex#interests_flex
+  - interests.each do |interest|
+    .item.card.img-thumbnail#interests_item
       = link_to movie_path(interest.movie_id)
         = image_tag  "https://image.tmdb.org/t/p/w200#{interest.poster_path}", class:"w-100"
       .card-body
         strong = interest.title
         div.card-text#interest_total_score_avg
-          - if @score_reviews.where(movie_id: interest.movie_id).present?
-            - movie_score_reviews = @score_reviews.where(movie_id: interest.movie_id)
+          - if score_reviews.where(movie_id: interest.movie_id).present?
+            - movie_score_reviews = score_reviews.where(movie_id: interest.movie_id)
             - movie_total_score_sum = movie_score_reviews.inject(0) {|sum, hash| sum + hash[:total_score]}
-            - @movie_total_score_avg = movie_total_score_sum.fdiv(movie_score_reviews.length)
-            p id="score_avg_movie-#{interest.movie_id}"  平均スコア #{@movie_total_score_avg}
+            - movie_total_score_avg = movie_total_score_sum.fdiv(movie_score_reviews.length)
+            p id="score_avg_movie-#{interest.movie_id}"  平均スコア #{movie_total_score_avg}
             javascript:
               $('#score_avg_movie-#{interest.movie_id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-                scoreName: 'review[total_score]', half: true, score: #{@movie_total_score_avg}, readOnly: true
+                scoreName: 'review[total_score]', half: true, score: #{movie_total_score_avg}, readOnly: true
               });
           - else
             p レビュー無し
         p.mb-0
           ////レビュー済み/する
-          - if @reviews.find_by(movie_id: interest.movie_id).present?
-            = link_to "レビュー済み", review_path(@reviews.find_by(movie_id: interest.movie_id)), class:"btn btn-warning btn-sm mr-2"
+          - if current_user_reviews.find_by(movie_id: interest.movie_id).present?
+            = link_to "レビュー済み", review_path(current_user_reviews.find_by(movie_id: interest.movie_id)), class:"btn btn-warning btn-sm mr-2"
           - else
             = link_to "レビューする", new_review_path(movie_id: interest.movie_id, title: interest.title, poster_path: interest.poster_path), class:"btn btn-warning btn-sm mr-2"
           ////観たいリストに追加済み/する
