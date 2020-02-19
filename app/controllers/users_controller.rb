@@ -4,11 +4,19 @@ class UsersController < ApplicationController
   end
 
   def show
+    gon.TMDb_KEY = ENV['TMDb_KEY']
     @user = User.find(params[:id])
     @reviews = @user.reviews
     @good_reviews = @user.good_reviews
     @bad_reviews = @user.bad_reviews
     @user_interests = Interest.where(user_id: current_user.id)
+
+    @user_followings = @user.followings
+    @user_followers = @user.followers
+
+    gon.movie_id = Review.all.pluck(:movie_id)
+    gon.review_id = Review.all.pluck(:id)
+
   end
 
   def edit

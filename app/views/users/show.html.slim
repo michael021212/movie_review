@@ -1,17 +1,47 @@
-h1 Users#show
-= attachment_image_tag @user, :image, size: "150x150", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
-p= "名前 #{@user.name}"
-p= "プロフィール #{@user.intro}"
-- if @user == current_user
-  = link_to '編集', edit_user_path(@user), class:"btn btn-primary btn-block"
-- else
-  - if @user.followed_by?(current_user)
-    p= link_to 'フォロー済み', user_relationships_path(@user), method: :delete
-  - else
-    p= link_to 'フォローする', user_relationships_path(@user), method: :post
-p= link_to "フォロワー数: #{@user.followers.count}", followers_user_path(@user)
-p= link_to "フォロー数: #{@user.followings.count}", followings_user_path(@user)
-p= link_to "気になるリスト: #{@user.interests.count}", user_interest_path(@user)
+.heading= "#{@user.name}さんのページ"
+
+
+= render 'users/user_show', user: @user
+
+.wrap
+  ul#tab-menu.clearfix
+    li
+      a.active href="#tab1"
+        div
+          strong フォロワー
+        div
+          strong= @user.followers.count
+    li
+      a href="#tab2"
+        div
+          strong フォロワー
+        div
+          strong= @user.followings.count
+    li
+      a href="#tab3"
+        div
+          strong GOODしたレビュー
+        div
+          strong= @good_reviews.count
+    li
+      a href="#tab4"
+        div
+          strong BADしたレビュー
+        div
+          strong= @bad_reviews.count
+  #tab-contents.clearfix
+    #tab1.tab
+      .flex.user_show_container
+        = render 'users/users', users: @user_followers
+    #tab2.tab
+      .flex.user_show_container
+        = render 'users/users', users: @user_followings
+    #tab3.tab
+      = render 'reviews/good_bad_reviews', reviews: @good_reviews
+    #tab4.tab
+      = render 'reviews/good_bad_reviews', reviews: @bad_reviews
+
+
 
 h2= "==#{@user.name}さんのレビュー=="
 p= "全#{@reviews.count}件"
@@ -28,68 +58,13 @@ p= "全#{@reviews.count}件"
     p= "レビュー: #{review.body}"
   p---------------------
 
-h2= "==#{@user.name}さんがGOODしたレビュー=="
-- @good_reviews.each do |good_review|
-  = link_to review_path(good_review)
-    p= good_review.user.name
-    p= good_review.movie_id
-    p= "総合スコア: #{good_review.total_score}"
-    div id="good_review-#{good_review.id}"
-    javascript:
-      $('#good_review-#{good_review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-        scoreName: 'review[total_score]', half: true, score: #{good_review.total_score}, readOnly: true
-      });
-    = render 'reviews/tag_list', tag_list: good_review.tag_list
-    p= good_review.body
-  //// GOODしたレビューに表示するGOODボタンとGOODの個数
-  - if good_review.good_by?(current_user)
-    = link_to review_good_path(good_review), method: :delete do
-      i.fas.fa-thumbs-up
-    = good_review.goods.count
-  - else
-    = link_to review_good_path(good_review), method: :post do
-      i.far.fa-thumbs-up
-    = good_review.goods.count
-  //// GOODしたレビューに表示するBADボタンとBADの個数
-  - if good_review.bad_by?(current_user)
-    = link_to review_bad_path(good_review), method: :delete do
-      i.fas.fa-thumbs-down
-    = good_review.bads.count
-  - else
-    = link_to review_bad_path(good_review), method: :post do
-      i.far.fa-thumbs-down
-    = good_review.bads.count
-  p---------------------
+javascript:
+  $('#tab-contents .tab[id != "tab1"]').hide();
 
-h2= "==#{@user.name}さんがBADしたレビュー=="
-- @bad_reviews.each do |bad_review|
-  = link_to review_path(bad_review)
-    p= bad_review.user.name
-    p= bad_review.movie_id
-    p= "総合スコア: #{bad_review.total_score}"
-    div id="bad_review-#{bad_review.id}"
-    javascript:
-      $('#bad_review-#{bad_review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-        scoreName: 'review[total_score]', half: true, score: #{bad_review.total_score}, readOnly: true
-      });
-    = render 'reviews/tag_list', tag_list: bad_review.tag_list
-    p= bad_review.body
-  //// BADしたレビューに表示するGOODボタンとGOODの個数
-  - if bad_review.good_by?(current_user)
-    = link_to review_good_path(bad_review), method: :delete do
-      i.fas.fa-thumbs-up
-    = bad_review.goods.count
-  - else
-    = link_to review_good_path(bad_review), method: :post do
-      i.far.fa-thumbs-up
-    = bad_review.goods.count
-  //// BADしたレビューに表示するBADボタンとBADの個数
-  - if bad_review.bad_by?(current_user)
-    = link_to review_bad_path(bad_review), method: :delete do
-      i.fas.fa-thumbs-down
-    = bad_review.bads.count
-  - else
-    = link_to review_bad_path(bad_review), method: :post do
-      i.far.fa-thumbs-down
-    = bad_review.bads.count
-  p---------------------
+  $('#tab-menu a').on('click', function() {
+    $("#tab-contents .tab").hide();
+    $("#tab-menu .active").removeClass("active");
+    $(this).addClass("active");
+    $($(this).attr("href")).show();
+    return false;
+  });

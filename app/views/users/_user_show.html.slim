@@ -1,0 +1,23 @@
+  div.card.container id="user_show_container"
+    div.user_head.row.mt-4.mb-4
+      .col-md-3.text-center = attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
+      .col-md-9.d-flex.align-items-center.h3=  user.name
+    .row
+      = link_to followers_user_path(user), class:"col-md p-0 btn btn-warning mx-5"
+        div.text-center
+          strong フォロワー
+        div.text-center
+          strong= "#{user.followers.count}"
+      = link_to followings_user_path(user), class:"col-md p-0 btn btn-warning mx-5"
+        div.text-center
+          strong フォロー
+        div.text-center
+          strong= "#{user.followings.count}"
+    p.py-4= user.intro
+    - if user != current_user
+      - if user.followed_by?(current_user)
+        = link_to 'フォロー済み', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4 col-md-3 mx-auto", method: :delete
+      - else
+        = link_to 'フォローする', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4 col-md-3 mx-auto", method: :post
+    - if user == current_user
+      = link_to '編集', edit_user_path(user), class:"btn btn-primary btn-sm mb-4 col-md-3 mx-auto"
