@@ -16,26 +16,18 @@
     = render 'movies/genre_search', genres: @genres
     = render 'reviews/tag_cloud', tags: @tags
     .heading レビュー本文検索結果
-    - @reviews.each do |review|
-      = link_to review_path(review)
-        p= "movie_id #{review.movie_id}"
-        p= "ユーザーid #{review.user_id}"
-        p= "総合スコア #{review.total_score}"
-        p= review.body
+    = render 'reviews/reviews', reviews: @reviews
   - when '3' # ユーザーのname検索結果
     = render 'movies/genre_search', genres: @genres
     = render 'reviews/tag_cloud', tags: @tags
     .heading ユーザー名検索結果
-    - @users.each do |user|
-      = link_to user_path(user)
-        = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
-        p= "名前 #{user.name}"
-
+    .flex.user_show_container
+      = render 'users/users', users: @users
 - if params[:tag_search] # タグでレビュー検索結果
   = render 'movies/genre_search', genres: @genres
   = render 'reviews/tag_cloud', tags: @tags
   .heading= "「#{params[:tag_search]}」タグ検索結果"
-  = render 'reviews/good_bad_reviews', reviews: @reviews
+  = render 'reviews/reviews', reviews: @reviews
 
 - if params[:genre_id] # ジャンルで映画検索結果
   = render 'movies/genre_search', genres: @genres
@@ -115,14 +107,14 @@
           post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
           post.textContent = `レビュー済み(${review_count}人)`;
         } else {
-          post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+          post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
           post.classList.add('btn', 'btn-warning', 'btn-sm')
           post.textContent = `レビューする(${review_count}人)`;
         }
 
         const interest = document.createElement('a');
         interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
-        interest.setAttribute('href', `/movies/${movie.id}/interest`);
+        interest.setAttribute('href', `/movies/${movie.id}/interest?title=${movie.title}&poster_path=${movie.poster_path}`);
         interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
         if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
           interest.setAttribute('data-method', 'post');
@@ -211,14 +203,14 @@ javascript:
         post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
         post.textContent = `レビュー済み(${review_count}人)`;
       } else {
-        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
         post.classList.add('btn', 'btn-warning', 'btn-sm')
         post.textContent = `レビューする(${review_count}人)`;
       }
 
       const interest = document.createElement('a');
       interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
-      interest.setAttribute('href', `/movies/${movie.id}/interest`);
+      interest.setAttribute('href', `/movies/${movie.id}/interest?title=${movie.title}&poster_path=${movie.poster_path}`);
       interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
       if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
         interest.setAttribute('data-method', 'post');

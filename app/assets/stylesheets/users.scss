@@ -54,7 +54,7 @@
 #tab-menu li {
   float: left;
   list-style-type: none;
-  width: 25%;
+  width: 16.66%;
 }
 
 #tab-menu a {
@@ -80,4 +80,12 @@
 
 #tab-contents p{
   line-height: 2.5;
+}
+
+#interests_flex {
+  display: flex;
+  flex-wrap: wrap;
+  #interests_item {
+    width: 24%;
+  }
 }

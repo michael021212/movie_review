@@ -5,12 +5,12 @@
           div.col-md-3= attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
           .col-md-9.d-flex.align-items-center.h3=  user.name
       .row
-        = link_to followers_user_path(user), class:"col-md p-0"
+        .col-md.p-0
           div.text-center
             strong フォロワー
           div.text-center
             strong= "#{user.followers.count}"
-        = link_to followings_user_path(user), class:"col-md p-0"
+        .col-md.p-0
           div.text-center
             strong フォロー
           div.text-center

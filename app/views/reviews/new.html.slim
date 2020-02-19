@@ -1,49 +1,58 @@
-.movie_image
-= form_with model: @review, local: true do |f|
-  = f.hidden_field :movie_id
-  = f.hidden_field :title
-  = f.hidden_field :poster_path
-  p 総合スコア
-  div.star id="total"
-  p 脚本
-  div.star id="story"
-  p 演出
-  div.star id="direction"
-  p 演技
-  div.star id="acting"
-  p 映像
-  div.star id="visual"
-  p 音楽
-  div.star id="music"
+.row.p-4
+  .movie_image.col-md-4
 
-  javascript:
-    $('#total').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[total_score]', half: true,
-    });
-    $('#story').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[story_score]', half: true,
-    });
-    $('#direction').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[direction_score]', half: true,
-    });
-    $('#acting').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[acting_score]', half: true,
-    });
-    $('#visual').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[visual_score]', half: true,
-    });
-    $('#music').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-      scoreName: 'review[music_score]', half: true,
-    });
-  .tags
-    = f.label :tag_list, 'タグ(5つまで入力可)'
-    = text_field_tag 'review[tag_list]', @review.tag_list.join(','), data: {role: 'tagsinput'}
+  .col-md-8= form_with model: @review, local: true do |f|
+    = f.hidden_field :movie_id
+    = f.hidden_field :title
+    = f.hidden_field :poster_path
+    h4 総合スコア
+    div.star.mb-4 id="total"
+    div 脚本
+    div.star.mb-4 id="story"
+    div 演出
+    div.star.mb-4 id="direction"
+    div 演技
+    div.star.mb-4 id="acting"
+    div 映像
+    div.star.mb-4 id="visual"
+    div 音楽
+    div.star.mb-4 id="music"
 
-  p 本文
-  = f.text_area :body
+    javascript:
+      $('#total').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_score]', half: true
+      });
+      $('#story').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[story_score]', half: true
+      });
+      $('#direction').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[direction_score]', half: true
+      });
+      $('#acting').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[acting_score]', half: true
+      });
+      $('#visual').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[visual_score]', half: true
+      });
+      $('#music').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[music_score]', half: true
+      });
+    .tags
+      = f.label :tag_list, 'タグ(5つまで入力可)'
+      = text_field_tag 'review[tag_list]', @review.tag_list.join(','), data: {role: 'tagsinput'}
 
-  .actions
-  = f.submit '投稿'
+    .tag_cloud.my-4.rounded
+      .search_heading 今まで使われているタグ
+      h5.search_items
+        - @tags.each do |tag|
+          .badge.badge-info.mr-2= "#{tag.name}(#{tag.count})"
+
+    div 本文
+    = f.text_area :body, class:"w-100 review_body_input rounded"
+
+
+    .actions
+    = f.submit '投稿する', class:"btn btn-success"
 
 javascript:
   movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入
@@ -60,5 +69,10 @@ javascript:
     poster.classList.add('poster');
     poster.src = `https://image.tmdb.org/t/p/w200${data.poster_path}`;
 
+    const title = document.createElement('h2');
+    title.classList.add('my-4', 'text-center');
+    title.textContent = data.title;
+
     container.appendChild(poster);
+    container.appendChild(title);
   })

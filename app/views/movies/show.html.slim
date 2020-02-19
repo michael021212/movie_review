@@ -90,7 +90,7 @@ javascript:
         post.classList.add('btn', 'btn-warning', 'btn-sm');
         post.style.cssText = "margin: 0.5rem 0.5rem";
     } else {
-      post.setAttribute('href', `/reviews/new?movie_id=${movie_id}`);
+      post.setAttribute('href', `/reviews/new?movie_id=${movie_id}&title=${data.title}&poster_path=${data.poster_path}`);
       post.textContent = `レビューする(${gon.reviews.length}人)`;
       post.classList.add('btn', 'btn-warning', 'btn-sm');
       post.style.cssText = "margin: 0.5rem 0.5rem";
@@ -98,7 +98,7 @@ javascript:
 
     const interest = document.createElement('a');
     interest.setAttribute('class', 'interest');
-    interest.setAttribute('href', `/movies/${movie_id}/interest`);
+    interest.setAttribute('href', `/movies/${movie_id}/interest?title=${data.title}&poster_path=${data.poster_path}`);
     if(gon.interests == null) {
       interest.setAttribute('data-method', 'post');
       interest.textContent = `観たい(${gon.interest_users}人)`;
