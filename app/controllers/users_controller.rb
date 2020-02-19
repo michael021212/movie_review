@@ -16,7 +16,6 @@ class UsersController < ApplicationController
 
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
-
   end
 
   def edit
@@ -49,6 +48,16 @@ class UsersController < ApplicationController
     gon.all_interests = Interest.all
     gon.user_id = params[:user_id]
     gon.total_scores = Review.select(:movie_id, :total_score)
+  end
+
+  def reviews
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+    @user = User.find(params[:id])
+    @reviews = @user.reviews
+
+    gon.movie_id = Review.all.pluck(:movie_id)
+    gon.review_id = Review.all.pluck(:id)
+
   end
 
 private
