@@ -7,8 +7,9 @@ class MoviesController < ApplicationController
     if user_signed_in?
       gon.current_user_reviews = current_user.reviews
       gon.interests = Interest.where(user_id: current_user.id)
+    else
+      gon.interests = Interest.where(user_id: 0)
     end
-    gon.interests = Interest.where(user_id: 0)
     gon.all_interests = Interest.all
     @genres = GENRES
   end
