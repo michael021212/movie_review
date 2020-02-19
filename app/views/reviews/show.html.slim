@@ -1,60 +1,70 @@
-h1 Reviews#show
-div
-  = attachment_image_tag @review.user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
-p= "movie_id: #{@review.movie_id}"
-= link_to user_path(id: @review.user_id)
-  p= "名前: #{@review.user.name}"
-- if @review.user != current_user
-  - if @review.user.followed_by?(current_user)
-    p= link_to 'フォロー済み', user_relationships_path(@review.user), method: :delete
-  - else
-    p= link_to 'フォローする', user_relationships_path(@review.user), method: :post
-p= "総合スコア: #{@review.total_score}"
-div.total_score
+div.review_show_heading
+  ="#{@review.user.name}さんの"
+  span#review_show_title
+div.card.w-75
+  div.card-body
+    div.card-title.row#review_index_card-title
+        div.col-md-6= link_to user_path(@review.user), id:"review_link", class:"row"
+          = attachment_image_tag @review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+          p= "#{@review.user.name}さん #{@review.created_at.strftime('%Y/%m/%d')}"
+        strong.col-md-6 id="review_title"
+    div.row
+      div.col-md-9
+        div style="position:relative; top:0px; left:0px; width:400px; height:100%;"
+          div.review_show_score
+            h5 id="score-#{@review.id}" 総合スコア #{@review.total_score}
+          canvas#radarChart_lg
+      div.movie_image.col-md-3.review_index_poster
+    = render 'reviews/tag_list', tag_list: @review.tag_list
+    div.review_index_body
+      p.card-text #{@review.body}
+    div
+      div.review_index_card_footer.row
+        div.row id="review_index_good-bad"
+          //// GOODボタン
+          - if @review.good_by?(current_user)
+            = link_to review_good_path(@review), class:"btn btn-warning btn-sm", method: :delete do
+              i.fas.fa-thumbs-up
+              = @review.goods.count
+          - else
+            = link_to review_good_path(@review), class:"btn btn-warning btn-sm", method: :post do
+              i.far.fa-thumbs-up
+              = @review.goods.count
+          //// BADボタン
+          - if @review.bad_by?(current_user)
+            = link_to review_bad_path(@review), class:"btn btn-warning btn-sm", method: :delete do
+              i.fas.fa-thumbs-down
+              = @review.bads.count
+          - else
+            = link_to review_bad_path(@review), class:"btn btn-warning btn-sm", method: :post do
+              i.far.fa-thumbs-down
+              = @review.bads.count
+        ////レビュー済み/する
+        - if @current_user_reviews_movie_id.present?
+          p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-warning btn-sm"
+        - else
+          p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id), class:"btn btn-warning btn-sm"
+
+        ////観たいリストに追加済み/する
+        - if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
+          p= link_to "観たいリストに追加済み(#{@interests.length}人)", movie_interest_path(@review.movie_id), class:"btn btn-warning btn-sm", method: :delete
+        - else
+          p= link_to "この映画を観たい(#{@interests.length}人)", movie_interest_path(@review.movie_id), class:"btn btn-warning btn-sm", method: :post
+        ////フォロー済み/する
+        - if @review.user != current_user
+          - if @review.user.followed_by?(current_user)
+            p= link_to 'このユーザーをフォロー済み', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :delete
+          - else
+            p= link_to 'このユーザーをフォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
+
 javascript:
-  $('.total_score').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+  $('#score-#{@review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
     scoreName: 'review[total_score]', half: true, score: #{@review.total_score}, readOnly: true
   });
-div style="position:relative; top:0px; left:0px; width:500px; height:250px;"
-  canvas#radarChart_lg
-= render 'reviews/tag_list', tag_list: @review.tag_list
-p= "本文: #{@review.body}"
-- if @review.user == current_user
-  = link_to '編集', edit_review_path(@review)
 
-.movie_image
-//@current_user_review = current_user.reviews.find_by(movie_id: @review.movie_id)
-- if @current_user_reviews_movie_id.present? # current_userのinterestの中に該当のmovie_idがあればtrue
-  = link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id)
-- else
-  = link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id)
-
-- if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
-  = link_to "追加済み(#{@interests.length}人)", movie_interest_path(@review.movie_id), method: :delete
-- else
-  = link_to "観たい(#{@interests.length}人)", movie_interest_path(@review.movie_id), method: :post
-
-//// GOODボタン
-- if @review.good_by?(current_user)
-  = link_to review_good_path(@review), method: :delete do
-    i.fas.fa-thumbs-up
-  = @review.goods.count
-- else
-  = link_to review_good_path(@review), method: :post do
-    i.far.fa-thumbs-up
-  = @review.goods.count
-//// BADボタン
-- if @review.bad_by?(current_user)
-  = link_to review_bad_path(@review), method: :delete do
-    i.fas.fa-thumbs-down
-  = @review.bads.count
-- else
-  = link_to review_bad_path(@review), method: :post do
-    i.far.fa-thumbs-down
-  = @review.bads.count
 
 javascript:
-  fetch(`https://api.themoviedb.org/3/movie/${gon.movie_id}?api_key=${gon.TMDb_KEY}&language=en-US`) //movie_idを使ってdetailをリクエスト
+  fetch(`https://api.themoviedb.org/3/movie/${gon.movie_id}?api_key=${gon.TMDb_KEY}&language=ja-JP`) //movie_idを使ってdetailをリクエスト
   .then(response => {
     return response.json();
   })
@@ -63,8 +73,12 @@ javascript:
     p = data.poster_path; //data内のポスター画像pathを代入
 
     container = document.querySelector('.movie_image');
-    const row = document.createElement('div');
-    row.setAttribute('class', 'item');
+    const item = document.createElement('div');
+    let review_title = document.getElementById(`review_title`)
+    let review__show_title = document.getElementById(`review_show_title`)
+
+    review_title.textContent = data.title;
+    review_show_title.textContent = `「${data.title}」のレビュー`;
 
     const link = document.createElement('a');
     link.setAttribute('class', 'link');
@@ -73,8 +87,8 @@ javascript:
     const poster = document.createElement('img');
     poster.src = `https://image.tmdb.org/t/p/w200${p}`; //ポスター画像のソース
 
-    container.appendChild(row);
-    row.appendChild(link);
+    container.appendChild(item);
+    item.appendChild(link);
     link.appendChild(poster);
   })
 
@@ -91,13 +105,13 @@ javascript:
             lineWidth: 1
         },
         ticks: { // 目盛り
-            backdropColor: "white", // 目盛りの背景色
+            backdropColor: "whitesmoke", // 目盛りの背景色
             suggestedMin: 0,
             suggestedMax: 5,
-            fontSize: 18 // 目盛りの文字サイズ
+            fontSize: 12 // 目盛りの文字サイズ
         },
         pointLabels: { // 要素ごとのラベル
-            fontSize: 20 // 文字サイズ
+            fontSize: 18 // 文字サイズ
         },
         gridLines: { // グリッドライン
           color: 'rgba(180, 180, 180, 1.0)',

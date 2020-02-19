@@ -1,6 +1,6 @@
-h1 映画を探す
 = render 'movies/genre_search', genres: @genres
 = render 'reviews/tag_cloud', tags: @tags
+.heading 映画を探す
 
 div.flex#app
 
@@ -35,50 +35,26 @@ javascript:
       container = document.getElementById('app');
 
       const div = document.createElement('div');
-      div.setAttribute('class', 'item');
+      div.classList.add('item', 'card', 'img-thumbnail');
 
-      const row = document.createElement('a');
-      row.setAttribute('class', 'set');
-      row.setAttribute('href', `/movies/${movie.id}`);
+      const link = document.createElement('a');
+      link.setAttribute('class', 'link');
+      link.setAttribute('href', `/movies/${movie.id}`);
 
       const poster = document.createElement('img');
+      poster.setAttribute('class', 'poster');
       poster.setAttribute('alt', 'サンプル');
       poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
 
-      const title = document.createElement('h4');
-      title.setAttribute('class', 'title');
+      const body = document.createElement('div');
+      body.setAttribute('class', 'card-body');
+
+      const title = document.createElement('strong');
+      title.classList.add('title', 'card-title')
       title.textContent = movie.title;
 
-      const genre_ids = document.createElement('p');
-      genre_ids.setAttribute('class', 'genre_ids');
-      genre_ids.textContent = movie.genre_ids;
-
-      const post = document.createElement('a');
-      post.setAttribute('class', 'post');
-      review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
-      if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
-        review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
-        post.setAttribute('href', `/reviews/${review_id}`);
-        post.textContent = `レビュー済み(${review_count}人)`;
-      } else {
-        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
-        post.textContent = `レビューする(${review_count}人)`;
-      }
-
-      const interest = document.createElement('a');
-      interest.setAttribute('class', 'interest');
-      interest.setAttribute('href', `/movies/${movie.id}/interest`);
-      interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
-      if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
-        interest.setAttribute('data-method', 'post');
-        interest.textContent = `観たい(${interest_users_count}人)`;
-      } else {
-        interest.setAttribute('data-method', 'delete');
-        interest.textContent = `追加済み(${interest_users_count}人)`;
-      }
-
       const total_score = document.createElement('p');
-      total_score.setAttribute('class', 'total_score');
+      total_score.classList.add(`total_score_movie-${movie.id}`, 'card-text');
       var initialValue = 0; //reduceのcallbackのaccに、初回は0が入るようにする。書かないと初回には配列の最初の値が入る
       total_scores = gon.total_scores.filter(total_score => { return total_score["movie_id"] == movie.id }); //movie_idが一致するハッシュを抽出。gon.total_scoreにはmovie_idとtotal_scoreのみの全reviewが入っている
       total_scores_sum = total_scores.reduce((acc, value) => acc + value["total_score"], initialValue); //抽出したハッシュのtotal_scoreの合計を出す
@@ -89,13 +65,49 @@ javascript:
         total_score.textContent = `平均スコア ${total_scores_avg.toFixed(1)}`; //小数点以下1桁(*近似値)
       }
 
+      const btn = document.createElement('p');
+      btn.classList.add('mb-0')
+
+      const post = document.createElement('a');
+      post.setAttribute('class', 'post');
+      review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
+      if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
+        review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
+        post.setAttribute('href', `/reviews/${review_id}`);
+        post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
+        post.textContent = `レビュー済み(${review_count}人)`;
+      } else {
+        post.setAttribute('href', `/reviews/new?movie_id=${movie.id}`);
+        post.classList.add('btn', 'btn-warning', 'btn-sm')
+        post.textContent = `レビューする(${review_count}人)`;
+      }
+
+      const interest = document.createElement('a');
+      interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
+      interest.setAttribute('href', `/movies/${movie.id}/interest`);
+      interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
+      if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
+        interest.setAttribute('data-method', 'post');
+        interest.textContent = `観たい(${interest_users_count}人)`;
+      } else {
+        interest.setAttribute('data-method', 'delete');
+        interest.textContent = `追加済み(${interest_users_count}人)`;
+      }
+
+
       container.appendChild(div);
-        div.appendChild(row);
-          row.appendChild(poster);
-          row.appendChild(genre_ids);
-        div.appendChild(post);
-        div.appendChild(interest);
-        div.appendChild(total_score);
+        div.appendChild(link);
+          link.appendChild(poster);
+        div.appendChild(body)
+          body.appendChild(title);
+          body.appendChild(total_score);
+          body.appendChild(btn)
+            btn.appendChild(post);
+            btn.appendChild(interest);
+
+      $(`.total_score_movie-${movie.id}`).raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+        scoreName: 'review[total_scores_avg]', half: true, score: total_scores_avg.toFixed(1), readOnly: true
+      });
     })
   })
 

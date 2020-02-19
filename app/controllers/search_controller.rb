@@ -7,6 +7,14 @@ class SearchController < ApplicationController
     when '1' # 映画 Movieモデルはないのでjsに変数を渡してapiの検索機能を使う
       gon.TMDb_KEY = ENV['TMDb_KEY']
       gon.search_word = params[:search_word]
+      gon.total_scores = Review.select(:movie_id, :total_score)
+      gon.reviews = Review.all
+      if user_signed_in?
+        gon.current_user_reviews = current_user.reviews
+        gon.interests = Interest.where(user_id: current_user.id)
+      end
+      gon.interests = Interest.where(user_id: 0)
+      gon.all_interests = Interest.all
     when '2' # レビュー
       @reviews = Review.search(params[:search_word], params[:search_type])
     when '3' # ユーザー

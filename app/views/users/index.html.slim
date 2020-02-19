@@ -1,10 +1,4 @@
-h1 ユーザーを探す
-- @users.each do |user|
-  = link_to user_path(user)
-    = attachment_image_tag user, :image, size: "80x80", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
-    p= user.name
-    - if user != current_user
-      - if user.followed_by?(current_user)
-        p= link_to 'フォロー済み', user_relationships_path(user), method: :delete
-      - else
-        p= link_to 'フォローする', user_relationships_path(user), method: :post
+.heading ユーザーを探す
+.flex.user_container
+  = render 'users/users', users: @users
+

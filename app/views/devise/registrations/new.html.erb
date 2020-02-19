@@ -1,44 +1,74 @@
-<h2>Sign up</h2>
+<div class="devise_container text-center">
+  <h2>新規登録</h2>
 
-<%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name, "名前" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :name, "名前" %><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :birthday, "生まれ年(任意)" %><br />
-    <%= f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" } %>
-  </div>
+    <div class="field form-group">
+      <% if @minimum_password_length %>
+        <%= f.label :password, "パスワード(#{@minimum_password_length}文字以上)" %>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :sex, "性別(任意)" %><br />
-    <%= f.select :sex, User.sexes.keys, :selected=>User.sexes[@user.sex] %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :password_confirmation, "パスワード(確認)" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
 
+    <div class="field form-group">
+      <%= f.label :birthday, "生まれ年(任意)" %><br />
+      <%= f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" } %>
+    </div>
 
-  <div class="field">
-    <% if @minimum_password_length %>
-      <%= f.label :password, "パスワード(#{@minimum_password_length}文字以上)" %>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :sex, "性別(任意)" %><br />
+      <%= f.select :sex, User.sexes.keys, :selected=>User.sexes[@user.sex] %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード(確認)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :intro, "自己紹介" %><br />
+      <%= f.text_area :intro, style:"width: 40%; height: 100px;" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="field form-group has-icon">
+      <div class="user-edit-image">
+        <%= attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb rounded-circle", id: "img_prev", fallback: "no_profile_image.jpg" %>
+      </div>
+      <label class="control-label sr-only", for="inputEmail">ProfileImage</label>
+      <%= f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form", onchange: "previewFile()" %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="actions">
+      <%= f.submit "Sign up", class:"btn btn-success" %>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  function previewFile() {
+    var preview = document.querySelector('#img_prev');
+    //どこでプレビューするか指定。'img[name="preview"]'などにすればimg複数あっても指定できます。
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+
+    if (file) {
+      reader.readAsDataURL(file);
+    };
+
+    reader.addEventListener("load", function () {
+      preview.src = reader.result;
+    }, false);
+  }
+</script>

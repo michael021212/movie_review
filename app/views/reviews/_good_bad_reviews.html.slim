@@ -1,11 +1,6 @@
-= render 'movies/genre_search', genres: @genres
-= render 'reviews/tag_cloud', tags: @tags
-.heading レビューを見る
-
-
 div.flex
-  - @reviews.each do |review|
-    div.card.w-75
+  - reviews.each do |review|
+    div.card
       div.card-body
         div.row
           div.col-md-10
@@ -20,7 +15,7 @@ div.flex
             div.review_index_body
               p.card-text #{review.body}
 
-          div.col-md-2.review_index_poster id="review-#{review.id}"
+          div.col-md-2.review_index_poster id="user_show_review-#{review.id}"
         div
           div.review_index_card_footer.row
             div.row id="review_index_good-bad"
@@ -61,7 +56,6 @@ div.flex
           $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
-        div.m[id="review-#{review.id}"]
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
@@ -73,7 +67,7 @@ javascript:
     })
     .then(data => {
       let poster_path = data.poster_path; //data内のポスター画像pathを代入
-      let item = document.getElementById(`review-${review_id[i]}`)
+      let item = document.getElementById(`user_show_review-${review_id[i]}`)
       let review_title = document.getElementById(`review_title-${review_id[i]}`)
 
       review_title.textContent = data.title;
@@ -87,7 +81,6 @@ javascript:
 
       item.appendChild(link);
       link.appendChild(poster);
-      //review_title.appendChild(title)
     })
 
   }
