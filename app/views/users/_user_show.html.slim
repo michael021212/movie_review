@@ -3,16 +3,12 @@
       .col-md-3.text-center = attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
       .col-md-9.d-flex.align-items-center.h3=  user.name
     .row
-      = link_to followers_user_path(user), class:"col-md p-0 btn btn-warning mx-5"
+      = link_to user_reviews_path(user), class:"col-md p-0 btn btn-warning mx-5"
         div.text-center
-          strong フォロワー
+          strong= "#{user.name}さんのレビュー"
+      = link_to user_interest_path(user), class:"col-md p-0 btn btn-warning mx-5"
         div.text-center
-          strong= "#{user.followers.count}"
-      = link_to followings_user_path(user), class:"col-md p-0 btn btn-warning mx-5"
-        div.text-center
-          strong フォロー
-        div.text-center
-          strong= "#{user.followings.count}"
+          strong= "#{user.name}さんの観たいリスト"
     p.py-4= user.intro
     - if user != current_user
       - if user.followed_by?(current_user)

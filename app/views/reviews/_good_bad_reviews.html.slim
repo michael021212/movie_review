@@ -56,7 +56,6 @@ div.flex
           $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
-        / div.m[id="review-#{review.id}"]
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
@@ -82,7 +81,6 @@ javascript:
 
       item.appendChild(link);
       link.appendChild(poster);
-      //review_title.appendChild(title)
     })
 
   }
