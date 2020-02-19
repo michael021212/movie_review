@@ -35,12 +35,7 @@
   = render 'movies/genre_search', genres: @genres
   = render 'reviews/tag_cloud', tags: @tags
   .heading= "「#{params[:tag_search]}」タグ検索結果"
-  - @reviews.each do |review|
-      = link_to review_path(review)
-        p= "movie_id #{review.movie_id}"
-        p= "ユーザーid #{review.user_id}"
-        p= "総合スコア #{review.total_score}"
-        p= review.body
+  = render 'reviews/good_bad_reviews', reviews: @reviews
 
 - if params[:genre_id] # ジャンルで映画検索結果
   = render 'movies/genre_search', genres: @genres

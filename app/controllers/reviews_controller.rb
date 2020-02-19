@@ -45,13 +45,13 @@ class ReviewsController < ApplicationController
   def update
     review = Review.find(params[:id])
     review.update(review_params)
-    redirect_to review_path(review)
+    redirect_to user_reviews_path(current_user)
   end
 
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    redirect_to reviews_path
+    redirect_to request.referer
   end
 
   def tag_cloud

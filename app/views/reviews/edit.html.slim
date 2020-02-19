@@ -41,8 +41,7 @@
   = f.text_area :body
 
   .actions
-  = f.submit '投稿'
-= link_to '削除', review_path(@review), method: :delete
+  = f.submit '更新'
 
 javascript:
   movie_id = gon.movie_id //moviesコントローラーで定義した変数を代入

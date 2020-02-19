@@ -36,6 +36,8 @@ class SearchController < ApplicationController
 
     if params[:tag_search]
       @reviews = Review.tagged_with(params[:tag_search])
+      gon.movie_id = @reviews.pluck(:movie_id)
+      gon.review_id = @reviews.pluck(:id)
     end
   end
 
