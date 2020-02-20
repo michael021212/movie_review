@@ -23,9 +23,9 @@
             = link_to "レビュー済み", review_path(current_user_reviews.find_by(movie_id: interest.movie_id)), class:"btn btn-warning btn-sm mr-2"
           - else
             = link_to "レビューする", new_review_path(movie_id: interest.movie_id, title: interest.title, poster_path: interest.poster_path), class:"btn btn-warning btn-sm mr-2"
-          ////観たいリストに追加済み/する
+          ////観たいリストに追加、削除する
           - if current_user.interests.find_by(movie_id: interest.movie_id).present?
-            = link_to "追加済み", movie_interest_path(interest.movie_id), class:"btn btn-warning btn-sm mr-2", method: :delete
+            = link_to "追加済み", movie_interest_path(interest.movie_id), class:"btn btn-warning btn-sm mr-2", method: :delete, data: { confirm: '観たいリストから削除してもよろしいですか？' }
           - else
             = link_to "観たい", movie_interest_path(movie_id: interest.movie_id, title: interest.title, poster_path: interest.poster_path), class:"btn btn-warning btn-sm mr-2", method: :post
 

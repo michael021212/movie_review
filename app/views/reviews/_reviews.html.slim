@@ -53,7 +53,7 @@ div.flex
                 p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
             - if review.user == current_user
               = link_to "編集", edit_review_path(review), class:"btn btn-primary btn-sm mr-2"
-              = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete
+              = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete, data: {confirm: 'このレビューを削除してもよろしいですか？'}
 
 
         javascript:
