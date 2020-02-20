@@ -41,3 +41,9 @@ $(function(){
 $(function(){
     setTimeout("$('.auto-hide').fadeOut('slow')", 1500)
   })
+
+dataConfirmModal.setDefaults({
+  title: '確認',
+  commit: 'OK',
+  cancel: 'キャンセル'
+});
