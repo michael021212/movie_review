@@ -2,12 +2,12 @@
   h2 登録情報編集
   = form_with model: @user, local: true do |f|
     .field.form-group
-      = f.label :name, "名前"
+      = f.label :name, "Name(半角英数字, 10文字まで)"
       br
       = f.text_field :name
 
     .field.form-group
-      = f.label :email, "メールアドレス"
+      = f.label :email, "Email"
       br
       = f.email_field :email
 
@@ -22,7 +22,7 @@
       = f.select :sex, User.sexes.keys, :selected=>@user.sex
 
     .field.form-group
-      = f.label :intro, "自己紹介"
+      = f.label :intro, "自己紹介(任意)"
       br
       = f.text_area :intro, style:"width: 40%; height: 100px;"
 
