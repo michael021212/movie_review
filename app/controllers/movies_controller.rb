@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, only: [:show]
+
   def index
     tag_cloud
     gon.TMDb_KEY = ENV['TMDb_KEY']
@@ -42,9 +44,4 @@ class MoviesController < ApplicationController
     @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
   end
 
-  # ajaxで送られたdataの処理
-  def movie_data
-    @content = params[:content]
-    @title = @content[:title]
-  end
 end

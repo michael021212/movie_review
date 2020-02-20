@@ -1,5 +1,10 @@
 <%= render "devise/shared/error_messages", resource: resource %>
 <div class="devise_container text-center">
+  <div class="border border-success rounded w-25 mx-auto mt-4 text-success">
+    <div>ログインせずに使える機能</div>
+    <div class="small">映画/レビュー/ユーザー 一覧ページ</div>
+    <div class="small">映画検索機能</div>
+  </div>
   <h2 class="mt-4">ログイン</h2>
 
   <%= form_with model: @user, url: user_session_path, id: 'new_user', class: 'new_user', local: true do |f| %>

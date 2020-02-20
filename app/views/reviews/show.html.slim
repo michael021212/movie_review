@@ -1,7 +1,7 @@
 div.review_show_heading
   ="#{@review.user.name}さんの"
   span#review_show_title
-div.card.w-75
+div.card.w-75.shadow-sm
   div.card-body
     div.card-title.row#review_index_card-title
         div.col-md-6= link_to user_path(@review.user), id:"review_link", class:"row"

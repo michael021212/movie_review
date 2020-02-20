@@ -1,5 +1,5 @@
   - users.each do |user|
-    div.card.container
+    div.card.container.shadow-sm
       div.user_head.mt-4.mb-4
         = link_to user_path(user), class:"row"
           div.col-md-3= attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
@@ -16,8 +16,9 @@
           div.text-center
             strong= "#{user.followings.count}"
       p.py-4.small= user.intro
-      - if user != current_user
-        - if user.followed_by?(current_user)
-          = link_to 'フォロー済み', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4", method: :delete, data: {confirm: 'フォローを外してもよろしいですか？'}
-        - else
-          = link_to 'フォローする', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4", method: :post
+      -if user_signed_in?
+        - if user != current_user
+          - if user.followed_by?(current_user)
+            = link_to 'フォロー済み', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4", method: :delete, data: {confirm: 'フォローを外してもよろしいですか？'}
+          - else
+            = link_to 'フォローする', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4", method: :post

@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :tag_cloud, only: %i[index edit new]
+  before_action :authenticate_user!, except: %i[index tag_cloud]
+
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
     @reviews = Review.all
@@ -20,7 +22,7 @@ class ReviewsController < ApplicationController
     @current_user_reviews_movie_id = current_user.reviews.find_by(movie_id: @review.movie_id)
 
     elements = %i[story_score direction_score acting_score visual_score music_score] # 各スコアを配列にする
-    @avg_score = elements.map{|element| @review[element]}
+    @avg_score = elements.map { |element| @review[element] }
   end
 
   def new

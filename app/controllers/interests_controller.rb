@@ -1,4 +1,6 @@
 class InterestsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     interest = current_user.interests.build(movie_id: params[:movie_id], title: params[:title], poster_path: params[:poster_path])
     interest.save

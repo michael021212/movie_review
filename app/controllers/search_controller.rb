@@ -17,8 +17,10 @@ class SearchController < ApplicationController
       end
       gon.all_interests = Interest.all
     when '2' # レビュー
+      authenticate_user!
       @reviews = Review.search(params[:search_word], params[:search_type])
     when '3' # ユーザー
+      authenticate_user!
       @users = User.search(params[:search_word], params[:search_type])
     end
 
@@ -37,6 +39,7 @@ class SearchController < ApplicationController
     end
 
     if params[:tag_search]
+      authenticate_user!
       @reviews = Review.tagged_with(params[:tag_search])
       gon.movie_id = @reviews.pluck(:movie_id)
       gon.review_id = @reviews.pluck(:id)
