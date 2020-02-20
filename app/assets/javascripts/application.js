@@ -34,3 +34,6 @@ $(function () {
   });
 });
 
+$(function(){
+    setTimeout("$('.auto-hide').fadeOut('slow')", 1500)
+  })

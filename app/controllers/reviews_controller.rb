@@ -34,7 +34,7 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save
-    redirect_to review_path(review)
+    redirect_to review_path(review), notice: "レビューを投稿しました"
   end
 
   def edit
@@ -46,13 +46,13 @@ class ReviewsController < ApplicationController
   def update
     review = Review.find(params[:id])
     review.update(review_params)
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user), notice: "レビューを更新しました"
   end
 
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    redirect_to request.referer
+    redirect_to request.referer, alert: "レビューを削除しました"
   end
 
   def tag_cloud
