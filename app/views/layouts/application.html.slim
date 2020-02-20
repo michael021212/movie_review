@@ -13,10 +13,10 @@ html
   body
     = render 'layouts/header'
     .container
-      p.notice
-        = notice
-      p.alert
-        = alert
+      -if flash.notice.present?
+        p.alert.alert-success.mt-1= flash.notice
+      -if flash.alert.present?
+        p.alert.alert-danger.mt-1= flash.alert
       = yield
     = render 'layouts/footer'
 

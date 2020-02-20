@@ -1,3 +1,4 @@
+= render 'layouts/errors', model: @user
 .devise_container.text-center
   h2 登録情報編集
   = form_with model: @user, local: true do |f|
@@ -14,7 +15,7 @@
     .field.form-group
       = f.label :birthday, "生まれ年(任意)"
       br
-      = f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10 }
+      = f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
 
     .field.form-group
       = f.label :sex, "性別(任意)"
@@ -36,7 +37,7 @@
       = f.submit "更新する", class:"btn btn-success"
       br
       br
-      = link_to '退会する', user_registration_path(@review), class:"btn btn-danger", method: :delete
+      = link_to '退会する', user_registration_path(@review), class:"btn btn-danger", method: :delete, data: {confirm: 'アカウントを削除してよろしいですか？'}
 
 javascript:
   function previewFile() {

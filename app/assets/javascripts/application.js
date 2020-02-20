@@ -18,6 +18,7 @@
 //= require tagsinput
 //= require rails-ujs
 //= require activestorage
+//= require data-confirm-modal
 
 //= require_tree .
 

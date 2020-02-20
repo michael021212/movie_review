@@ -1,6 +1,6 @@
 <%= render "devise/shared/error_messages", resource: resource %>
 <div class="devise_container text-center">
-  <h2>新規登録</h2>
+  <h2>アカウント登録</h2>
 
   <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
 
@@ -50,7 +50,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up", class:"btn btn-success" %>
+      <%= f.submit "登録する", class:"btn btn-success" %>
     </div>
   <% end %>
 

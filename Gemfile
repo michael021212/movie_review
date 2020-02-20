@@ -88,6 +88,8 @@ gem 'chart-js-rails'
 
 gem 'acts-as-taggable-on', '~> 6.0'
 
+gem 'data-confirm-modal'
+
 group :production do
   gem 'mysql2'
 end

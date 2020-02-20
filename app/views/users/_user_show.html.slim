@@ -9,4 +9,4 @@
       - else
         = link_to 'フォローする', user_relationships_path(user), class:"btn btn-warning btn-sm mb-4 col-md-3 mx-auto", method: :post
     - if user == current_user
-      = link_to '編集', edit_user_path(user), class:"btn btn-primary btn-sm mb-4 col-md-3 mx-auto"
+      = link_to '編集 / 退会', edit_user_path(user), class:"btn btn-primary btn-sm mb-4 col-md-3 mx-auto"
