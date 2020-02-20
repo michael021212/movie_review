@@ -11,6 +11,16 @@
 $background-color: rgb(223, 223, 223);
 $line-color: rgb(223, 223, 223);
 
+.alert {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  z-index: 1000;
+  li {
+    list-style: none;
+  }
+}
+
 body {
   font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
   color: #383838;
@@ -26,7 +36,7 @@ body {
 /* header */
 
 header {
-  z-index: 9999;
+  z-index: 999;
   border-bottom: 1px solid #eaeaea;
   color: #777;
   font-size: small;
@@ -40,13 +50,13 @@ header {
     background-color: rgb(223, 223, 223);
   }
 }
-@media screen and (min-width:760px) {
-  .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-}
+// @media screen and (min-width:760px) {
+//   .navbar {
+//     position: fixed;
+//     top: 0;
+//     width: 100%;
+//   }
+// }
 .navbar {
   padding: 0;
 }

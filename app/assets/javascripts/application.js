@@ -18,6 +18,7 @@
 //= require tagsinput
 //= require rails-ujs
 //= require activestorage
+//= require data-confirm-modal
 
 //= require_tree .
 
@@ -33,3 +34,16 @@ $(function () {
   });
 });
 
+$(function(){
+    setTimeout("$('.alert').fadeOut('slow')", 7000)
+  })
+
+$(function(){
+    setTimeout("$('.auto-hide').fadeOut('slow')", 1500)
+  })
+
+dataConfirmModal.setDefaults({
+  title: '確認',
+  commit: 'OK',
+  cancel: 'キャンセル'
+});

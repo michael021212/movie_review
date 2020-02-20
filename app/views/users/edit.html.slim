@@ -1,20 +1,21 @@
+= render 'layouts/errors', model: @user
 .devise_container.text-center
-  h2 登録情報編集
+  h2.mt-4 登録情報編集 / 退会
   = form_with model: @user, local: true do |f|
     .field.form-group
-      = f.label :name, "名前"
+      = f.label :name, "Name(半角英数字, 10文字まで)"
       br
       = f.text_field :name
 
     .field.form-group
-      = f.label :email, "メールアドレス"
+      = f.label :email, "Email"
       br
       = f.email_field :email
 
     .field.form-group
       = f.label :birthday, "生まれ年(任意)"
       br
-      = f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10 }
+      = f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
 
     .field.form-group
       = f.label :sex, "性別(任意)"
@@ -22,22 +23,22 @@
       = f.select :sex, User.sexes.keys, :selected=>@user.sex
 
     .field.form-group
-      = f.label :intro, "自己紹介"
+      = f.label :intro, "自己紹介(任意)"
       br
       = f.text_area :intro, style:"width: 40%; height: 100px;"
 
     .form-group.has-icon
+        div プロフィール画像(任意)
         .user-edit-image
           = attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb rounded-circle", id: "img_prev", fallback: "no_profile_image.jpg"
-        label.control-label.sr-only for="inputEmail"  ProfileImage
+        label.control-label.sr-only for="user_image"  ProfileImage
         = f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form", onchange: "previewFile()"
 
-    .actions.mx-auto
-      = f.submit "更新する", class:"btn btn-success"
-      br
-      br
-      = link_to '退会する', user_registration_path(@review), class:"btn btn-danger", method: :delete
-
+    .actions.mx-auto.row.mt-5
+      div.col-md
+      div.col-md= f.submit "更新する", class:"btn btn-success"
+      div.col-md= link_to '退会する', user_registration_path(@review), class:"btn btn-danger", method: :delete, data: {confirm: 'アカウントを削除してもよろしいですか？'}
+      div.col-md
 javascript:
   function previewFile() {
     var preview = document.querySelector('#img_prev');
