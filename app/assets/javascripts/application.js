@@ -35,5 +35,9 @@ $(function () {
 });
 
 $(function(){
+    setTimeout("$('.alert').fadeOut('slow')", 7000)
+  })
+
+$(function(){
     setTimeout("$('.auto-hide').fadeOut('slow')", 1500)
   })

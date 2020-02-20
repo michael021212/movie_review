@@ -1,3 +1,9 @@
+- if flash.present?
+  - flash.each do |key, message|
+    div class="alert alert-danger"
+      - message2 = message.gsub(",","<br>")
+      = message2.html_safe
+      / html_safeをしないと<br>が文字列として表示されてしまう
 .row.p-4
   .movie_image.col-md-4
 
@@ -5,17 +11,29 @@
     = f.hidden_field :movie_id
     = f.hidden_field :title
     = f.hidden_field :poster_path
-    h4 総合スコア
+    h4
+      | 総合スコア
+      span.small.ml-2 -Total Score-
     div.star.mb-4 id="total"
-    div 脚本
+    div
+      | 脚本
+      span.small.ml-1 -Story Score-
     div.star.mb-4 id="story"
-    div 演出
+    div
+      | 演出
+      span.small.ml-1 -Direction Score-
     div.star.mb-4 id="direction"
-    div 演技
+    div
+      | 演技
+      span.small.ml-1 -Acting Score-
     div.star.mb-4 id="acting"
-    div 映像
+    div
+      | 映像
+      span.small.ml-1 -Visual Score-
     div.star.mb-4 id="visual"
-    div 音楽
+    div
+      | 音楽
+      span.small.ml-1 -Music Score-
     div.star.mb-4 id="music"
 
     javascript:
@@ -47,7 +65,7 @@
         - @tags.each do |tag|
           .badge.badge-info.mr-2= "#{tag.name}(#{tag.count})"
 
-    div 本文
+    div 本文(2000文字以内)
     = f.text_area :body, class:"w-100 review_body_input rounded"
 
 

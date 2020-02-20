@@ -1,7 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :tag_cloud, only: %i[index edit new]
   def index
-    tag_cloud
     gon.TMDb_KEY = ENV['TMDb_KEY']
     @reviews = Review.all
     gon.movie_id = Review.all.pluck(:movie_id)
@@ -31,10 +30,15 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review = Review.new(review_params)
-    review.user_id = current_user.id
-    review.save
-    redirect_to review_path(review), notice: "レビューを投稿しました"
+    @review = Review.new(review_params)
+    @review.user_id = current_user.id
+    if @review.save
+      redirect_to review_path(@review), notice: 'レビューを投稿しました'
+    else
+      # renderだとパラメータが消えてしまうので、バリデーションメッセージをフラッシュに入れてredirectし、viewで表示させる
+      flash[:review_alert] = @review.errors.full_messages.to_s.gsub!(/"/, '').gsub(/\]/, '').gsub(/\[/, '')
+      redirect_to request.referer
+    end
   end
 
   def edit

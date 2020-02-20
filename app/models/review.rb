@@ -3,6 +3,15 @@ class Review < ApplicationRecord
   has_many :goods
   has_many :bads
 
+  validates :total_score, presence: true
+  validates :story_score, presence: true
+  validates :direction_score, presence: true
+  validates :acting_score, presence: true
+  validates :visual_score, presence: true
+  validates :music_score, presence: true
+
+  validates :body, length: { maximum: 2000 }
+
   # タグ機能
   acts_as_taggable # acts_as_taggable_on :tagsのエイリアス
 
