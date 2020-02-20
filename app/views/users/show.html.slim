@@ -7,37 +7,37 @@
     li
       a.active href="#tab1"
         div
-          strong フォロワー
+          strong.tab-menu_label フォロワー
         div
           strong= @user.followers.count
     li
       a href="#tab2"
         div
-          strong フォロー
+          strong.tab-menu_label フォロー
         div
           strong= @user.followings.count
     li
       a href="#tab3"
         div
-          strong GOODしたレビュー
+          strong.tab-menu_label GOODしたレビュー
         div
           strong= @good_reviews.count
     li
       a href="#tab4"
         div
-          strong BADしたレビュー
+          strong.tab-menu_label BADしたレビュー
         div
           strong= @bad_reviews.count
     li
       a href="#tab5"
         div
-          strong= "#{@user.name}さんのレビュー"
+          strong.tab-menu_label= "#{@user.name}さんのレビュー"
         div
           strong= @reviews.count
     li
       a href="#tab6"
         div
-          strong= "#{@user.name}さんの観たいリスト"
+          strong.tab-menu_label= "#{@user.name}さんの観たいリスト"
         div
           strong= "#{@user.interests.count}"
   #tab-contents.clearfix
