@@ -53,6 +53,12 @@ class User < ApplicationRecord
     passive_relationships.where(following_id: user.id).present? #exists?の方がいいかも
   end
 
+  def timeline
+    Review.where("user_id IN (?)", following_ids)
+    # following_ids = "SELECT following_id FROM relationships WHERE follower_id = :user_id"
+    # Review.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+  end
+
   private
 
   def self.dummy_email(auth)
