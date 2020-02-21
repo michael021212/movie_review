@@ -1,17 +1,19 @@
 class BadsController < ApplicationController
   def create
+    @review = Review.find(params[:review_id])
     bad = current_user.bads.build(review_id: params[:review_id])
     bad.save
     good = Good.find_by(user_id: current_user.id, review_id: params[:review_id])
     if good.present?
       good.destroy
     end
-    redirect_to request.referer, notice: "BADに追加しました"
+    @msg = "BADに追加しました"
   end
 
   def destroy
+    @review = Review.find(params[:review_id])
     bad = Bad.find_by(user_id: current_user.id, review_id: params[:review_id])
     bad.destroy
-    redirect_to request.referer, alert: "BADから削除しました"
+    @msg = "BADから削除しました"
   end
 end

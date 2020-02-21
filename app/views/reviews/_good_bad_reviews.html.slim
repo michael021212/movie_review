@@ -18,26 +18,8 @@ div.flex
           div.col-md-2.review_index_poster id="user_show_review-#{review.id}"
         div
           div.review_index_card_footer.row
-            div.row id="review_index_good-bad"
-              p このレビューに対する評価
-              //// GOODボタン
-              - if review.good_by?(current_user)
-                = link_to review_good_path(review), class:"btn btn-warning btn-sm", method: :delete, data: {confirm: 'GOODしたレビューから削除してもよろしいですか？'} do
-                  i.fas.fa-thumbs-up
-                  = review.goods.count
-              - else
-                = link_to review_good_path(review), class:"btn btn-warning btn-sm", method: :post do
-                  i.far.fa-thumbs-up
-                  = review.goods.count
-              //// BADボタン
-              - if review.bad_by?(current_user)
-                = link_to review_bad_path(review), class:"btn btn-warning btn-sm", method: :delete, data: {confirm: 'BADしたレビューから削除してもよろしいですか？'} do
-                  i.fas.fa-thumbs-down
-                  = review.bads.count
-              - else
-                = link_to review_bad_path(review), class:"btn btn-warning btn-sm", method: :post do
-                  i.far.fa-thumbs-down
-                  = review.bads.count
+            div.row.review_index_good-bad id="review-#{review.id}_good"
+              = render 'goods/good', review: review
             ////観たいリストに追加済み/する
             - if current_user.interests.find_by(movie_id: review.movie_id).present?
               p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete

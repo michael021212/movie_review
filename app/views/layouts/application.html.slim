@@ -13,6 +13,7 @@ html
   body
     = render 'layouts/header'
     .container
+      #alert-message
       -if flash.notice.present?
         p.alert.alert-success.mt-1.auto-hide= flash.notice
       -if flash.alert.present?
