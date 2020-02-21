@@ -3,3 +3,5 @@ $('#alert-message').html('<div class="alert alert-success mt-1 auto-hide"><%= @m
 $(function(){
     setTimeout("$('.auto-hide').fadeOut('slow')", 1500)
   });
+
+$("#self_review-<%=@review.id%>_good").html("<%= j(render partial: 'goods/good', locals: { review: @review }) %>");
