@@ -20,7 +20,7 @@ div.card.w-75.shadow-sm
       p.card-text #{@review.body}
     div
       div.review_index_card_footer.row
-        div.row id="review_index_good-bad"
+        div.row.review_index_good-bad
           //// GOODボタン
           - if @review.good_by?(current_user)
             = link_to review_good_path(@review), class:"btn btn-warning btn-sm", method: :delete do

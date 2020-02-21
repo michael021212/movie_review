@@ -18,7 +18,7 @@ div.flex
           div.col-md-2.review_index_poster id="user_show_review-#{review.id}"
         div
           div.review_index_card_footer.row
-            div.row id="review_index_good-bad"
+            div.row.review_index_good-bad
               p このレビューに対する評価
               //// GOODボタン
               - if review.good_by?(current_user)
