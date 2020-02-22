@@ -29,7 +29,7 @@
   padding: 1.5rem;
 }
 
-.w-75 {
+#review_card {
   background-color: whitesmoke;
   margin-bottom: 1rem;
 }
@@ -83,4 +83,8 @@
 
 .review_show_score > h5 {
   text-align: center;
+}
+
+.search_field {
+  font-size: 0.8rem;
 }

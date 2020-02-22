@@ -19,7 +19,7 @@ html
       -if flash.alert.present?
         p.alert.alert-danger.mt-1.auto-hide= flash.alert
       = yield
-    span#back
+    div#back
       a href="#"
         img src="images/arrow.png" alt=""
     = render 'layouts/footer'

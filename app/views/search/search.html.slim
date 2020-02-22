@@ -12,11 +12,11 @@
       javascript:
         var current_user_id = 0;
 
-  - when '2' # レビューのbody検索結果
-    = render 'movies/genre_search', genres: @genres
-    = render 'reviews/tag_cloud', tags: @tags
-    .heading レビュー本文検索結果
-    = render 'reviews/reviews', reviews: @reviews
+  / - when '2' # レビューのbody検索結果
+  /   = render 'movies/genre_search', genres: @genres
+  /   = render 'reviews/tag_cloud', tags: @tags
+  /   .heading レビュー本文検索結果
+  /   = render 'reviews/reviews', reviews: @reviews
   - when '3' # ユーザーのname検索結果
     = render 'movies/genre_search', genres: @genres
     = render 'reviews/tag_cloud', tags: @tags
@@ -73,7 +73,7 @@
 
         const poster = document.createElement('img');
         poster.setAttribute('class', 'poster');
-        poster.setAttribute('alt', 'サンプル');
+        poster.setAttribute('alt', '画像がありません');
         poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
 
         const body = document.createElement('div');
@@ -170,7 +170,7 @@ javascript:
 
       const poster = document.createElement('img');
       poster.setAttribute('class', 'poster');
-      poster.setAttribute('alt', 'サンプル');
+      poster.setAttribute('alt', 'no_imgae.jpg');
       poster.src = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
 
       const body = document.createElement('div');

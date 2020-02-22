@@ -1,50 +1,54 @@
 = render 'movies/genre_search', genres: @genres
 = render 'reviews/tag_cloud', tags: @tags
-.heading レビューを見る
+.heading レビューを探す
+= paginate @reviews
 
+div.row
+  div.card.col-md-3.px-0.shadow-sm style="height: fit-content;"
+    = render 'reviews/reviews_search', q: @q
 
-div.flex
-  - @reviews.each do |review|
-    div.card.w-75.shadow-sm
-      div.card-body
-        div.row
-          div.col-md-10
-            div.card-title.row#review_index_card-title
-                div.col-md-6= link_to review_path(review), id:"review_link", class:"row"
-                  = attachment_image_tag review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
-                  p= "#{review.user.name}さんのレビュー #{review.created_at.strftime('%Y/%m/%d')}"
-                strong.col-md-6 id="review_title-#{review.id}"
-            div
-              h5 id="score-#{review.id}" 総合スコア #{review.total_score}
-            = render 'reviews/tag_list', tag_list: review.tag_list
-            div.review_index_body
-              p.card-text #{review.body}
+  div.flex.col-md-9
+    - @reviews.each do |review|
+      div.card.w-100.shadow-sm#review_card
+        div.card-body
+          div.row
+            div.col-md-10
+              div.card-title.row#review_index_card-title
+                  div.col-md-6= link_to review_path(review), id:"review_link", class:"row"
+                    = attachment_image_tag review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+                    p= "#{review.user.name}さんのレビュー #{review.created_at.strftime('%Y/%m/%d')}"
+                  strong.col-md-6 id="review_title-#{review.id}"
+              div
+                h5 id="score-#{review.id}" 総合スコア #{review.total_score}
+              = render 'reviews/tag_list', tag_list: review.tag_list
+              div.review_index_body
+                p.card-text #{review.body}
 
-          div.col-md-2.review_index_poster id="review-#{review.id}"
-        div
-          div.review_index_card_footer.row
-            - if user_signed_in?
-              div.row.review_index_good-bad id="review-#{review.id}_good"
-                = render 'goods/good', review: review
-              ////観たいリストに追加済み/する
-              - if current_user.interests.find_by(movie_id: review.movie_id).present?
-                p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete
-              - else
-                p= link_to "この映画を観たい", movie_interest_path(movie_id: review.movie_id, title: review.title, poster_path: review.poster_path), class:"btn btn-warning btn-sm", method: :post
-              ////フォロー済み/する
-              - if review.user != current_user
-                - if review.user.followed_by?(current_user)
-                  p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :delete
+            div.col-md-2.review_index_poster id="review-#{review.id}"
+          div
+            div.review_index_card_footer.row
+              - if user_signed_in?
+                div.row.review_index_good-bad id="review-#{review.id}_good"
+                  = render 'goods/good', review: review
+                ////観たいリストに追加済み/する
+                - if current_user.interests.find_by(movie_id: review.movie_id).present?
+                  p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete
                 - else
-                  p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
+                  p= link_to "この映画を観たい", movie_interest_path(movie_id: review.movie_id, title: review.title, poster_path: review.poster_path), class:"btn btn-warning btn-sm", method: :post
+                ////フォロー済み/する
+                - if review.user != current_user
+                  - if review.user.followed_by?(current_user)
+                    p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :delete
+                  - else
+                    p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
 
+= paginate @reviews
 
-
-        javascript:
-          $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
-            scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
-          });
-        div.m[id="review-#{review.id}"]
+          javascript:
+            $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+              scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
+            });
+          div.m[id="review-#{review.id}"]
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列

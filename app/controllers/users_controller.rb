@@ -13,8 +13,8 @@ class UsersController < ApplicationController
     @bad_reviews = @user.bad_reviews.page(params[:page]).reverse_order
     @user_interests = Interest.where(user_id: current_user.id)
 
-    @user_followings = @user.followings
-    @user_followers = @user.followers
+    @user_followings = @user.followings.page(params[:page])
+    @user_followers = @user.followers.page(params[:page])
 
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
