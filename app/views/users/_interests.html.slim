@@ -11,7 +11,7 @@
             - movie_score_reviews = score_reviews.where(movie_id: interest.movie_id)
             - movie_total_score_sum = movie_score_reviews.inject(0) {|sum, hash| sum + hash[:total_score]}
             - movie_total_score_avg = movie_total_score_sum.fdiv(movie_score_reviews.length)
-            p id="score_avg_movie-#{interest.movie_id}"  平均スコア #{movie_total_score_avg}
+            p id="score_avg_movie-#{interest.movie_id}"  ="平均スコア #{movie_total_score_avg.ceil(1)}"
             javascript:
               $('#score_avg_movie-#{interest.movie_id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
                 scoreName: 'review[total_score]', half: true, score: #{movie_total_score_avg}, readOnly: true
