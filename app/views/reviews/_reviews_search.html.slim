@@ -1,0 +1,94 @@
+div
+  h5.search_heading.w-100 検索条件
+  - if params[:q]
+    div.search_field.px-1
+      - unless params[:q][:total_score_gteq].empty?
+        div.font-weight-bold 総合スコア: #{params[:q][:total_score_gteq]}点以上
+      - unless params[:q][:story_score_gteq].empty?
+        div.font-weight-bold 脚本スコア: #{params[:q][:story_score_gteq]}点以上
+      - unless params[:q][:direction_score_gteq].empty?
+        div.font-weight-bold 演出スコア: #{params[:q][:direction_score_gteq]}点以上
+      - unless params[:q][:acting_score_gteq].empty?
+        div.font-weight-bold 演技スコア: #{params[:q][:acting_score_gteq]}点以上
+      - unless params[:q][:visual_score_gteq].empty?
+        div.font-weight-bold 映像スコア: #{params[:q][:visual_score_gteq]}点以上
+      - unless params[:q][:music_score_gteq].empty?
+        div.font-weight-bold 音楽スコア: #{params[:q][:music_score_gteq]}点以上
+      - unless params[:q][:body_cont].empty?
+        div.font-weight-bold 本文: #{params[:q][:body_cont]}
+
+div
+  h5.search_heading.w-100 レビュー検索
+  div.search_field.px-1
+    = search_form_for(q, url:reviews_search_path) do |f|
+      p.border-bottom
+        = f.label :total_score_gteq, '総合スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'total_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'total_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'total_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'total_score_gteq', '3.0'
+        |  3点以上
+      p.border-bottom
+        = f.label :story_score_gteq, '脚本スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'story_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'story_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'story_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'story_score_gteq', '3.0'
+        |  3点以上
+      p.border-bottom
+        = f.label :direction_score_gteq, '演出スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'direction_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'direction_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'direction_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'direction_score_gteq', '3.0'
+        |  3点以上
+      p.border-bottom
+        = f.label :acting_score_gteq, '演技スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'acting_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'acting_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'acting_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'acting_score_gteq', '3.0'
+        |  3点以上
+      p.border-bottom
+        = f.label :visual_score_gteq, '映像スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'visual_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'visual_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'visual_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'visual_score_gteq', '3.0'
+        |  3点以上
+      p.border-bottom
+        = f.label :music_score_gteq, '音楽スコア', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'music_score_gteq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'music_score_gteq', '5.0'
+        |  5点以上
+        = f.radio_button 'music_score_gteq', '4.0'
+        |  4点以上
+        = f.radio_button 'music_score_gteq', '3.0'
+        |  3点以上
+      p
+        = f.label :body_cont, 'キーワード', class:"mr-2 font-weight-bold"
+        = f.search_field :body_cont
+      div.text-center.mb-4
+        = f.submit class:"btn btn-info rounded-pill"

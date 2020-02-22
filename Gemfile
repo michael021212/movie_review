@@ -92,6 +92,8 @@ gem 'data-confirm-modal'
 
 gem 'kaminari'
 
+gem 'ransack'
+
 group :production do
   gem 'mysql2'
 end

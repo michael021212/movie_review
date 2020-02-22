@@ -1,10 +1,12 @@
 class ReviewsController < ApplicationController
-  before_action :tag_cloud, only: %i[index edit new]
+  before_action :tag_cloud, only: %i[index edit new search]
   before_action :authenticate_user!, except: %i[index tag_cloud]
 
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    @reviews = Review.all.page(params[:page]).reverse_order
+    @q = Review.ransack(params[:q])
+    @reviews = @q.result(distinct: true).page(params[:page]).reverse_order
+
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
     @genres = GENRES
@@ -65,10 +67,25 @@ class ReviewsController < ApplicationController
     @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
   end
 
+  def search
+    @q = Review.search(search_params)
+    @reviews = @q.result(distinct: true)
+    @genres = GENRES
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+    gon.movie_id = Review.all.pluck(:movie_id)
+    gon.review_id = Review.all.pluck(:id)
+    @genres = GENRES
+    render :index
+  end
+
   private
 
   def review_params
     params.require(:review).permit(:movie_id, :title, :poster_path, :user_id, :total_score, :story_score, :direction_score,
       :acting_score, :visual_score, :music_score, :body, :tag_list)
+  end
+
+  def search_params
+    params.require(:q).permit(:total_score_gteq, :story_score_gteq, :direction_score_gteq, :acting_score_gteq, :visual_score_gteq, :music_score_gteq, :body_cont)
   end
 end
