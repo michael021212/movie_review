@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
 
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
-    @reviews = Review.all
+    @reviews = Review.all.page(params[:page]).reverse_order
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
     @genres = GENRES

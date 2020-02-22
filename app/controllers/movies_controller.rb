@@ -33,7 +33,7 @@ class MoviesController < ApplicationController
       end
     @avg_scores = element_scores.map { |e_score| e_score.sum.fdiv(e_score.length) } # スコアごとの配列を繰り返し処理し、それぞれの配列の合計を個数で割り平均を出す
 
-    @reviews = Review.where(movie_id: params[:id])
+    @reviews = Review.where(movie_id: params[:id]).page(params[:page]).reverse_order
     gon.reviews = Review.where(movie_id: params[:id])
 
     gon.interests = Interest.find_by(user_id: current_user.id, movie_id: params[:id]) # current_userが該当のmovieをお気に入り登録済みか確認するための検索

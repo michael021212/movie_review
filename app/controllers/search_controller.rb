@@ -18,7 +18,7 @@ class SearchController < ApplicationController
       gon.all_interests = Interest.all
     when '2' # レビュー
       authenticate_user!
-      @reviews = Review.search(params[:search_word], params[:search_type])
+      @reviews = Review.search(params[:search_word], params[:search_type]).page(params[:page]).reverse_order
     when '3' # ユーザー
       authenticate_user!
       @users = User.search(params[:search_word], params[:search_type])
@@ -40,7 +40,7 @@ class SearchController < ApplicationController
 
     if params[:tag_search]
       authenticate_user!
-      @reviews = Review.tagged_with(params[:tag_search])
+      @reviews = Review.tagged_with(params[:tag_search]).page(params[:page]).reverse_order
       gon.movie_id = @reviews.pluck(:movie_id)
       gon.review_id = @reviews.pluck(:id)
     end
