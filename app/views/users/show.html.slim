@@ -42,11 +42,15 @@
           strong= "#{@user.interests.count}"
   #tab-contents.clearfix
     #tab1.tab
+      = paginate @user_followers
       .flex.user_show_container
         = render 'users/users', users: @user_followers
+      = paginate @user_followers
     #tab2.tab
+      = paginate @user_followings
       .flex.user_show_container
         = render 'users/users', users: @user_followings
+      = paginate @user_followings
     #tab3.tab
       = render 'reviews/good_bad_reviews', reviews: @good_reviews
     #tab4.tab

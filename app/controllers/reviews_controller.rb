@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
 
   def search
     @q = Review.search(search_params)
-    @reviews = @q.result(distinct: true)
+    @reviews = @q.result(distinct: true).page(params[:page]).reverse_order
     @genres = GENRES
     gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.movie_id = Review.all.pluck(:movie_id)

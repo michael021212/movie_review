@@ -1,9 +1,10 @@
 = render 'movies/genre_search', genres: @genres
 = render 'reviews/tag_cloud', tags: @tags
 .heading レビューを探す
+= paginate @reviews
 
 div.row
-  div.card.col-md-3.px-0.shadow-sm
+  div.card.col-md-3.px-0.shadow-sm style="height: fit-content;"
     = render 'reviews/reviews_search', q: @q
 
   div.flex.col-md-9
@@ -41,7 +42,7 @@ div.row
                   - else
                     p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
 
-
+= paginate @reviews
 
           javascript:
             $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',

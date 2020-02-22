@@ -15,7 +15,11 @@ div
       - unless params[:q][:music_score_gteq].empty?
         div.font-weight-bold 音楽スコア: #{params[:q][:music_score_gteq]}点以上
       - unless params[:q][:body_cont].empty?
-        div.font-weight-bold 本文: #{params[:q][:body_cont]}
+        div.font-weight-bold キーワード: #{params[:q][:body_cont]}
+      - if params[:q][:body_cont].empty?
+        div.text-center 検索条件はありません
+  - else
+    div.search_field.text-center 検索条件はありません
 
 div
   h5.search_heading.w-100 レビュー検索

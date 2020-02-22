@@ -1,3 +1,4 @@
+= paginate reviews
 div.flex
   - reviews.each do |review|
     div.card.mb-2.shadow-sm id="good_bad_reviews_card"
@@ -35,7 +36,7 @@ div.flex
               = link_to "編集", edit_review_path(review), class:"btn btn-primary btn-sm mr-2"
               = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete
 
-
+= paginate reviews
 
         javascript:
           $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
