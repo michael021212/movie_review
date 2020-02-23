@@ -35,7 +35,7 @@ div.flex
                 p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm movie_show_review_follow", method: :post
 
     javascript:
-      $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+      $('#score-#{review.id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
         scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
       });
 
@@ -140,7 +140,7 @@ javascript:
         info_section.appendChild(release_date);
         info_section.appendChild(overview);
         info_section.appendChild(movie_show_score_section);
-    $('.score').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+    $('.score').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
       scoreName: 'review[total_score_avg]', half: true, score: total_score_avg, readOnly: true
     });
 

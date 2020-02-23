@@ -39,7 +39,7 @@ div.flex
 = paginate reviews
 
         javascript:
-          $('#score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+          $('#score-#{review.id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
 
