@@ -59,6 +59,10 @@ class User < ApplicationRecord
     # Review.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
+  def self.follower_ranks
+    User.find(Relationship.group(:follower_id).order('count(follower_id) desc').limit(3).pluck(:follower_id))
+  end
+
   private
 
   def self.dummy_email(auth)

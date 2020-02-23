@@ -1,8 +1,8 @@
 .heading フォローしているユーザーの最新レビュー
 -if user_signed_in?
   div
-    = render 'layouts/timeline', timeline_items: @timeline_items
-
+    = render 'layouts/timeline', timeline_reviews: @timeline_reviews
 - else
   div.text-center
     | ログインしてください
+

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  root 'movies#index'
+  get 'timeline', to: 'home#timeline'
+  get 'ranking', to: 'home#ranking'
   get 'search', to: 'search#search'
   get 'reviews/search', to: 'reviews#search'
   get 'users/:user_id/interest', to: 'users#interest', as: 'user_interest'
   get 'users/:user_id/reviews', to: 'users#reviews', as: 'user_reviews'
-  root 'home#top'
   get 'home/about'
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
