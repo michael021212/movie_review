@@ -1,5 +1,5 @@
   - users.each do |user|
-    div.card.container.shadow-sm
+    div.card.container.shadow-sm.movie_show_info
       div.user_head.mt-4.mb-4
         = link_to user_path(user), class:"row"
           div.col-md-3= attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"

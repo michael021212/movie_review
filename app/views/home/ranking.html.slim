@@ -1,0 +1,68 @@
+.heading 各種ランキング
+.wrap
+  ul#tab-menu.clearfix
+    li.w-25.w-25
+      a.active href="#tab1"
+        div
+          strong.tab-menu_label GOODが多いレビューランキング
+    li.w-25
+      a href="#tab2"
+        div
+          strong.tab-menu_label BADが多いレビューランキング
+    li.w-25
+      a href="#tab3"
+        div
+          strong.tab-menu_label フォロワーが多いユーザーランキング
+    li.w-25
+      a href="#tab4"
+        div
+          strong.tab-menu_label レビューが多い映画ランキング
+  #tab-contents.clearfix
+    #tab1.tab
+      = render 'layouts/timeline', timeline_reviews: @good_ranking_reviews
+    #tab2.tab
+      = render 'layouts/timeline', timeline_reviews: @bad_ranking_reviews
+    #tab3.tab
+      = render 'users/users', users: @follower_ranking_users
+    #tab4.tab
+      div.flex.row#ranking_review_count
+        - @count_ranking_reviews.each do |review|
+          div.card.mb-2.shadow-sm.w-25.movie_show_info
+            div.mb-2.p-2
+              div.card-title#review_index_card-title
+                strong = "総レビュー数: #{review.review_count}"
+              div.review_index_poster.mb-4
+                = link_to movie_path(review.movie_id)
+                  = image_tag "https://image.tmdb.org/t/p/w200#{review.poster_path}"
+              div.card-title#review_index_card-title
+                strong = review.title
+              div
+                div.review_index_card_footer
+                  ////観たいリストに追加済み/する
+                  - if current_user.interests.find_by(movie_id: review.movie_id).present?
+                    p.text-center= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete
+                  - else
+                    p.text-center= link_to "この映画を観たい", movie_interest_path(movie_id: review.movie_id, title: review.title, poster_path: review.poster_path), class:"btn btn-warning btn-sm", method: :post
+
+
+
+
+javascript:
+  $('#tab-contents .tab[id != "tab1"]').hide();
+
+  $('#tab-menu a').on('click', function() {
+    $("#tab-contents .tab").hide();
+    $("#tab-menu .active").removeClass("active");
+    $(this).addClass("active");
+    $($(this).attr("href")).show();
+    return false;
+  });
+
+
+-if user_signed_in?
+  div
+
+- else
+  div.text-center
+    | ログインしてください
+

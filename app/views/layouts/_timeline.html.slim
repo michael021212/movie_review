@@ -1,2 +1,45 @@
--if @timeline_items.any?
-  = render 'reviews/reviews', reviews: @timeline_items
+-if timeline_reviews.any?
+  div.flex
+  - timeline_reviews.each do |review|
+    div.card.mb-2.shadow-sm id="good_bad_reviews_card"
+      div.card-body
+        div.row
+          div.col-md-10
+            div.card-title.row#review_index_card-title
+                div.col-md-6= link_to review_path(review), id:"review_link", class:"row"
+                  = attachment_image_tag review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+                  p= "#{review.user.name}さんのレビュー #{review.created_at.strftime('%Y/%m/%d')}"
+                strong.col-md-6 = review.title
+            div
+              h5 id="review_score-#{review.id}" 総合スコア #{review.total_score}
+            = render 'reviews/tag_list', tag_list: review.tag_list
+            div.review_index_body
+              p.card-text #{review.body}
+
+          div.col-md-2.review_index_poster
+            = link_to movie_path(review.movie_id)
+              = image_tag "https://image.tmdb.org/t/p/w200#{review.poster_path}"
+        div
+          div.review_index_card_footer.row
+            div.row.review_index_good-bad id="self_review-#{review.id}_good"
+              = render 'goods/good', review: review
+            ////観たいリストに追加済み/する
+            - if current_user.interests.find_by(movie_id: review.movie_id).present?
+              p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete
+            - else
+              p= link_to "この映画を観たい", movie_interest_path(movie_id: review.movie_id, title: review.title, poster_path: review.poster_path), class:"btn btn-warning btn-sm", method: :post
+            ////フォロー済み/する
+            - if review.user != current_user
+              - if review.user.followed_by?(current_user)
+                p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :delete
+              - else
+                p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
+            - if review.user == current_user
+              = link_to "編集", edit_review_path(review), class:"btn btn-primary btn-sm mr-2"
+              = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete, data: {confirm: 'このレビューを削除してもよろしいですか？'}
+
+
+        javascript:
+          $('#review_score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+            scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
+          });
