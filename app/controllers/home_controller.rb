@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def top
     if user_signed_in?
-      @timeline_items = current_user.timeline.page(params[:page]).reverse_order
+      @timeline_items = current_user.timeline.limit(5).reverse_order
     end
   end
 
