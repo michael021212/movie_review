@@ -13,7 +13,7 @@
             - movie_total_score_avg = movie_total_score_sum.fdiv(movie_score_reviews.length)
             p id="score_avg_movie-#{interest.movie_id}"  ="平均スコア #{movie_total_score_avg.ceil(1)}"
             javascript:
-              $('#score_avg_movie-#{interest.movie_id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+              $('#score_avg_movie-#{interest.movie_id}').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
                 scoreName: 'review[total_score]', half: true, score: #{movie_total_score_avg}, readOnly: true
               });
           - else

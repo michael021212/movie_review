@@ -107,7 +107,7 @@ javascript:
             btn.appendChild(post);
             btn.appendChild(interest);
 
-      $(`.total_score_movie-${movie.id}`).raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $(`.total_score_movie-${movie.id}`).raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[total_scores_avg]', half: true, score: total_scores_avg.toFixed(1), readOnly: true
       });
     })
