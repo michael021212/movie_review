@@ -23,13 +23,13 @@ div.flex
               = render 'goods/good', review: review
             ////観たいリストに追加済み/する
             - if current_user.interests.find_by(movie_id: review.movie_id).present?
-              p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-warning btn-sm", method: :delete
+              p= link_to "観たいリストに追加済み", movie_interest_path(review.movie_id), class:"btn btn-info btn-sm", method: :delete
             - else
               p= link_to "この映画を観たい", movie_interest_path(movie_id: review.movie_id, title: review.title, poster_path: review.poster_path), class:"btn btn-warning btn-sm", method: :post
             ////フォロー済み/する
             - if review.user != current_user
               - if review.user.followed_by?(current_user)
-                p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :delete
+                p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-info btn-sm", method: :delete
               - else
                 p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
             - if review.user == current_user

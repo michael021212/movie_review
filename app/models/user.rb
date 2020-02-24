@@ -36,18 +36,18 @@ class User < ApplicationRecord
   end
 
   # name検索機能
-  def self.search(search_word, search_type)
-    case search_type
-    when '1' # 完全一致
-      User.where(['name LIKE ?', "#{search_word}"])
-    when '2' # 前方一致
-      User.where(['name LIKE ?', "#{search_word}%"])
-    when '3' # 後方一致
-      User.where(['name LIKE ?', "%#{search_word}"])
-    else # 部分一致
-      User.where(['name LIKE ?', "%#{search_word}%"])
-    end
-  end
+  # def self.search(search_word, search_type)
+  #   case search_type
+  #   when '1' # 完全一致
+  #     User.where(['name LIKE ?', "#{search_word}"])
+  #   when '2' # 前方一致
+  #     User.where(['name LIKE ?', "#{search_word}%"])
+  #   when '3' # 後方一致
+  #     User.where(['name LIKE ?', "%#{search_word}"])
+  #   else # 部分一致
+  #     User.where(['name LIKE ?', "%#{search_word}%"])
+  #   end
+  # end
 
   def followed_by?(user)
     passive_relationships.where(following_id: user.id).present? #exists?の方がいいかも

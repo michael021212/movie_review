@@ -16,8 +16,6 @@ div
         div.font-weight-bold 音楽スコア: #{params[:q][:music_score_gteq]}点以上
       - unless params[:q][:body_cont].empty?
         div.font-weight-bold キーワード: #{params[:q][:body_cont]}
-      - if params[:q][:body_cont].empty?
-        div.text-center 検索条件はありません
   - else
     div.search_field.text-center 検索条件はありません
 

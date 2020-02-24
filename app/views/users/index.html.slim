@@ -1,4 +1,10 @@
 .heading ユーザーを探す
-.flex.user_container
-  = render 'users/users', users: @users
+= paginate @users
+
+div.row
+  div.card.col-md-3.px-0.shadow-sm style="height: fit-content;"
+    = render 'users/users_search', q: @q
+  div.flex.col-md-9
+    = render 'users/users', users: @users
+= paginate @users
 

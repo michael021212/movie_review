@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def timeline
     if user_signed_in?
       gon.TMDb_KEY = ENV['TMDb_KEY']
-      @timeline_reviews = current_user.timeline.limit(20).reverse_order
+      @timeline_reviews = current_user.timeline.page(params[:page]).reverse_order
     end
   end
 

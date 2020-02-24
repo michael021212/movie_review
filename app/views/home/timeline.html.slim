@@ -1,7 +1,9 @@
 .heading フォローしているユーザーの最新レビュー
 -if user_signed_in?
   div
+    = paginate @timeline_reviews
     = render 'layouts/timeline', timeline_reviews: @timeline_reviews
+    = paginate @timeline_reviews
 - else
   div.text-center
     | ログインしてください

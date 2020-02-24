@@ -121,6 +121,7 @@
           interest.setAttribute('data-method', 'post');
           interest.textContent = `観たい(${interest_users_count}人)`;
         } else {
+          interest.classList.add('interest', 'btn', 'btn-info', 'btn-sm');
           interest.setAttribute('data-method', 'delete');
           interest.textContent = `追加済み(${interest_users_count}人)`;
         }
@@ -218,6 +219,7 @@ javascript:
         interest.setAttribute('data-method', 'post');
         interest.textContent = `観たい(${interest_users_count}人)`;
       } else {
+        interest.classList.add('interest', 'btn', 'btn-info', 'btn-sm');
         interest.setAttribute('data-method', 'delete');
         interest.textContent = `追加済み(${interest_users_count}人)`;
       }

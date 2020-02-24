@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @users = User.all.page(params[:page])
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).page(params[:page]).reverse_order
   end
 
   def show
@@ -37,8 +38,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @q = User.search(search_params)
+    @users = @q.result(distinct: true).page(params[:page]).reverse_order
+    render :index
+  end
+
 private
   def user_params
       params.require(:user).permit(:name, :image, :email, :birthday, :sex, :intro)
+  end
+
+  def search_params
+    params.require(:q).permit(:name_cont, :intro_cont, :sex_eq, :birthday_gteq, :birthday_lteq)
   end
 end
