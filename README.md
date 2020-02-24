@@ -73,3 +73,4 @@
 * font-awesome
 * Rspec
 * Rubocop (VSCodeのエクステンションで静的コード解析)
+* Google Fonts
