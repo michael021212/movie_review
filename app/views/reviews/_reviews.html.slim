@@ -38,9 +38,10 @@ div.flex
               = link_to "編集", edit_review_path(review), class:"btn btn-primary btn-sm mr-2"
               = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete, data: {confirm: 'このレビューを削除してもよろしいですか？'}
 
-= paginate reviews
 
         javascript:
           $('#review_score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
+
+= paginate reviews

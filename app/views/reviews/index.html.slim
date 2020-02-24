@@ -42,13 +42,14 @@ div.row
                   - else
                     p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
 
-= paginate @reviews
-
           javascript:
             $('#score-#{review.id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
               scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
             });
           div.m[id="review-#{review.id}"]
+
+= paginate @reviews
+
 
 javascript:
   let movie_id = gon.movie_id // reviewが持っているmovie_idの配列
