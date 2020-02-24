@@ -41,7 +41,7 @@ div.card.w-75.shadow-sm#review_card
             p= link_to 'このユーザーをフォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
 
 javascript:
-  $('#score-#{@review.id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+  $('#score-#{@review.id}').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
     scoreName: 'review[total_score]', half: true, score: #{@review.total_score}, readOnly: true
   });
 

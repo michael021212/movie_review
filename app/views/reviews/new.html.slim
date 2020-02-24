@@ -37,22 +37,22 @@
     div.star.mb-4 id="music"
 
     javascript:
-      $('#total').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#total').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[total_score]', half: true
       });
-      $('#story').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#story').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[story_score]', half: true
       });
-      $('#direction').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#direction').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[direction_score]', half: true
       });
-      $('#acting').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#acting').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[acting_score]', half: true
       });
-      $('#visual').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#visual').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[visual_score]', half: true
       });
-      $('#music').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+      $('#music').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
         scoreName: 'review[music_score]', half: true
       });
     .tags

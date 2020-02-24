@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'users/:user_id/interest', to: 'users#interest', as: 'user_interest'
   get 'users/:user_id/reviews', to: 'users#reviews', as: 'user_reviews'
   get 'home/about'
+  post '/home/guest_sign_in', to: 'home#new_guest'
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :users, only: %i[index show edit update] do

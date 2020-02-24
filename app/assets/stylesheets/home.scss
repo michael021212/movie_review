@@ -5,3 +5,33 @@
 #ranking_review_count {
   justify-content: space-around;
 }
+
+.about_container {
+  width: 100%;
+  padding-bottom: 50%;
+  background-image: image-url('theater.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #cebc1f;
+  font-family: 'Francois One', ;
+  line-height: 2rem;
+  letter-spacing: 0.15em
+}
+
+.about-text {
+  width: 55%;
+  display     : inline-block;
+  font-size   : 1rem;
+  transform   : perspective(160px)
+                rotateX(30deg);
+
+}
+
+#about_title {
+  font-size: 3.5rem;
+}
+
+#about_body {
+  font-size: 1.5rem;
+}

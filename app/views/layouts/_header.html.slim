@@ -1,7 +1,7 @@
 header.navbar
   nav.row
     = link_to "Movie Review", root_path, class:"logo col-md-1 "
-    .nav_form.col-md-5
+    .nav_form.col-md-4
       = form_tag(search_path, :method => 'get') do
         = text_field_tag (:search_word)
         = hidden_field_tag :select, "1", checked: true
@@ -14,17 +14,18 @@ header.navbar
         / = label_tag :registered_address, "ユーザー", class:"mr-1"
         / = select_tag :search_type, options_for_select([['部分一致', '4'],['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'] ]), disabled: true, class:"mr-1"
         = submit_tag "検索", class:"btn btn-dark btn-sm rounded-pill"
-    ul.nav_link.col-md-4
+    ul.nav_link.col-md-5
       li= link_to "人気の映画", movies_path
       li= link_to "レビューを探す", reviews_path
       li= link_to "ユーザーを探す", users_path
       li= link_to "ランキング", ranking_path
+      - if user_signed_in?
+        li= link_to  "タイムライン", timeline_path
     - if user_signed_in?
       div class="dropdown col-md-2"
         a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #{current_user.name}
         div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
           = link_to  "マイページ", user_path(current_user), class:"dropdown-item"
-          = link_to  "タイムライン", timeline_path, class:"dropdown-item"
           = link_to  "プロフィール編集", edit_user_path(current_user), class:"dropdown-item"
           = link_to  "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item"
     - else

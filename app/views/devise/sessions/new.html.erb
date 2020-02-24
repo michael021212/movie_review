@@ -5,17 +5,20 @@
     <div class="small">映画/レビュー/ユーザー 一覧ページ</div>
     <div class="small">映画検索機能</div>
   </div>
+  <div>
+    <%= link_to '簡単ログイン', home_guest_sign_in_path, method: :post, class:"btn btn-success mt-4" %>
+  </div>
   <h2 class="mt-4">ログイン</h2>
 
   <%= form_with model: @user, url: user_session_path, id: 'new_user', class: 'new_user', local: true do |f| %>
     <div class="field form-group">
       <%= f.label "Name(半角英数字, 10文字まで)" %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder:"hiroto" %>
     </div>
 
     <div class="field form-group">
       <%= f.label "パスワード" %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <%= f.password_field :password, autocomplete: "current-password", placeholder:"000000 (0を6回)" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
@@ -31,8 +34,8 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
-
-
-  <%= link_to " Googleでログイン", user_google_oauth2_omniauth_authorize_path, class:"fab fa-google btn btn-primary" %>
-  <%= link_to " Facebookでログイン", user_facebook_omniauth_authorize_path, class:"fab fa-facebook btn btn-primary" %>
+  <% if false %>
+    <%= link_to " Googleでログイン", user_google_oauth2_omniauth_authorize_path, class:"fab fa-google btn btn-primary" %>
+    <%= link_to " Facebookでログイン", user_facebook_omniauth_authorize_path, class:"fab fa-facebook btn btn-primary" %>
+  <% end %>
 </div>

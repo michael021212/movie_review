@@ -37,7 +37,7 @@ div.flex
               = link_to "削除", review_path(review), class:"btn btn-danger btn-sm", method: :delete
 
         javascript:
-          $('#score-#{review.id}').raty({ size: 36, starOff: '/assets/star-off.png', starOn : '/assets/star-on.png', starHalf: '/assets/star-half.png',
+          $('#score-#{review.id}').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
 

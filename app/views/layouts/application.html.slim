@@ -7,20 +7,30 @@ html
     = csp_meta_tag
     /gem 'gon' をjsファイルで使えるようにする
     = include_gon
+    link href="https://fonts.googleapis.com/css?family=Francois+One&display=swap" rel="stylesheet"
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     meta[name='viewport' content='width=device-width, initial-scale=1']
   body
     = render 'layouts/header'
-    .container
-      #alert-message
-      -if flash.notice.present?
-        p.alert.alert-success.mt-1.auto-hide= flash.notice
-      -if flash.alert.present?
-        p.alert.alert-danger.mt-1.auto-hide= flash.alert
-      = yield
-    div#back
-      a href="#"
-        img src="http://localhost:3000/assets/arrow.png" alt="最上部へ"
-    = render 'layouts/footer'
+    - if request.path.include?("about")
+      div.about_container.text-center
+        #alert-message
+        -if flash.notice.present?
+          p.alert.alert-success.mt-1.auto-hide= flash.notice
+        -if flash.alert.present?
+          p.alert.alert-danger.mt-1.auto-hide= flash.alert
+        = yield
+    - else
+      .container
+        #alert-message
+        -if flash.notice.present?
+          p.alert.alert-success.mt-1.auto-hide= flash.notice
+        -if flash.alert.present?
+          p.alert.alert-danger.mt-1.auto-hide= flash.alert
+        = yield
+      div#back
+        a href="#"
+          img src="http://localhost:3000/assets/arrow.png" alt="最上部へ"
+      = render 'layouts/footer'
 
