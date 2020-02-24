@@ -5,11 +5,11 @@
 .user_container {
   display: flex;
   flex-wrap: wrap;
-  width: 75%;
+  width: 100%;
 }
 
 .user_container > div {
-  width: 40%;
+  width: 25%;
   margin: 0.3rem;
   background-color: whitesmoke;
 }

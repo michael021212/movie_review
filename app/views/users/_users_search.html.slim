@@ -1,0 +1,48 @@
+div
+  h5.search_heading.w-100 検索条件
+  - if params[:q]
+    div.search_field.px-1
+      div.font-weight-bold 生まれ年: 表示されませんが検索はできています
+      - unless params[:q][:sex_eq].empty?
+        - if params[:q][:sex_eq] == '1'
+          div.font-weight-bold 性別: 男
+        - elsif params[:q][:sex_eq] == '2'
+          div.font-weight-bold 性別: 女
+        - else
+          div.font-weight-bold 性別: その他
+      - unless params[:q][:intro_cont].empty?
+        div.font-weight-bold 自己紹介: #{params[:q][:intro_cont]}
+      - unless params[:q][:name_cont].empty?
+        div.font-weight-bold 名前: #{params[:q][:name_cont]}
+  - else
+    div.search_field.text-center 検索条件はありません
+
+div
+  h5.search_heading.w-100 レビュー検索
+  div.search_field.px-1
+    = search_form_for(q, url:users_search_path) do |f|
+      p.border-bottom
+        = f.label :birthday, '生まれ年', class:"mr-2 font-weight-bold"
+        = f.date_select :birthday_gteq, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
+        | 年〜
+        = f.date_select :birthday_lteq, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
+        | 年
+      p.border-bottom
+        = f.label :sex_eq, '性別', class:"mr-2 font-weight-bold"
+        br
+        = f.radio_button 'sex_eq', '',{:checked => true}
+        |  指定なし
+        = f.radio_button 'sex_eq', '1'
+        |  男
+        = f.radio_button 'sex_eq', '2'
+        |  女
+        = f.radio_button 'sex_eq', '9'
+        |  その他
+      p
+        = f.label :intro_cont, '自己紹介', class:"mr-2 font-weight-bold"
+        = f.search_field :intro_cont
+      p
+        = f.label :name_cont, '名前', class:"mr-2 font-weight-bold"
+        = f.search_field :name_cont
+      div.text-center.mb-4
+        = f.submit class:"btn btn-info rounded-pill"
