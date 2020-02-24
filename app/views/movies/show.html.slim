@@ -69,7 +69,7 @@ javascript:
     if( current_user_review != undefined ) {
         post.setAttribute('href', `/reviews/${current_user_review.id}`);
         post.textContent = `レビュー済み(${gon.reviews.length}人)`;
-        post.classList.add('btn', 'btn-warning', 'btn-sm');
+        post.classList.add('btn', 'btn-info', 'btn-sm');
         post.style.cssText = "margin: 0.5rem 0.5rem";
     } else {
       post.setAttribute('href', `/reviews/new?movie_id=${movie_id}&title=${data.title}&poster_path=${data.poster_path}`);
