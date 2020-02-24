@@ -21,7 +21,7 @@
         p.mb-0
           ////レビュー済み/する
           - if current_user_reviews.find_by(movie_id: interest.movie_id).present?
-            = link_to "レビュー済み", review_path(current_user_reviews.find_by(movie_id: interest.movie_id)), class:"btn btn-warning btn-sm mr-2"
+            = link_to "レビュー済み", review_path(current_user_reviews.find_by(movie_id: interest.movie_id)), class:"btn btn-info btn-sm mr-2"
           - else
             = link_to "レビューする", new_review_path(movie_id: interest.movie_id, title: interest.title, poster_path: interest.poster_path), class:"btn btn-warning btn-sm mr-2"
           ////観たいリストに追加、削除する

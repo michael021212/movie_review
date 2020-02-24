@@ -40,7 +40,7 @@ div.flex
 
 
         javascript:
-          $('#review_score-#{review.id}').raty({ size: 36, starOff: '/images/star-off.png', starOn : '/images/star-on.png', starHalf: '/images/star-half.png',
+          $('#review_score-#{review.id}').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
             scoreName: 'review[total_score]', half: true, score: #{review.total_score}, readOnly: true
           });
 

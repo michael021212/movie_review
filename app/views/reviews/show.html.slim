@@ -24,7 +24,7 @@ div.card.w-75.shadow-sm#review_card
           = render 'goods/good', review: @review
         ////レビュー済み/する
         - if @current_user_reviews_movie_id.present?
-          p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-warning btn-sm"
+          p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-info btn-sm"
         - else
           p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm"
 

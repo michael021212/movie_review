@@ -105,7 +105,7 @@
         if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
           review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
           post.setAttribute('href', `/reviews/${review_id}`);
-          post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
+          post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-info', 'btn-sm');
           post.textContent = `レビュー済み(${review_count}人)`;
         } else {
           post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
@@ -203,7 +203,7 @@ javascript:
       review_count = gon.reviews.filter(review => { return review["movie_id"] == movie.id }).length // movie_idをもつレビューの数を数える
       if(gon.reviews.map(review => { return review["user_id"] == current_user_id && review["movie_id"] == movie.id }).includes(true)) { // 全reviewの中にこのmovieに対するcurrent_userのレビューがあればtrue
         review_id = gon.current_user_reviews.find(review => { return review["movie_id"] == movie.id }).id // current_userのレビューの中からこのmovieに関するもののidを取得
-        post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-warning', 'btn-sm');
+        post.classList.add(`/reviews/${review_id}`, 'btn', 'btn-info', 'btn-sm');
         post.textContent = `レビュー済み(${review_count}人)`;
       } else {
         post.setAttribute('href', `/reviews/new?movie_id=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}`);
