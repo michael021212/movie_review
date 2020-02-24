@@ -100,84 +100,253 @@ Review.create!(movie_id:'420817', title:'アラジン', poster_path:'/gjRMllVEvd
   acting_score:'3.0', visual_score:'4.0', music_score:'4.5', body:'ジーニーは吹き替えでもウィル・スミスの演技がそのまま伝わってくてさすがだな〜と。いつか字幕でもう一度見たい。', tag_list:["ディズニー", "音楽がいい", "ジーニー"])
 
 Relationship.create!([
-{following_id: 1, follower_id: 2},
-{following_id: 1, follower_id: 3},
-{following_id: 1, follower_id: 4},
-{following_id: 1, follower_id: 5},
-{following_id: 1, follower_id: 6},
-{following_id: 1, follower_id: 7},
-{following_id: 1, follower_id: 9},
-{following_id: 1, follower_id: 11},
-{following_id: 1, follower_id: 12},
-{following_id: 1, follower_id: 19},
-{following_id: 2, follower_id: 1},
-{following_id: 2, follower_id: 3},
-{following_id: 2, follower_id: 4},
-{following_id: 2, follower_id: 5},
-{following_id: 2, follower_id: 6},
-{following_id: 2, follower_id: 7},
-{following_id: 2, follower_id: 9},
-{following_id: 2, follower_id: 12},
-{following_id: 2, follower_id: 14},
-{following_id: 2, follower_id: 17},
-{following_id: 2, follower_id: 13},
-{following_id: 2, follower_id: 11},
-{following_id: 3, follower_id: 1},
-{following_id: 3, follower_id: 2},
-{following_id: 3, follower_id: 4},
-{following_id: 3, follower_id: 6},
-{following_id: 3, follower_id: 8},
-{following_id: 3, follower_id: 10},
-{following_id: 3, follower_id: 12},
-{following_id: 3, follower_id: 14},
-{following_id: 3, follower_id: 16},
-{following_id: 3, follower_id: 18},
-{following_id: 4, follower_id: 1},
-{following_id: 4, follower_id: 3},
-{following_id: 4, follower_id: 5},
-{following_id: 4, follower_id: 7},
-{following_id: 4, follower_id: 9},
-{following_id: 4, follower_id: 11},
-{following_id: 4, follower_id: 13},
-{following_id: 4, follower_id: 15},
-{following_id: 4, follower_id: 17},
-{following_id: 4, follower_id: 19},
-{following_id: 5, follower_id: 1},
-{following_id: 5, follower_id: 4},
-{following_id: 5, follower_id: 8},
-{following_id: 5, follower_id: 12},
-{following_id: 5, follower_id: 16},
-{following_id: 5, follower_id: 6},
-{following_id: 5, follower_id: 9},
-{following_id: 5, follower_id: 10},
-{following_id: 6, follower_id: 1},
-{following_id: 6, follower_id: 3},
-{following_id: 6, follower_id: 5},
-{following_id: 6, follower_id: 8},
-{following_id: 6, follower_id: 12},
-{following_id: 6, follower_id: 15},
-{following_id: 6, follower_id: 17},
-{following_id: 6, follower_id: 4},
-{following_id: 7, follower_id: 1},
-{following_id: 7, follower_id: 4},
-{following_id: 8, follower_id: 1},
-{following_id: 8, follower_id: 3},
-{following_id: 9, follower_id: 1},
-{following_id: 9, follower_id: 10},
-{following_id: 10, follower_id: 1},
-{following_id: 10, follower_id: 14},
-{following_id: 11, follower_id: 2},
-{following_id: 11, follower_id: 4},
-{following_id: 12, follower_id: 1},
-{following_id: 12, follower_id: 2},
-{following_id: 13, follower_id: 1},
-{following_id: 13, follower_id: 2},
-{following_id: 14, follower_id: 1},
-{following_id: 14, follower_id: 2},
-{following_id: 15, follower_id: 1},
-{following_id: 15, follower_id: 2},
-{following_id: 16, follower_id: 1},
-{following_id: 16, follower_id: 2},
-{following_id: 17, follower_id: 1},
-{following_id: 17, follower_id: 2},
+  {following_id: 1, follower_id: 2},
+  {following_id: 1, follower_id: 3},
+  {following_id: 1, follower_id: 4},
+  {following_id: 1, follower_id: 5},
+  {following_id: 1, follower_id: 6},
+  {following_id: 1, follower_id: 7},
+  {following_id: 1, follower_id: 9},
+  {following_id: 1, follower_id: 11},
+  {following_id: 1, follower_id: 12},
+  {following_id: 1, follower_id: 19},
+  {following_id: 2, follower_id: 1},
+  {following_id: 2, follower_id: 3},
+  {following_id: 2, follower_id: 4},
+  {following_id: 2, follower_id: 5},
+  {following_id: 2, follower_id: 6},
+  {following_id: 2, follower_id: 7},
+  {following_id: 2, follower_id: 9},
+  {following_id: 2, follower_id: 12},
+  {following_id: 2, follower_id: 14},
+  {following_id: 2, follower_id: 17},
+  {following_id: 2, follower_id: 13},
+  {following_id: 2, follower_id: 11},
+  {following_id: 3, follower_id: 1},
+  {following_id: 3, follower_id: 2},
+  {following_id: 3, follower_id: 4},
+  {following_id: 3, follower_id: 6},
+  {following_id: 3, follower_id: 8},
+  {following_id: 3, follower_id: 10},
+  {following_id: 3, follower_id: 12},
+  {following_id: 3, follower_id: 14},
+  {following_id: 3, follower_id: 16},
+  {following_id: 3, follower_id: 18},
+  {following_id: 4, follower_id: 1},
+  {following_id: 4, follower_id: 3},
+  {following_id: 4, follower_id: 5},
+  {following_id: 4, follower_id: 7},
+  {following_id: 4, follower_id: 9},
+  {following_id: 4, follower_id: 11},
+  {following_id: 4, follower_id: 13},
+  {following_id: 4, follower_id: 15},
+  {following_id: 4, follower_id: 17},
+  {following_id: 4, follower_id: 19},
+  {following_id: 5, follower_id: 1},
+  {following_id: 5, follower_id: 4},
+  {following_id: 5, follower_id: 8},
+  {following_id: 5, follower_id: 12},
+  {following_id: 5, follower_id: 16},
+  {following_id: 5, follower_id: 6},
+  {following_id: 5, follower_id: 9},
+  {following_id: 5, follower_id: 10},
+  {following_id: 6, follower_id: 1},
+  {following_id: 6, follower_id: 3},
+  {following_id: 6, follower_id: 5},
+  {following_id: 6, follower_id: 8},
+  {following_id: 6, follower_id: 12},
+  {following_id: 6, follower_id: 15},
+  {following_id: 6, follower_id: 17},
+  {following_id: 6, follower_id: 4},
+  {following_id: 7, follower_id: 1},
+  {following_id: 7, follower_id: 4},
+  {following_id: 8, follower_id: 1},
+  {following_id: 8, follower_id: 3},
+  {following_id: 9, follower_id: 1},
+  {following_id: 9, follower_id: 10},
+  {following_id: 10, follower_id: 1},
+  {following_id: 10, follower_id: 14},
+  {following_id: 11, follower_id: 2},
+  {following_id: 11, follower_id: 4},
+  {following_id: 12, follower_id: 1},
+  {following_id: 12, follower_id: 2},
+  {following_id: 13, follower_id: 1},
+  {following_id: 13, follower_id: 2},
+  {following_id: 14, follower_id: 1},
+  {following_id: 14, follower_id: 2},
+  {following_id: 15, follower_id: 1},
+  {following_id: 15, follower_id: 2},
+  {following_id: 16, follower_id: 1},
+  {following_id: 16, follower_id: 2},
+  {following_id: 17, follower_id: 1},
+  {following_id: 17, follower_id: 2}
 ])
+
+Interest.create!([
+  {user_id: 1, movie_id: 420817, title: "アラジン", poster_path: "/gjRMllVEvdLGmj48DXyl54qJtta.jpg"},
+  {user_id: 1, movie_id: 475557, title: "ジョーカー", poster_path: "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"},
+  {user_id: 1, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+  {user_id: 1, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+
+  {user_id: 2, movie_id: 475557, title: "ジョーカー", poster_path: "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"},
+  {user_id: 2, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+  {user_id: 2, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+
+  {user_id: 3, movie_id: 420817, title: "アラジン", poster_path: "/gjRMllVEvdLGmj48DXyl54qJtta.jpg"},
+  {user_id: 3, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+  {user_id: 3, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+
+  {user_id: 4, movie_id: 420817, title: "アラジン", poster_path: "/gjRMllVEvdLGmj48DXyl54qJtta.jpg"},
+  {user_id: 4, movie_id: 475557, title: "ジョーカー", poster_path: "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"},
+  {user_id: 4, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+
+  {user_id: 5, movie_id: 420817, title: "アラジン", poster_path: "/gjRMllVEvdLGmj48DXyl54qJtta.jpg"},
+  {user_id: 5, movie_id: 475557, title: "ジョーカー", poster_path: "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"},
+  {user_id: 5, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 6, movie_id: 475557, title: "ジョーカー", poster_path: "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"},
+  {user_id: 6, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+  {user_id: 6, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+
+  {user_id: 7, movie_id: 420817, title: "アラジン", poster_path: "/gjRMllVEvdLGmj48DXyl54qJtta.jpg"},
+  {user_id: 7, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 8, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+  {user_id: 8, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 9, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+  {user_id: 9, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 10, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+  {user_id: 10, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 11, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+  {user_id: 11, movie_id: 330457, title: "アナと雪の女王2", poster_path: "/eiai3yefICyTt50y9HD1PvrF3RU.jpg"},
+
+  {user_id: 12, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"},
+  {user_id: 13, movie_id: 496243, title: "パラサイト 半地下の家族", poster_path: "/kNDkdMSdbP7rlGwpjUhQklmWijT.jpg"}
+])
+
+3.times do |i|
+  Good.create!(user_id: 1, review_id: i+1)
+end
+4.times do |i|
+  Good.create!(user_id: 2, review_id: i+2)
+end
+3.times do |i|
+  Good.create!(user_id: 3, review_id: i+3)
+end
+5.times do |i|
+  Good.create!(user_id: 4, review_id: i+1)
+end
+4.times do |i|
+  Good.create!(user_id: 5, review_id: i+2)
+end
+
+3.times do |i|
+  Good.create!(user_id: 6, review_id: i+2)
+end
+5.times do |i|
+  Good.create!(user_id: 7, review_id: i+2)
+end
+4.times do |i|
+  Good.create!(user_id: 8, review_id: i+3)
+end
+3.times do |i|
+  Good.create!(user_id: 9, review_id: i+1)
+end
+5.times do |i|
+  Good.create!(user_id: 10, review_id: i+3)
+end
+
+
+
+2.times do |i|
+  Bad.create!(user_id: 1, review_id: i+6)
+end
+3.times do |i|
+  Bad.create!(user_id: 2, review_id: i+6)
+end
+2.times do |i|
+  Bad.create!(user_id: 3, review_id: i+7)
+end
+4.times do |i|
+  Bad.create!(user_id: 4, review_id: i+6)
+end
+3.times do |i|
+  Bad.create!(user_id: 5, review_id: i+7)
+end
+
+5.times do |i|
+  Bad.create!(user_id: 6, review_id: i+6)
+end
+4.times do |i|
+  Bad.create!(user_id: 7, review_id: i+7)
+end
+3.times do |i|
+  Bad.create!(user_id: 8, review_id: i+8)
+end
+5.times do |i|
+  Bad.create!(user_id: 9, review_id: i+6)
+end
+4.times do |i|
+  Bad.create!(user_id: 10, review_id: i+6)
+end
+
+3.times do |i|
+  Good.create!(user_id: 11, review_id: i+1)
+end
+2.times do |i|
+  Good.create!(user_id: 12, review_id: i+1)
+end
+3.times do |i|
+  Good.create!(user_id: 13, review_id: i+1)
+end
+2.times do |i|
+  Good.create!(user_id: 14, review_id: i+1)
+end
+3.times do |i|
+  Good.create!(user_id: 15, review_id: i+1)
+end
+
+4.times do |i|
+  Bad.create!(user_id: 11, review_id: i+2)
+end
+3.times do |i|
+  Bad.create!(user_id: 12, review_id: i+2)
+end
+4.times do |i|
+  Bad.create!(user_id: 13, review_id: i+2)
+end
+4.times do |i|
+  Bad.create!(user_id: 14, review_id: i+2)
+end
+3.times do |i|
+  Bad.create!(user_id: 15, review_id: i+2)
+end
+
+Good.create!([
+  {user_id: 1, review_id: 32},
+  {user_id: 2, review_id: 32},
+  {user_id: 15, review_id: 32},
+  {user_id: 16, review_id: 32},
+  {user_id: 17, review_id: 32},
+  {user_id: 18, review_id: 32},
+  {user_id: 15, review_id: 31},
+  {user_id: 16, review_id: 31},
+  {user_id: 17, review_id: 27},
+  {user_id: 18, review_id: 25}
+  ])
+  Bad.create!([
+  {user_id: 1, review_id: 30},
+  {user_id: 2, review_id: 30},
+  {user_id: 15, review_id: 30},
+  {user_id: 16, review_id: 30},
+  {user_id: 17, review_id: 30},
+  {user_id: 18, review_id: 30},
+  {user_id: 15, review_id: 28},
+  {user_id: 16, review_id: 28},
+  {user_id: 17, review_id: 26},
+  {user_id: 18, review_id: 24}
+])
+
