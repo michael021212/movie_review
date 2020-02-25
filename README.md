@@ -44,7 +44,6 @@
 
 * ruby 2.5.7
 * Rails 5.2.4.1
-* Slim
 * Javascript / jQuery
 
 ### 開発環境
@@ -57,6 +56,7 @@
 
 ### その他gemなど
 
+* Slim
 * TMDb API
 * I18n (日本語化)
 * better_errors / binding_of_caller (エラー画面のカスタマイズ)
