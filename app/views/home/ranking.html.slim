@@ -27,7 +27,7 @@
     #tab4.tab
       div.flex.row#ranking_review_count
         - @count_ranking_reviews.each do |review|
-          div.card.mb-2.shadow-sm.w-25.movie_show_info
+          div.card.mb-2.shadow-sm.movie_show_info
             div.mb-2.p-2
               div.card-title#review_index_card-title
                 strong = "総レビュー数: #{review.review_count}"

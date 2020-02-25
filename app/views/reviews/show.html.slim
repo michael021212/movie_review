@@ -1,44 +1,49 @@
 div.review_show_heading
   ="#{@review.user.name}さんの"
   span#review_show_title
-div.card.w-75.shadow-sm#review_card
-  div.card-body
-    div.card-title.row#review_index_card-title
-        div.col-md-6= link_to user_path(@review.user), id:"review_link", class:"row"
-          = attachment_image_tag @review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
-          p= "#{@review.user.name}さん #{@review.created_at.strftime('%Y/%m/%d')}"
-        strong.col-md-6 id="review_title"
-    div.row
-      div.col-md-9
-        div style="position:relative; top:0px; left:0px; width:400px; height:100%;"
-          div.review_show_score
-            h5 id="score-#{@review.id}" 総合スコア #{@review.total_score}
-          canvas#radarChart_lg
-      div.movie_image.col-md-3.review_index_poster
-    = render 'reviews/tag_list', tag_list: @review.tag_list
-    div.review_index_body
-      p.card-text #{@review.body}
-    div
-      div.review_index_card_footer.row
-        div.row.review_index_good-bad id="review-#{@review.id}_good"
-          = render 'goods/good', review: @review
-        ////レビュー済み/する
-        - if @current_user_reviews_movie_id.present?
-          p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-info btn-sm"
-        - else
-          p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm"
 
-        ////観たいリストに追加済み/する
-        - if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
-          p= link_to "観たいリストに追加済み(#{@interests.length}人)", movie_interest_path(@review.movie_id), class:"btn btn-info btn-sm", method: :delete
-        - else
-          p= link_to "この映画を観たい(#{@interests.length}人)", movie_interest_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm", method: :post
-        ////フォロー済み/する
-        - if @review.user != current_user
-          - if @review.user.followed_by?(current_user)
-            p= link_to 'このユーザーをフォロー済み', user_relationships_path(@review.user), class:"btn btn-info btn-sm", method: :delete
+div.row
+  div.card.col-md-3.px-0.shadow-sm style="height: fit-content;"
+    = render 'reviews/reviews_search', q: @q
+
+  div.col-md-9.px-2
+    div.card.card-body.shadow-sm#review_card
+      div.card-title.row#review_index_card-title
+          div.col-md-6= link_to user_path(@review.user), id:"review_link", class:"row"
+            = attachment_image_tag @review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+            p= "#{@review.user.name}さん #{@review.created_at.strftime('%Y/%m/%d')}"
+          strong.col-md-6 id="review_title"
+      div.row
+        div.col-md-9
+          div.review_show_chart_size
+            div.review_show_score
+              h5 id="score-#{@review.id}" 総合スコア #{@review.total_score}
+            canvas#radarChart_lg
+        div.movie_image.col-md-3.review_index_poster
+      = render 'reviews/tag_list', tag_list: @review.tag_list
+      div.review_index_body
+        p.card-text #{@review.body}
+      div
+        div.review_index_card_footer.row
+          div.row.review_index_good-bad id="review-#{@review.id}_good"
+            = render 'goods/good', review: @review
+          ////レビュー済み/する
+          - if @current_user_reviews_movie_id.present?
+            p= link_to "レビュー済み(#{@reviews.length}人)", review_path(@current_user_reviews_movie_id), class:"btn btn-info btn-sm"
           - else
-            p= link_to 'このユーザーをフォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
+            p= link_to "レビューする(#{@reviews.length}人)", new_review_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm"
+
+          ////観たいリストに追加済み/する
+          - if @current_user_interests_movie_id.include?(@review.movie_id) # current_userのinterestの中に該当のmovie_idがあればtrue
+            p= link_to "観たいリストに追加済み(#{@interests.length}人)", movie_interest_path(@review.movie_id), class:"btn btn-info btn-sm", method: :delete
+          - else
+            p= link_to "この映画を観たい(#{@interests.length}人)", movie_interest_path(movie_id: @review.movie_id, title: @review.title, poster_path: @review.poster_path), class:"btn btn-warning btn-sm", method: :post
+          ////フォロー済み/する
+          - if @review.user != current_user
+            - if @review.user.followed_by?(current_user)
+              p= link_to 'このユーザーをフォロー済み', user_relationships_path(@review.user), class:"btn btn-info btn-sm", method: :delete
+            - else
+              p= link_to 'このユーザーをフォローする', user_relationships_path(@review.user), class:"btn btn-warning btn-sm", method: :post
 
 javascript:
   $('#score-#{@review.id}').raty({ size: 36, starOff: "#{asset_path 'star-off.png'}", starOn : "#{asset_path 'star-on.png'}", starHalf: "#{asset_path 'star-half.png'}",
