@@ -53,7 +53,7 @@
 
 ### インフラ
 
-* AWS(EC2、RDS、Route53)、MySQL2、Nginx(WEBサーバ)
+* AWS(EC2、RDS、Route53、ACM)、MySQL2、Nginx(WEBサーバ)
 
 ### その他gemなど
 
