@@ -8,11 +8,20 @@ $line-color: rgb(223, 223, 223);
   display: flex;
   flex-wrap: wrap;
 }
-#app > div {
-  width: 24%;
-  margin: 0.3rem;
-  background-color: whitesmoke;
+@media screen and (min-width:760px) {
+  #app > div {
+    width: 24%;
+    margin: 0.3rem;
+    background-color: whitesmoke;
+  }
 }
+@media screen and (max-width:759px) {
+  #app > div {
+    margin: 0.3rem;
+    background-color: whitesmoke;
+  }
+}
+
 .movie_show_poster {
   width: 100%;
 }

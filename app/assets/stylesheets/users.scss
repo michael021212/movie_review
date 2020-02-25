@@ -29,9 +29,13 @@
 }
 
 .flex.user_show_container > div {
-  width: 32%;
   margin: 0.3rem;
   background-color: whitesmoke;
+}
+@media screen and (min-width:760px) {
+  .flex.user_show_container > div {
+    width: 32%;
+  }
 }
 
 #user_show_container {
@@ -93,7 +97,10 @@
 #interests_flex {
   display: flex;
   flex-wrap: wrap;
-  #interests_item {
+}
+
+@media screen and (min-width:760px) {
+  #interests_flex #interests_item {
     width: 24%;
   }
 }

@@ -28,6 +28,25 @@
   font-size: 1.5rem;
   padding: 1.5rem;
 }
+@media screen and (min-width:760px) {
+  .review_show_chart_size {
+    position:relative;
+    top:0px;
+    left:0px;
+    width:400px;
+    height:100%;
+  }
+}
+@media screen and (max-width:759px) {
+  .review_show_chart_size {
+    position:relative;
+    top:0px;
+    left:0px;
+    width:300px;
+    height:100%;
+  }
+}
+
 
 #review_card {
   background-color: whitesmoke;

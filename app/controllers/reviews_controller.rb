@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
 
   def show
     gon.TMDb_KEY = ENV['TMDb_KEY']
+    @q = Review.ransack(params[:q])
     @review = Review.find(params[:id])
 
     gon.movie_id = Review.find(params[:id]).movie_id
