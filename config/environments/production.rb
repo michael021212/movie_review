@@ -84,7 +84,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # 特殊文字を使ってタグ保存する際のバグを解消する為の設定
-  ActsAsTaggableOn.force_binary_collation = true
+  #ActsAsTaggableOn.force_binary_collation = true
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
