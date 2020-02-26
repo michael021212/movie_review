@@ -15,7 +15,13 @@
             strong フォロー
           div.text-center
             strong= "#{user.followings.count}"
-      p.py-4.small= user.intro
+      p.py-4.small
+        - if user.birthday.present?
+          | 生まれ年: #{user.birthday.year}年
+        - if user.sex.present?
+          | 　　性別: #{user.sex}
+        br
+        | #{user.intro}
       -if user_signed_in?
         - if user != current_user
           - if user.followed_by?(current_user)

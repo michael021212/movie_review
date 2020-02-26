@@ -2,7 +2,14 @@
     div.user_head.row.mt-4.mb-4
       .col-md-3.text-center = attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
       .col-md-9.d-flex.align-items-center.h3=  user.name
-    p.py-4= user.intro
+    div.py-4.row
+      .col-md-3.text-center
+        - if user.birthday.present?
+          | 生まれ年: #{user.birthday.year}年
+        br
+        - if user.sex.present?
+          | 性別: #{user.sex}
+      p.col-md-9= user.intro
     - if user != current_user
       - if user.followed_by?(current_user)
         = link_to 'フォロー済み', user_relationships_path(user), class:"btn btn-info btn-sm mb-4 col-md-3 mx-auto", method: :delete
