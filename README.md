@@ -1,6 +1,8 @@
-# README
+# Movie Review
 
 「Movie Review」は、映画を検索したり、レビューを投稿したり、好きなユーザーをフォローできるアプリです。
+
+URL: https://movie-review.site/
 
 ## 機能一覧:
 
