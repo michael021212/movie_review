@@ -17,6 +17,7 @@
 require 'capybara/rspec'
 
 RSpec.configure do |config|
+  config.example_status_persistence_file_path = 'spec/examples.txt'
   config.before(:each, type: :system) do
     driven_by :selenium_chrome_headless
   end
