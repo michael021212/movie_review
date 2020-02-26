@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and
   validates :name, uniqueness: :true, length: {maximum: 10},
-                  format: { with: /\A[a-z0-9]+\z/, message: "を半角英数字で入力してください"}
+                  format: { with: /\A[a-zA-Z0-9]+\z/, message: "を半角英数字で入力してください"}
   enum sex: { '--': 0, 男: 1, 女: 2, その他: 9 }
   has_many :goods
   has_many :bads
