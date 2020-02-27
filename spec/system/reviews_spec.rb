@@ -120,6 +120,12 @@ describe 'レビュー管理機能', type: :system do
       end
     end
   end
+  # describe 'レビュー削除機能' do
+
+  # end
+  # describe 'レビュー更新機能' do
+
+  # end
 end
 
 # describe 'タグ機能', type: :system do
