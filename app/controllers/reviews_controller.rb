@@ -93,7 +93,7 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:movie_id, :title, :poster_path, :user_id, :total_score, :story_score, :direction_score,
-      :acting_score, :visual_score, :music_score, :body, :tag_list)
+      :acting_score, :visual_score, :music_score, :body, :tag_list, :spoiler)
   end
 
   def search_params

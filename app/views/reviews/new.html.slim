@@ -68,6 +68,11 @@
     div 本文(2000文字以内)
     = f.text_area :body, class:"w-100 review_body_input rounded"
 
+    div.custom-control.custom-switch.my-4.custom-control.custom-radio
+      = f.check_box :spoiler, checked_value: "true", unchecked_value: "false", class: "custom-control-input"
+      = f.label :spoiler, class: "ml-2 custom-control-label"
+        |
+        i class="fas fa-exclamation-triangle" ネタバレを含んでいたらチェックをお願いします
 
     .actions
     = f.submit '投稿する', class:"btn btn-success"

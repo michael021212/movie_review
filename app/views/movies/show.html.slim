@@ -21,7 +21,16 @@ div.flex
               h5 id="score-#{review.id}" 総合スコア #{review.total_score}
             = render 'reviews/tag_list', tag_list: review.tag_list
             div.review_index_body
-              p.card-text #{review.body}
+              - if review.spoiler == true
+                .hidden_box
+                  label for="label#{review.id}"
+                    |
+                    i class="fas fa-exclamation-triangle" ネタバレを表示
+                  input type="checkbox" id="label#{review.id}"
+                  .hidden_show
+                    p.card-text #{review.body}
+              - else
+                p.card-text #{review.body}
 
         div
           div.review_index_card_footer.row
