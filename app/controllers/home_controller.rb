@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: [:ranking]
+  before_action :authenticate_user!, only: %i[ranking timeline]
 
   def timeline
     if user_signed_in?
