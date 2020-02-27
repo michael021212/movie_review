@@ -22,7 +22,16 @@ div.row
         div.movie_image.col-md-3.review_index_poster
       = render 'reviews/tag_list', tag_list: @review.tag_list
       div.review_index_body
-        p.card-text #{@review.body}
+        - if @review.spoiler == true
+          .hidden_box
+            label for="label1"
+              |
+              i class="fas fa-exclamation-triangle" ネタバレを表示
+            input type="checkbox" id="label1"
+            .hidden_show
+              p.card-text #{@review.body}
+        - else
+          p.card-text #{@review.body}
       div
         div.review_index_card_footer.row
           div.row.review_index_good-bad id="review-#{@review.id}_good"

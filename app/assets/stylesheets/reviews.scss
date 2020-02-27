@@ -107,3 +107,31 @@
 .search_field {
   font-size: 0.8rem;
 }
+
+.hidden_box label {
+  padding: 0.5rem;
+  font-weight: bold;
+  border: solid 2px black;
+  cursor :pointer;
+  color: black;
+  &:hover {
+    background-color: rgb(253, 68, 99);
+  }
+}
+
+.hidden_box .hidden_show {
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.hidden_box input {
+  display: none;
+  &:checked ~ .hidden_show {
+    padding: 10px 0;
+    height: auto;
+    opacity: 1;
+  }
+}
