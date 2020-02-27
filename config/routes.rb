@@ -5,16 +5,17 @@ Rails.application.routes.draw do
   get 'search', to: 'search#search'
   get 'reviews/search', to: 'reviews#search'
   get 'users/search', to: 'users#search'
-  get 'users/:user_id/interest', to: 'users#interest', as: 'user_interest'
-  get 'users/:user_id/reviews', to: 'users#reviews', as: 'user_reviews'
+  # get 'users/:user_id/interest', to: 'users#interest', as: 'user_interest'
+  # get 'users/:user_id/reviews', to: 'users#reviews', as: 'user_reviews'
+  get 'users/edit', to: 'users#edit'
   get 'home/about'
   post '/home/guest_sign_in', to: 'home#new_guest'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users # , controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :users, only: %i[index show edit update] do
     resource :relationships, only: %i[create destroy] # /users/:user_id/relationships :relationships_idは不要なのでresource
-    get :followings, on: :member # /users/:id/followings 自分がフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
-    get :followers, on: :member # /users/:id/followers 自分をフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
+    # get :followings, on: :member # /users/:id/followings 自分がフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
+    # get :followers, on: :member # /users/:id/followers 自分をフォローしている人一覧の画面用のルーティング。memberをつけることで/:idが入る。collectionだと/:idは入らない
   end
   resources :movies, only: %i[index show] do
     resource :interest, only: %i[create destroy] # /movies/:movie_id/interest ①movie_idをURLに持たせることでinterestのsave時などでmovie_idを取得しやすいのでネストにしている。②/:interest_idは不要(showページ不要)なのでresource。

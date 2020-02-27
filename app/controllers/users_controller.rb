@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :ensure_correct_user,only: [:edit]
 
   def index
     @q = User.ransack(params[:q])
@@ -26,7 +27,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
@@ -44,7 +44,17 @@ class UsersController < ApplicationController
     render :index
   end
 
-private
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    if @user != current_user
+      flash[:notice] = "このページにはアクセスできません"
+      redirect_back(fallback_location: user_path(current_user))
+    else
+      render :edit
+    end
+  end
+
+  private
   def user_params
       params.require(:user).permit(:name, :image, :email, :birthday, :sex, :intro)
   end

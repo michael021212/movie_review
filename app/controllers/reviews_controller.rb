@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :tag_cloud, only: %i[index edit new search]
   before_action :authenticate_user!, except: %i[index tag_cloud]
+  before_action :ensure_correct_user,only: [:edit]
 
   def index
     gon.TMDb_KEY = ENV['TMDb_KEY']
@@ -47,9 +48,6 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    gon.TMDb_KEY = ENV['TMDb_KEY']
-    @review = Review.find(params[:id])
-    gon.movie_id = @review.movie_id
   end
 
   def update
@@ -77,6 +75,18 @@ class ReviewsController < ApplicationController
     gon.review_id = Review.all.pluck(:id)
     @genres = GENRES
     render :index
+  end
+
+  def ensure_correct_user
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+    @review = Review.find(params[:id])
+    gon.movie_id = @review.movie_id
+    if @review.user != current_user
+      flash[:notice] = "このページにはアクセスできません"
+      redirect_back(fallback_location: user_path(current_user))
+    else
+      render :edit
+    end
   end
 
   private
