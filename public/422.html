@@ -3,6 +3,7 @@
 <head>
   <title>The change you wanted was rejected (422)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <style>
   .rails-default-error-page {
     background-color: #EFEFEF;
@@ -56,12 +57,19 @@
 
 <body class="rails-default-error-page">
   <!-- This file lives in public/422.html -->
-  <div class="dialog">
+  <div class="status-area">
+    <div><i class="fas fa-film"></i></div>
+    <div class="status-title">MOVIE REVIEW</div>
+    <br>
     <div>
-      <h1>The change you wanted was rejected.</h1>
-      <p>Maybe you tried to change something you didn't have access to.</p>
+      <strong>
+        <span class="status-code">422<span class="status-text">Unprocessable Entity</span></span>
+      </strong>
+      <div>
+        <p>お探しのページを表示できません。</p>
+      </div>
+      <a href="https://movie-review.site/">Movie Review トップページへ</a>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>
