@@ -22,7 +22,7 @@ div.row
                 h5 id="score-#{review.id}" 総合スコア #{review.total_score}
               = render 'reviews/tag_list', tag_list: review.tag_list
               div.review_index_body
-                - if review.spoiler == true
+                - if review.spoiler?
                   .hidden_box
                     label for="label#{review.id}"
                       |

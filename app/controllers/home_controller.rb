@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, only: %i[ranking timeline]
+  before_action :set_tmdb_key, only: %i[ranking timeline]
 
   def timeline
     if user_signed_in?
-      gon.TMDb_KEY = ENV['TMDb_KEY']
       @timeline_reviews = current_user.timeline.page(params[:page]).reverse_order
     end
   end
@@ -13,7 +13,6 @@ class HomeController < ApplicationController
 
   def ranking
     if user_signed_in?
-      gon.TMDb_KEY = ENV['TMDb_KEY']
       @good_ranking_reviews = Review.good_ranks
       @bad_ranking_reviews = Review.bad_ranks
       @follower_ranking_users = User.follower_ranks
@@ -22,10 +21,16 @@ class HomeController < ApplicationController
   end
 
   def new_guest
-    user = User.find_or_create_by!(name:'souta',email:'souta@example.com',birthday:'1960-01-01',sex:'男',intro:'soutaです。よろしくお願いします。') do |user|
+    user = User.find_or_create_by!(name: 'souta', email: 'souta@example.com', birthday: '1960-01-01', sex: '男', intro: 'soutaです。よろしくお願いします。') do |user|
       user.password = SecureRandom.urlsafe_base64
     end
     sign_in user
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
+  private
+
+  def set_tmdb_key
+    gon.TMDb_KEY = ENV['TMDb_KEY']
   end
 end
