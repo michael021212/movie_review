@@ -1,9 +1,9 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+  before_action :set_tmdb_key, only: %i[index show]
 
   def index
     tag_cloud
-    gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.total_scores = Review.select(:movie_id, :total_score)
     gon.reviews = Review.all
     if user_signed_in?
@@ -17,7 +17,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    gon.TMDb_KEY = ENV['TMDb_KEY']
     gon.movie_id = params[:id]
     @movie_id = params[:id]
 
@@ -40,8 +39,13 @@ class MoviesController < ApplicationController
     gon.interest_users = Interest.where(movie_id: params[:id]).count # 該当のmovieをお気に入りしているuserの数を調べる
   end
 
+  private
+
   def tag_cloud
     @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
   end
 
+  def set_tmdb_key
+    gon.TMDb_KEY = ENV['TMDb_KEY']
+  end
 end

@@ -1,11 +1,11 @@
 class SearchController < ApplicationController
   before_action :tag_cloud
+  before_action :set_tmdb_key, only: [:search]
 
   def search
     @genres = GENRES
     case params[:select]
     when '1' # 映画 Movieモデルはないのでjsに変数を渡してapiの検索機能を使う
-      gon.TMDb_KEY = ENV['TMDb_KEY']
       gon.search_word = params[:search_word]
       gon.total_scores = Review.select(:movie_id, :total_score)
       gon.reviews = Review.all
@@ -26,7 +26,6 @@ class SearchController < ApplicationController
 
     if params[:genre_id]
       @genre = @genres.find{|genre| genre[:id] == params[:genre_id].to_i}
-      gon.TMDb_KEY = ENV['TMDb_KEY']
       gon.total_scores = Review.select(:movie_id, :total_score)
       gon.reviews = Review.all
       if user_signed_in?
@@ -46,7 +45,13 @@ class SearchController < ApplicationController
     end
   end
 
+  private
+
   def tag_cloud
     @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
+  end
+
+  def set_tmdb_key
+    gon.TMDb_KEY = ENV['TMDb_KEY']
   end
 end

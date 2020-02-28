@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :ensure_correct_user,only: [:edit]
+  before_action :ensure_correct_user, only: [:edit]
+  before_action :set_tmdb_key, only: [:show]
 
   def index
     @q = User.ransack(params[:q])
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    gon.TMDb_KEY = ENV['TMDb_KEY']
     @user = User.find(params[:id])
     @reviews = @user.reviews.page(params[:page]).reverse_order
     @good_reviews = @user.good_reviews.page(params[:page]).reverse_order
@@ -44,6 +44,8 @@ class UsersController < ApplicationController
     render :index
   end
 
+  private
+
   def ensure_correct_user
     @user = User.find(params[:id])
     if @user != current_user
@@ -54,12 +56,15 @@ class UsersController < ApplicationController
     end
   end
 
-  private
   def user_params
       params.require(:user).permit(:name, :image, :email, :birthday, :sex, :intro)
   end
 
   def search_params
     params.require(:q).permit(:name_cont, :intro_cont, :sex_eq, :birthday_gteq, :birthday_lteq)
+  end
+
+  def set_tmdb_key
+    gon.TMDb_KEY = ENV['TMDb_KEY']
   end
 end

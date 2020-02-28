@@ -22,7 +22,7 @@ div.row
         div.movie_image.col-md-3.review_index_poster
       = render 'reviews/tag_list', tag_list: @review.tag_list
       div.review_index_body
-        - if @review.spoiler == true
+        - if @review.spoiler?
           .hidden_box
             label for="label1"
               |

@@ -14,7 +14,7 @@ div.flex
               h5 id="review_score-#{review.id}" 総合スコア #{review.total_score}
             = render 'reviews/tag_list', tag_list: review.tag_list
             div.review_index_body
-              - if review.spoiler == true
+              - if review.spoiler?
                 .hidden_box
                   label for="label#{review.id}"
                     |
@@ -40,7 +40,7 @@ div.flex
             ////フォロー済み/する
             - if review.user != current_user
               - if review.user.followed_by?(current_user)
-                p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :delete
+                p= link_to 'このユーザーをフォロー済み', user_relationships_path(review.user), class:"btn btn-info btn-sm", method: :delete
               - else
                 p= link_to 'このユーザーをフォローする', user_relationships_path(review.user), class:"btn btn-warning btn-sm", method: :post
             - if review.user == current_user
