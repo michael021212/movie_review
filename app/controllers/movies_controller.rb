@@ -1,9 +1,9 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+  before_action :tag_cloud, only: [:index]
   before_action :set_tmdb_key, only: %i[index show]
 
   def index
-    tag_cloud
     gon.total_scores = Review.select(:movie_id, :total_score)
     gon.reviews = Review.all
     if user_signed_in?

@@ -7,10 +7,9 @@ class ReviewsController < ApplicationController
   def index
     @q = Review.ransack(params[:q])
     @reviews = @q.result(distinct: true).page(params[:page]).reverse_order
-
+    @genres = GENRES
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
-    @genres = GENRES
   end
 
   def show
@@ -66,7 +65,6 @@ class ReviewsController < ApplicationController
     @genres = GENRES
     gon.movie_id = Review.all.pluck(:movie_id)
     gon.review_id = Review.all.pluck(:id)
-    @genres = GENRES
     render :index
   end
 
