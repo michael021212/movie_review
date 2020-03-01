@@ -2,7 +2,10 @@ div
   h5.search_heading.w-100 検索条件
   - if params[:q]
     div.search_field.px-1
-      div.font-weight-bold 生まれ年: 表示されませんが検索はできています
+      - unless params[:q][:birthday_to_age_gteq].empty?
+        div.font-weight-bold 年齢: #{params[:q][:birthday_to_age_gteq]} 歳以上
+      - unless params[:q][:birthday_to_age_lteq].empty?
+        div.font-weight-bold 年齢: #{params[:q][:birthday_to_age_lteq]} 歳以下
       - unless params[:q][:sex_eq].empty?
         - if params[:q][:sex_eq] == '1'
           div.font-weight-bold 性別: 男
@@ -18,26 +21,27 @@ div
     div.search_field.text-center 検索条件はありません
 
 div
-  h5.search_heading.w-100 レビュー検索
+  h5.search_heading.w-100 ユーザー検索
   div.search_field.px-1
     = search_form_for(q, url:users_search_path) do |f|
       p.border-bottom
-        = f.label :birthday, '生まれ年', class:"mr-2 font-weight-bold"
-        = f.date_select :birthday_gteq, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
-        | 年〜
-        = f.date_select :birthday_lteq, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" }
-        | 年
+        = f.label :birthday, '年齢', class:"mr-2 font-weight-bold"
+        br
+        = f.number_field :birthday_to_age_gteq, in: 0..150, include_blank: true
+        |  歳〜
+        = f.number_field :birthday_to_age_lteq, in: 0..150, include_blank: true
+        |  歳
       p.border-bottom
         = f.label :sex_eq, '性別', class:"mr-2 font-weight-bold"
         br
-        = f.radio_button 'sex_eq', '',{:checked => true}
-        |  指定なし
+        = f.radio_button 'sex_eq', '', {:checked => true}
+        = f.label :sex_eq_, '指定なし　'
         = f.radio_button 'sex_eq', '1'
-        |  男
+        = f.label :sex_eq_1, '男　'
         = f.radio_button 'sex_eq', '2'
-        |  女
+        = f.label :sex_eq_2, '女　'
         = f.radio_button 'sex_eq', '9'
-        |  その他
+        = f.label :sex_eq_9, 'その他'
       p
         = f.label :intro_cont, '自己紹介', class:"mr-2 font-weight-bold"
         = f.search_field :intro_cont

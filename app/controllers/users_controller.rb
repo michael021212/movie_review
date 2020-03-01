@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:name_cont, :intro_cont, :sex_eq, :birthday_gteq, :birthday_lteq)
+    params.require(:q).permit(:name_cont, :intro_cont, :sex_eq, :birthday_gteq, :birthday_lteq, :birthday_to_age_gteq, :birthday_to_age_lteq)
   end
 
   def set_tmdb_key
