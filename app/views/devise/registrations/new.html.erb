@@ -27,8 +27,8 @@
     </div>
 
     <div class="field form-group">
-      <%= f.label :birthday, "生まれ年(任意)" %><br />
-      <%= f.date_select :birthday, {discard_month: true, discard_day: true, start_year: 1940, end_year: Time.now.year - 10, prompt:"--" } %>
+      <%= f.label :birthday, "生年月日(任意)" %><br />
+      <%= f.date_select :birthday, {start_year: 1940, end_year: Time.now.year - 10, date_separator: '/ ', prompt:"--" } %>
     </div>
 
     <div class="field form-group">

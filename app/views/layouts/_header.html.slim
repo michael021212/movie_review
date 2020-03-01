@@ -7,7 +7,7 @@ header.navbar
         div Movie Review
     .nav_form.col-md-3
       = form_tag(search_path, :method => 'get') do
-        = text_field_tag (:search_word)
+        = search_field_tag (:search_word)
         = hidden_field_tag :select, "1", checked: true
         = label_tag :registered_address, "映画のタイトルで", class:"mr-1"
         / レビュー一覧ページに検索機能つけたので廃止
