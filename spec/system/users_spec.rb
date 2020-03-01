@@ -82,7 +82,7 @@ describe 'ユーザーに関するテスト', type: :system do
         expect(page).to have_link, href: user_path(user_a)
         expect(page).to have_content user_b.followers.count
         expect(page).to have_content user_b.followings.count
-        expect(page).to have_content '1990'
+        expect(page).to have_content '30' # 2020/3/1時点の年齢
         expect(page).to have_content '男'
         expect(page).to have_content user_a.intro
         expect(page).to have_content user_b.name

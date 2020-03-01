@@ -5,7 +5,7 @@
     div.py-4.row
       .col-md-3.text-center
         - if user.birthday.present?
-          | 生まれ年: #{user.birthday.year}年
+          | 年齢: #{age(user.birthday)}歳
         br
         - if user.sex.present?
           | 性別: #{user.sex}
