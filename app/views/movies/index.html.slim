@@ -84,10 +84,10 @@ javascript:
       }
 
       const interest = document.createElement('a');
-      interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
       interest.setAttribute('href', `/movies/${movie.id}/interest?title=${movie.title}&poster_path=${movie.poster_path}`);
       interest_users_count = gon.all_interests.filter(interest => interest["movie_id"] == movie.id).length // この映画をお気に入りに入れているuserの数
       if(gon.interests.find(interest => { return interest["movie_id"] == movie.id }) == undefined ) { //current_userの全interestの中からこのmovieに対するものがなければtrue
+        interest.classList.add('interest', 'btn', 'btn-warning', 'btn-sm');
         interest.setAttribute('data-method', 'post');
         interest.textContent = `観たい(${interest_users_count}人)`;
       } else {
