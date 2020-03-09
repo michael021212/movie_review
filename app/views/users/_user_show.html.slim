@@ -1,6 +1,6 @@
   div.card.container.shadow-sm id="user_show_container"
     div.user_head.row.mt-4.mb-4
-      .col-md-3.text-center = attachment_image_tag user, :image, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle", fallback: "no_profile_image.jpg"
+      .col-md-3.text-center= image_tag  user.avatar_url, size: "50x50", class: "img-circle pull-left profile-thumb rounded-circle"
       .col-md-9.d-flex.align-items-center.h3=  user.name
     div.py-4.row
       .col-md-3.text-center

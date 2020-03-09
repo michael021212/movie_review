@@ -7,7 +7,7 @@ div.flex
           div.col-md-10
             div.card-title.row#review_index_card-title
                 div.col-md-6= link_to review_path(review), id:"review_link", class:"row"
-                  = attachment_image_tag review.user, :image, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row", fallback: "no_profile_image.jpg"
+                  = image_tag  review.user.avatar_url, size: "40x40", class: "img-circle pull-left profile-thumb rounded-circle row"
                   p= "#{review.user.name}さんのレビュー #{review.created_at.strftime('%Y/%m/%d')}"
                 strong.col-md-6 = review.title
             div
