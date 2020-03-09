@@ -30,7 +30,7 @@
     .form-group.has-icon
         div プロフィール画像(任意)
         .user-edit-image
-          = attachment_image_tag @user, :image, size: "150x150", src: "", class: "img-circle pull-left profile-thumb rounded-circle", id: "img_prev", fallback: "no_profile_image.jpg"
+          = image_tag  @user.avatar_url, size: "150x150", src: "", class: "img-circle pull-left profile-thumb rounded-circle", id: "img_prev"
         label.control-label.sr-only for="user_image"  ProfileImage
         = f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form", onchange: "previewFile()"
 

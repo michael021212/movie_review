@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      sleep(3)
       redirect_to user_path(@user), notice: "ユーザー情報を更新しました"
     else
       render :edit

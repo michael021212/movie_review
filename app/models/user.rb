@@ -63,9 +63,18 @@ class User < ApplicationRecord
     User.find(Relationship.group(:follower_id).order('count(follower_id) desc').limit(3).pluck(:follower_id))
   end
 
+  def avatar_url
+    return "no_profile_image.jpg" if image_id.nil?
+    generate_avatar_url
+  end
+
   private
 
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
+  end
+
+  def generate_avatar_url
+    "https://lambda-s3-practice-resize.s3-ap-northeast-1.amazonaws.com/store/" + image_id.to_s + "-thumbnail."
   end
 end
