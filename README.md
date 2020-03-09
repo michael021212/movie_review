@@ -55,7 +55,7 @@ URL: https://movie-review.site/
 
 ### インフラ
 
-* AWS(EC2、RDS、Route53、ACM)、MySQL2、Nginx(WEBサーバ)
+* AWS(EC2、RDS、S3、lambda、Route53、ALB、ACM)、MySQL2、Nginx(WEBサーバ)
 
 ### その他gemなど
 
