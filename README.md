@@ -4,6 +4,10 @@
 
 URL: https://movie-review.site/
 
+## インフラ構成図
+
+![image](https://user-images.githubusercontent.com/57398198/76706926-90940e00-672e-11ea-83e3-a6298e4b9494.png)
+
 ## 機能一覧:
 
 ### 映画
@@ -56,6 +60,7 @@ URL: https://movie-review.site/
 ### インフラ
 
 * AWS(EC2、RDS、S3、lambda、Route53、ALB、ACM)、MySQL2、Nginx(WEBサーバ)
+* Capistrano
 
 ### その他gemなど
 
