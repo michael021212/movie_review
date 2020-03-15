@@ -4,7 +4,7 @@ lock "~> 3.12.1"
 set :application, "movie_review"
 set :repo_url, "git@github.com:michael021212/movie_review.git"
 
-set :deploy_to, "/home/ec2-user/movie-review"
+set :deploy_to, "/home/ec2-user/movie_review"
 set :rbenv_ruby, '2.5.7'
 set :linked_files, %w{config/master.key .env}
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
