@@ -6,7 +6,7 @@ URL: https://movie-review.site/
 
 ## インフラ構成図
 
-![image](https://user-images.githubusercontent.com/57398198/76706926-90940e00-672e-11ea-83e3-a6298e4b9494.png)
+![image](https://user-images.githubusercontent.com/57398198/76824329-28dae180-685a-11ea-857d-9a62d1f20ec8.png)
 
 ## 機能一覧:
 
@@ -64,6 +64,7 @@ URL: https://movie-review.site/
 
 ### その他gemなど
 
+* Rspec(システムテスト、モデルテスト)
 * Slim
 * TMDb API
 * I18n (日本語化)
@@ -79,6 +80,5 @@ URL: https://movie-review.site/
 * ransack (検索、ソート)
 * bootstrap4
 * font-awesome
-* Rspec
 * Rubocop (VSCodeのエクステンションで静的コード解析)
 * Google Fonts
