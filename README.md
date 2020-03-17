@@ -6,7 +6,7 @@ URL: https://movie-review.site/
 
 ## インフラ構成図
 
-![image](https://user-images.githubusercontent.com/57398198/76824329-28dae180-685a-11ea-857d-9a62d1f20ec8.png)
+![image](https://user-images.githubusercontent.com/57398198/76825023-1eb9e280-685c-11ea-906d-7d0a680b97cc.png)
 
 ## 機能一覧:
 
