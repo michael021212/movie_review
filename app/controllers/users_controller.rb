@@ -52,6 +52,8 @@ class UsersController < ApplicationController
     if @user != current_user
       flash[:notice] = "このページにはアクセスできません"
       redirect_back(fallback_location: user_path(current_user))
+    elsif @user.id == 2
+      redirect_to request.referer, notice: "ゲストユーザーは編集機能を使用できません"
     else
       render :edit
     end
