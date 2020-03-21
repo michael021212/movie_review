@@ -1,7 +1,7 @@
 = paginate interests
 .flex#interests_flex
   - interests.each do |interest|
-    .item.card.img-thumbnail.shadow-sm#interests_item
+    .item.card.img-thumbnail.shadow-sm.m-1#interests_item
       = link_to movie_path(interest.movie_id)
         = image_tag  "https://image.tmdb.org/t/p/w200#{interest.poster_path}", class:"w-100"
       .card-body
