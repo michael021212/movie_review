@@ -33,3 +33,4 @@
 .DS_Store
 .env
 /spec/examples.txt
+/mysql/*
