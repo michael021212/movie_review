@@ -64,6 +64,7 @@ URL: https://movie-review.site/
 
 ### その他gemなど
 
+* Docker、Docker-compose(開発環境)
 * Rspec(システムテスト、モデルテスト)
 * Slim
 * TMDb API
