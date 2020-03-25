@@ -5,63 +5,63 @@
 .wrap
   ul#tab-menu.clearfix
     li
-      a.active href="#tab1"
+      a.active href="#tab_followers"
         div
           strong.tab-menu_label フォロワー
         div
           strong= @user.followers.count
     li
-      a href="#tab2"
+      a href="#tab_followings"
         div
           strong.tab-menu_label フォロー
         div
           strong= @user.followings.count
     li
-      a href="#tab3"
+      a href="#tab_goods"
         div
           strong.tab-menu_label GOODしたレビュー
         div
           strong= @good_reviews.count
     li
-      a href="#tab4"
+      a href="#tab_bads"
         div
           strong.tab-menu_label BADしたレビュー
         div
           strong= @bad_reviews.count
     li
-      a href="#tab5"
+      a href="#tab_reviews"
         div
           strong.tab-menu_label= "#{@user.name}さんのレビュー"
         div
           strong= @reviews.count
     li
-      a href="#tab6"
+      a href="#tab_interests"
         div
           strong.tab-menu_label= "#{@user.name}さんの観たいリスト"
         div
           strong= "#{@user.interests.count}"
   #tab-contents.clearfix
-    #tab1.tab
+    #tab_followers.tab
       = paginate @user_followers
       .flex.user_show_container
         = render 'users/users', users: @user_followers
       = paginate @user_followers
-    #tab2.tab
+    #tab_followings.tab
       = paginate @user_followings
       .flex.user_show_container
         = render 'users/users', users: @user_followings
       = paginate @user_followings
-    #tab3.tab
+    #tab_goods.tab
       = render 'reviews/good_bad_reviews', reviews: @good_reviews
-    #tab4.tab
+    #tab_bads.tab
       = render 'reviews/good_bad_reviews', reviews: @bad_reviews
-    #tab5.tab
+    #tab_reviews.tab
       = render 'reviews/reviews', reviews: @reviews
-    #tab6.tab
+    #tab_interests.tab
       = render 'users/interests', {interests: @interests, movie_total_score_avg: @movie_total_score_avg, score_reviews: @score_reviews, current_user_reviews: @current_user_reviews}
 
 javascript:
-  $('#tab-contents .tab[id != "tab1"]').hide();
+  $('#tab-contents .tab[id != "tab_followers"]').hide();
 
   $('#tab-menu a').on('click', function() {
     $("#tab-contents .tab").hide();
