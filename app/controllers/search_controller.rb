@@ -42,7 +42,7 @@ class SearchController < ApplicationController
   private
 
   def tag_cloud
-    @tags = tags
+    @tags = tags_desc
   end
 
   def set_tmdb_key

@@ -84,7 +84,7 @@ class ReviewsController < ApplicationController
   end
 
   def tag_cloud
-    @tags = tags
+    @tags = tags_desc
   end
 
   def review_params
