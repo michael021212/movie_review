@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  include Common
   before_action :tag_cloud, only: %i[index edit new search]
   before_action :authenticate_user!, except: %i[index tag_cloud]
   before_action :ensure_correct_user, only: [:edit]
@@ -83,7 +84,7 @@ class ReviewsController < ApplicationController
   end
 
   def tag_cloud
-    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
+    @tags = tags
   end
 
   def review_params

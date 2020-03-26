@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  include Common
   before_action :tag_cloud
   before_action :set_tmdb_key, only: [:search]
 
@@ -41,7 +42,7 @@ class SearchController < ApplicationController
   private
 
   def tag_cloud
-    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
+    @tags = tags
   end
 
   def set_tmdb_key
