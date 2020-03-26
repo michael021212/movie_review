@@ -44,8 +44,4 @@ class SearchController < ApplicationController
   def tag_cloud
     @tags = tags_desc
   end
-
-  def set_tmdb_key
-    gon.TMDb_KEY = ENV['TMDb_KEY']
-  end
 end

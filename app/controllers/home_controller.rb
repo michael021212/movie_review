@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  include Common
   before_action :authenticate_user!, only: %i[ranking timeline]
   before_action :set_tmdb_key, only: %i[ranking timeline]
 
@@ -26,11 +27,5 @@ class HomeController < ApplicationController
     end
     sign_in user
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
-  end
-
-  private
-
-  def set_tmdb_key
-    gon.TMDb_KEY = ENV['TMDb_KEY']
   end
 end
