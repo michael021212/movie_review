@@ -55,15 +55,13 @@ class User < ApplicationRecord
 
   def timeline
     Review.where("user_id IN (?)", following_ids)
-    # following_ids = "SELECT following_id FROM relationships WHERE follower_id = :user_id"
-    # Review.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
   def self.follower_ranks
     User.find(Relationship.group(:follower_id).order('count(follower_id) desc').limit(3).pluck(:follower_id))
   end
 
-  def avatar_url
+  def avatar_url # プロフィール画像を表示する。なければno_profile_imageを表示
     return "no_profile_image.jpg" if image_id.nil?
     generate_avatar_url
   end
