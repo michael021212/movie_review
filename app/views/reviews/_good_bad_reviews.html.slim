@@ -77,5 +77,7 @@ javascript:
       item.appendChild(link);
       link.appendChild(poster);
     })
-
-  }
+    .catch(function(error) {
+      console.log(error);
+    });
+  };

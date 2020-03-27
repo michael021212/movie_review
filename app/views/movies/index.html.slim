@@ -13,7 +13,7 @@ div.flex#app
 
 
 javascript:
-  KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
+  KEY = gon.TMDb_KEY; // apiキーを代入
   const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=ja-JP`;
   const movies = []
 
@@ -25,6 +25,9 @@ javascript:
       .then(function(json){
         Array.prototype.push.apply(movies, json.results)
       })
+      .catch(function(error) {
+        console.log(error);
+      });
     }
     return movies;
   };
@@ -112,4 +115,8 @@ javascript:
       });
     })
   })
+  .catch(function(error) {
+    console.log(error);
+  });
+
 
