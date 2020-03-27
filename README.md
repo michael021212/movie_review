@@ -56,6 +56,7 @@ URL: https://movie-review.site/
 ### 開発環境
 
 * Vagrant + VirtualBox
+* Docker
 
 ### インフラ
 
