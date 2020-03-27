@@ -1,10 +1,6 @@
 module Common
   extend ActiveSupport::Concern
 
-  def categories
-    ArticleCategory.order(:id).all
-  end
-
   private
 
   def tags_desc
