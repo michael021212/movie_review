@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  include Common
   before_action :tag_cloud, only: %i[index edit new search]
   before_action :authenticate_user!, except: %i[index tag_cloud]
   before_action :ensure_correct_user, only: [:edit]
@@ -71,7 +72,7 @@ class ReviewsController < ApplicationController
   private
 
   def ensure_correct_user
-    gon.TMDb_KEY = ENV['TMDb_KEY']
+    set_tmdb_key
     @review = Review.find(params[:id])
     gon.movie_id = @review.movie_id
     if @review.user != current_user
@@ -83,7 +84,7 @@ class ReviewsController < ApplicationController
   end
 
   def tag_cloud
-    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
+    @tags = tags_desc
   end
 
   def review_params
@@ -92,9 +93,5 @@ class ReviewsController < ApplicationController
 
   def search_params
     params.require(:q).permit(:total_score_gteq, :story_score_gteq, :direction_score_gteq, :acting_score_gteq, :visual_score_gteq, :music_score_gteq, :body_cont)
-  end
-
-  def set_tmdb_key
-    gon.TMDb_KEY = ENV['TMDb_KEY']
   end
 end

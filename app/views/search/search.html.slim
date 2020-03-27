@@ -55,6 +55,9 @@
         .then(function(json){
           Array.prototype.push.apply(movies, json.results)
         })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
       return movies;
     };
@@ -140,11 +143,14 @@
         });
       })
     })
+    .catch(function(error) {
+      console.log(error);
+    });
 
 
 // titleで検索して表示する
 javascript:
-  KEY = gon.TMDb_KEY; // コントローラで定義した環境変数
+  KEY = gon.TMDb_KEY; // apiキーを代入
     const URL_title = `https://api.themoviedb.org/3/search/movie?api_key=${KEY}`;
     const movies = []
 
@@ -155,6 +161,9 @@ javascript:
         .then(function(json){
           Array.prototype.push.apply(movies, json.results)
         })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
       return movies;
     };
@@ -238,3 +247,6 @@ javascript:
       });
     })
   })
+  .catch(function(error) {
+    console.log(error);
+  });

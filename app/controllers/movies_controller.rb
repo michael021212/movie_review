@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  include Common
   before_action :authenticate_user!, only: [:show]
   before_action :tag_cloud, only: [:index]
   before_action :set_tmdb_key, only: %i[index show]
@@ -42,10 +43,6 @@ class MoviesController < ApplicationController
   private
 
   def tag_cloud
-    @tags = Review.tag_counts_on(:tags).order('count DESC') # order('count DESC')でカウントの多い順にタグを並べる
-  end
-
-  def set_tmdb_key
-    gon.TMDb_KEY = ENV['TMDb_KEY']
+    @tags = tags_desc
   end
 end
