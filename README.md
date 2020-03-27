@@ -83,3 +83,4 @@ URL: https://movie-review.site/
 * font-awesome
 * Rubocop (VSCodeのエクステンションで静的コード解析)
 * Google Fonts
+* Promiseのエラーハンドリング
