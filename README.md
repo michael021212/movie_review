@@ -2,7 +2,7 @@
 
 「Movie Review」は、映画を検索したり、レビューを投稿したり、好きなユーザーをフォローできるアプリです。
 
-URL: https://movie-review.site/
+URL: https://movie-review.site/(サーバー停止中)
 
 ## インフラ構成図
 
